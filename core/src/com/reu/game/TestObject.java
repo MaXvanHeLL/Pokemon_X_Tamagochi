@@ -54,7 +54,7 @@ public class TestObject extends Actor{
 		 animate = true;
 		 clearActions();
 		 Vector2 current_position = new Vector2(getX(), getY());
-		 Vector2 new_position = new Vector2(x, y);
+		 Vector2 new_position = new Vector2(x - (getOriginX() * getScaleX()),y - (getOriginY() * getScaleY()));
 		 Vector2 distance = new_position.sub(current_position);
 		 float length = distance.len();
 		 
@@ -86,7 +86,7 @@ public class TestObject extends Actor{
 		 
 		 float rotation_time = 1f / 360f * Math.abs(old_angle - angle);
 		 float moving_time = length / 500f;
-		 addAction(sequence(rotateTo(angle, rotation_time), moveTo(x,y, moving_time)));
+		 addAction(sequence(rotateTo(angle, rotation_time), moveTo(x - (getOriginX() * getScaleX()),y - (getOriginY() * getScaleY()), moving_time)));
 		 stopTime = stateTime + rotation_time + moving_time;
 	 }
 	 
