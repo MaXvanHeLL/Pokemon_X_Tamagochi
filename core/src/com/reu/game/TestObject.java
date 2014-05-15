@@ -24,9 +24,9 @@ public class TestObject extends Actor{
 	 float stateTime;
 	 float stopTime;
 	 boolean animate;
-	 
+	 	 
 	 TestObject()
-	 {
+	 {		 
 		 setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f);
 		 setWidth(128);
 		 setHeight(128);
@@ -53,7 +53,7 @@ public class TestObject extends Actor{
 	 {
 		 animate = true;
 		 clearActions();
-		 Vector2 current_position = new Vector2(getX(), getY());
+		 Vector2 current_position = new Vector2(getX(), getY());		 
 		 Vector2 new_position = new Vector2(x - (getOriginX() * getScaleX()),y - (getOriginY() * getScaleY()));
 		 Vector2 distance = new_position.sub(current_position);
 		 float length = distance.len();
@@ -108,7 +108,6 @@ public class TestObject extends Actor{
 	     spriteBatch.draw(currentFrame, getX(), getY(), getOriginX(), getOriginY(),
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 	     spriteBatch.end();
-	 }
-	 
+	 } 
 
 }
