@@ -1,7 +1,7 @@
 package com.reu.game.monster;
 
 import com.reu.game.monster.Monster;
-import com.reu.game.monster.mainroom.MainroomNuddelts;
+import com.reu.game.monster.mainroom.MainroomNusselts;
 import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
 
@@ -28,8 +28,8 @@ public class MonsterFactory {
 	{
 		switch(monster)
 		{
-		case NUDDELTS:
-			return new MainroomNuddelts();
+		case NUSSELTS:
+			return new MainroomNusselts();
 		default:
 			throw new UnsupportedOperationException();
 		}

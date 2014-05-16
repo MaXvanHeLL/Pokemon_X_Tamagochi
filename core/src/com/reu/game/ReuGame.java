@@ -21,7 +21,7 @@ import com.reu.game.types.RoomType;
 public class ReuGame extends ApplicationAdapter {
 	
 	// Use the monster type static for now, could be read from config later!
-	private static MonsterType MONSTER_TYPE = MonsterType.NUDDELTS;
+	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
 	
 	private RoomType current_room_;				// The room which is currently active
 	private Map<RoomType, ReuGameStage> stages_;// Includes all stages
