@@ -4,7 +4,6 @@ package com.reu.game;
 
 
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -22,23 +21,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.reu.game.monster.mainroom.MainroomMonster;
+import com.reu.game.monster.mainroom.MainroomNuddelts;
+import com.reu.game.types.RoomType;
 
 
 
 
 public class ReuGame extends ApplicationAdapter {
 	
-	public enum Room {
-	    MAINROOM, KITCHEN
-	}
-	
-	Room currentRoom;
+	RoomType currentRoom;
 	
 	Stage stage;	
 	Table table;
 	Skin skin;
 	Texture tex;
-	TestObject test;
+	MainroomMonster test;
 	
 	Rectangle kitchen_area;
 	
@@ -46,7 +44,7 @@ public class ReuGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		this.currentRoom = Room.MAINROOM;
+		this.currentRoom = RoomType.MAINROOM;
 		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -101,7 +99,7 @@ public class ReuGame extends ApplicationAdapter {
 		
 
 		// Hier wird "Knuddel" implementiert!
-		test = new TestObject();
+		test = new MainroomNuddelts();
 		stage.addActor(test);
 		// Mache die ganze stage "klickbar" - wir sollten über Wege nachdenken
 		stage.addListener(new InputListener(){
@@ -137,7 +135,7 @@ public class ReuGame extends ApplicationAdapter {
 		
 
 		if(pointInRectangle(kitchen_area, test.getX(), test.getY()))
-			this.currentRoom = Room.KITCHEN;
+			this.currentRoom = RoomType.KITCHEN;
 						
 // shall be the switch case where Stage-Change will take place in future.
 // for example: Change MAINROOM Stage with KITCHEN stage in future
