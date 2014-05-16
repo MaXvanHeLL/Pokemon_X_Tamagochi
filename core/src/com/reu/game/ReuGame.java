@@ -1,8 +1,7 @@
 package com.reu.game;
 
-
-
-
+import java.util.HashMap;
+import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -12,114 +11,139 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.reu.game.monster.mainroom.MainroomMonster;
-import com.reu.game.monster.mainroom.MainroomNuddelts;
+import com.reu.game.stages.MainRoom;
+import com.reu.game.stages.ReuGameStage;
+import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
-
-
-
 
 public class ReuGame extends ApplicationAdapter {
 	
-	RoomType currentRoom;
+	// Use the monster type static for now, could be read from config later!
+	private static MonsterType MONSTER_TYPE = MonsterType.NUDDELTS;
 	
-	Stage stage;	
-	Table table;
-	Skin skin;
-	Texture tex;
-	MainroomMonster test;
-	
-	Rectangle kitchen_area;
-	
+	private RoomType current_room_;				// The room which is currently active
+	private Map<RoomType, ReuGameStage> stages_;// Includes all stages
+	private Skin skin_;							// The skin for our game
 
-	
 	@Override
 	public void create () {
-		this.currentRoom = RoomType.MAINROOM;
+		// Create the skins for our game!
+		CreateSkins();
 		
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		// Add all the stages to the stage map!
+		stages_ = new HashMap<RoomType, ReuGameStage>();
+		stages_.put(RoomType.MAINROOM, new MainRoom(this));
+		
+		// Set the stage to the Mainroom on start up
+		SetCurrentStage(RoomType.MAINROOM);
+
+	}
+	
+	/***
+	 * Returns the skin of the current game
+	 * @return The skin
+	 */
+	public Skin getSkin(){
+		return skin_;
+	}
+	
+	/***
+	 * Returns the monster type which is currently used
+	 * @return The MonsterType
+	 */
+	public MonsterType getMonsterType(){
+		return MONSTER_TYPE;
+	}
+	
+	/***
+	 * Changes the current game Scene
+	 * @param The room which should be used in the next frame
+	 */
+	public void SetCurrentStage(RoomType type)
+	{
+		Gdx.input.setInputProcessor(stages_.get(type));
+		current_room_ = type;
+	}
+	
+	/***
+	 * Creates the game skin. Changes for the design should go here
+	 */
+	private void CreateSkins(){
 		// A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
 		// recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
-		Skin skin = new Skin();
-
+		skin_ = new Skin();
+		
 		// Generate a 1x1 white texture and store it in the skin named "white".
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
-		skin.add("white", new Texture(pixmap));
+		skin_.add("white", new Texture(pixmap));
+		
 		// Store the default libgdx font under the name "default".
-		skin.add("default", new BitmapFont());
+		skin_.add("default", new BitmapFont());
+		
 		// Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-		textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-		textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-		textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-		textButtonStyle.font = skin.getFont("default");
-		skin.add("default", textButtonStyle);
-		skin.add("room", new Texture(Gdx.files.internal("house.png")));
-
+		textButtonStyle.up = skin_.newDrawable("white", Color.DARK_GRAY);
+		textButtonStyle.down = skin_.newDrawable("white", Color.DARK_GRAY);
+		textButtonStyle.checked = skin_.newDrawable("white", Color.BLUE);
+		textButtonStyle.over = skin_.newDrawable("white", Color.LIGHT_GRAY);
+		textButtonStyle.font = skin_.getFont("default");
+		skin_.add("default", textButtonStyle);
 		
-		// Create a table that fills the screen. Everything else will go inside this table.
-	    table = new Table();
-		table.setBackground(skin.getDrawable("room"));
-		table.setFillParent(true);
-		table.align(Align.top | Align.left);
-		stage.addActor(table);
+		//---------------------------------------------------------------------
+		// Productive code starts here, code above is just for example
 		
-		// Add dummy object to table... else screen would be empty
-		table.add(new Image(skin.getDrawable("white")));
-
-		
-		/*// Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
-		final TextButton button = new TextButton("Click me!", skin);
-		table.add(button).width(200);
-
-		// Add a listener to the button. ChangeListener is fired when the button's checked state changes, eg when clicked,
-		// Button#setChecked() is called, via a key press, etc. If the event.cancel() is called, the checked state will be reverted.
-		// ClickListener could have been used, but would only fire when clicked. Also, canceling a ClickListener event won't
-		// revert the checked state.
-		button.addListener(new ChangeListener() {
-		public void changed (ChangeEvent event, Actor actor) {
-		System.out.println("Clicked! Is checked: " + button.isChecked());
-		button.setText("Good job!");
-		}
-		});*/
-					
-		
-
-		// Hier wird "Knuddel" implementiert!
-		test = new MainroomNuddelts();
-		stage.addActor(test);
-		// Mache die ganze stage "klickbar" - wir sollten über Wege nachdenken
-		stage.addListener(new InputListener(){
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-		        test.MoveTo(x, y);
-		        return true;
-		}});
-		
-		
-		// compute a rectangle for REGION of KITCHEN 
-		kitchen_area = new Rectangle(0,	Gdx.graphics.getWidth(),100,50);
-
+		// This is the first line of code which we actually use! It defines our
+		// house image as Texture which we can use as background later!
+		skin_.add("MainRoom", new Texture(Gdx.files.internal("house.png")));
 	}
 
 	@Override
 	public void resize (int width, int height) {
 	    // See below for what true means.
-	    stage.getViewport().update(width, height, true);
+	    stages_.get(current_room_).getViewport().update(width, height, true);
 	}
 	
+	@Override
+	public void render () {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stages_.get(current_room_).act(Gdx.graphics.getDeltaTime());
+		stages_.get(current_room_).draw();
+	}
+}
+
+
+
+
+
+// OUTAKES - This comments should be deleted! They are just here to help us do tricky things in libgdx
+
+
+/*// Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
+final TextButton button = new TextButton("Click me!", skin);
+table.add(button).width(200);
+
+// Add a listener to the button. ChangeListener is fired when the button's checked state changes, eg when clicked,
+// Button#setChecked() is called, via a key press, etc. If the event.cancel() is called, the checked state will be reverted.
+// ClickListener could have been used, but would only fire when clicked. Also, canceling a ClickListener event won't
+// revert the checked state.
+button.addListener(new ChangeListener() {
+public void changed (ChangeEvent event, Actor actor) {
+System.out.println("Clicked! Is checked: " + button.isChecked());
+button.setText("Good job!");
+}
+});
+
+
+
+
+
+
+
 	@Override
 	public void render () {
 		
@@ -159,4 +183,5 @@ public class ReuGame extends ApplicationAdapter {
 	public static boolean pointInRectangle (Rectangle r, float x, float y) {
 	    return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
 	}
-}
+*
+*/
