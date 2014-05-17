@@ -37,8 +37,8 @@ public abstract class MainroomMonster extends Monster{
 	    animated_     = false;
 	    
 	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f);
-		setWidth(Utils.GetPixelX(18));
-		setHeight(Utils.GetPixelX(18));
+		setWidth(Utils.GetPixelX(8));
+		setHeight(Utils.GetPixelX(8));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
 	}
 	
@@ -125,8 +125,8 @@ public abstract class MainroomMonster extends Monster{
 		}
 		// Calculate time of rotation, 360 degree would take 1 second 
 		float rotation_time = 1f / 360f * Math.abs(old_angle - angle);
-		// Calculate time of movement, 500 pixel would take 1 second
-		float moving_time = length / 500f;
+		// Calculate time of movement, quarter of the room width per second
+		float moving_time = length / Utils.GetPixelY(40);
 		addAction(sequence(rotateTo(angle, rotation_time), moveTo(x - (getOriginX() * getScaleX()),y - (getOriginY() * getScaleY()), moving_time)));
 		stop_time_ = state_time_ + rotation_time + moving_time;
 	 }

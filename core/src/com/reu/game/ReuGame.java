@@ -112,6 +112,7 @@ public class ReuGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stages_.get(current_room_).act(Gdx.graphics.getDeltaTime());
+		stages_.get(current_room_).PostAct();
 		stages_.get(current_room_).draw();
 	}
 }

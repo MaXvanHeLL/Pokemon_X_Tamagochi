@@ -4,6 +4,6 @@ public class MainroomNusselts extends MainroomMonster {
 	public MainroomNusselts()
 	{
 		super();
-		LoadWalkAnimation(1, 16, "sprites.png");
+		LoadWalkAnimation(1, 30, "sprites.png");
 	}
 }

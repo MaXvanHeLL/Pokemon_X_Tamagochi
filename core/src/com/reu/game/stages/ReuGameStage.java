@@ -19,4 +19,10 @@ public abstract class ReuGameStage extends Stage{
 		super();
 		parent_ = parent;
 	}
+	
+	/***
+	 * Override this function to check stuff on each render cycle
+	 */
+	public void PostAct(){
+	}
 }
