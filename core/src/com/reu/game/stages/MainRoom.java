@@ -10,6 +10,7 @@ import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
+import com.reu.game.stages.actors.MainRoomPortal;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
@@ -18,6 +19,7 @@ public class MainRoom extends ReuGameStage{
 	public static RoomType type_ = RoomType.MAINROOM;
 	private Table table_;
 	private Monster monster_;
+	private MainRoomPortal portal_;
 	
 	@SuppressWarnings("unused")
 	private Rectangle kitchen_area_;
@@ -30,6 +32,7 @@ public class MainRoom extends ReuGameStage{
 	
 	public MainRoom(ReuGame parent){
 		super(parent);
+		
 		
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
@@ -80,6 +83,10 @@ public class MainRoom extends ReuGameStage{
 		// decisions for us!
 		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
+		
+		// Create the portal! Nusselts loves portals!
+		portal_ = new MainRoomPortal(Utils.GetPixelX(39.25f), Utils.GetPixelY(116.875f));
+		addActor(portal_);
 		
 		// This code is only here for testing purpose. It will be removed later,
 		// but it shows how clicking and moving could work.
