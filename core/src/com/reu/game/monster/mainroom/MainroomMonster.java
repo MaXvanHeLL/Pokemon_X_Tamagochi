@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.reu.game.monster.Monster;
+import com.reu.game.utils.Utils;;
 
 
 /***
@@ -36,10 +37,9 @@ public abstract class MainroomMonster extends Monster{
 	    animated_     = false;
 	    
 	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f);
-		setWidth(128);
-		setHeight(128);
-		setOrigin(64, 64);
-		setScale(0.8f);
+		setWidth(Utils.GetPixelX(18));
+		setHeight(Utils.GetPixelX(18));
+		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
 	}
 	
 	/***

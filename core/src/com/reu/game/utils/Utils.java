@@ -1,5 +1,6 @@
 package com.reu.game.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Utils {
@@ -11,7 +12,15 @@ public class Utils {
 	 * @param y Y Coordination of Testsubject (mostly NUSSELTS ^.^)
 	 * @return True if in or false if not!
 	 */
-	public static boolean pointInRectangle (Rectangle r, float x, float y) {
+	public static boolean PointInRectangle (Rectangle r, float x, float y) {
 	    return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
+	}
+	
+	public static float GetPixelX(float x_raster){
+		return Gdx.graphics.getWidth() / 160.0f * x_raster;
+	}
+	
+	public static float GetPixelY(float y_raster){
+		return Gdx.graphics.getHeight() / 90.0f * y_raster;
 	}
 }
