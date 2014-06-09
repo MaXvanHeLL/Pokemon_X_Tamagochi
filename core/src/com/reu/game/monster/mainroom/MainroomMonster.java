@@ -40,6 +40,10 @@ public abstract class MainroomMonster extends Monster{
 		setWidth(Utils.GetPixelX(8));
 		setHeight(Utils.GetPixelX(8));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
+		
+		setStrength(100);
+		setAgility(50);
+		setHealth(200);
 	}
 	
 	/***
@@ -150,4 +154,20 @@ public abstract class MainroomMonster extends Monster{
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
 	} 
+	
+	public void setStrength(int strength)
+	{
+		this.strength_ = strength;
+	}
+	
+	public void setHealth(int health)
+	{
+		this.health_ = health;
+	}
+	
+	public void setAgility(int agility)
+	{
+		this.agility_ = agility;
+	}
+	
 }

@@ -11,5 +11,4 @@ public interface WaterMonster {
 	abstract void WaterAttack3();
 	abstract void WaterAttack4();
 
-
 }
