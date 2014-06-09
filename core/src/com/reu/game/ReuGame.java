@@ -17,12 +17,15 @@ import com.reu.game.stages.MainRoom;
 import com.reu.game.stages.ReuGameStage;
 import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
+import com.reu.game.types.GameMode;
 
 public class ReuGame extends ApplicationAdapter {
 	
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
 	
+	@SuppressWarnings("unused")
+	private GameMode current_mode_;
 	private RoomType current_room_;				// The room which is currently active
 	private Map<RoomType, ReuGameStage> stages_;// Includes all stages
 	private Skin skin_;							// The skin for our game
@@ -38,6 +41,8 @@ public class ReuGame extends ApplicationAdapter {
 		
 		// Set the stage to the Mainroom on start up
 		SetCurrentStage(RoomType.MAINROOM);
+		// Set the Game Mode to Care Mode on start up
+		SetCurrentGameMode(GameMode.CARE_MODE);
 
 	}
 	
@@ -64,7 +69,16 @@ public class ReuGame extends ApplicationAdapter {
 	public void SetCurrentStage(RoomType type)
 	{
 		Gdx.input.setInputProcessor(stages_.get(type));
-		current_room_ = type;
+		this.current_room_ = type;
+	}
+	
+	/***
+	 * Changes the current game Mode
+	 * @param The Game Mode which is currently active
+	 */
+	public void SetCurrentGameMode(GameMode game_mode)
+	{
+		this.current_mode_ = game_mode;
 	}
 	
 	/***
