@@ -29,6 +29,8 @@ public class MainRoom extends ReuGameStage{
 	private Rectangle playroom_area_;
 	@SuppressWarnings("unused")
 	private Rectangle bedroom_area_;
+	@SuppressWarnings("unused")
+	private Rectangle garden_area_;
 	
 	public MainRoom(ReuGame parent){
 		super(parent);

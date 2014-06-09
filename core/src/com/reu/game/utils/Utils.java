@@ -12,7 +12,7 @@ public class Utils {
 	 * @param y Y Coordination of Testsubject (mostly NUSSELTS ^.^)
 	 * @return True if in or false if not!
 	 */
-	public static boolean PointInRectangle (Rectangle r, float x, float y) {
+	public static boolean MonsterInRectangle (Rectangle r, float x, float y) {
 	    return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
 	}
 	
