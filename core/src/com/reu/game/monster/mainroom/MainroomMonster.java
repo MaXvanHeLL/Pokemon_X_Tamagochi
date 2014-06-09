@@ -162,6 +162,7 @@ public abstract class MainroomMonster extends Monster{
 
 	} 
 	
+	// BATTLE_MODE Attributes
 	public int getStrength ()
 	{
 		return this.strength_;
@@ -191,7 +192,8 @@ public abstract class MainroomMonster extends Monster{
 		this.agility_ = agility;
 	}
 	
-	public int getHunger ()
+	// CARE_MODE Attributes
+	public float getHunger ()
 	{
 		return this.hunger_;
 	}
@@ -201,7 +203,7 @@ public abstract class MainroomMonster extends Monster{
 		this.hunger_ = hunger;
 	}
 	
-	public int getHappiness ()
+	public float getHappiness ()
 	{
 		return this.happiness_;
 	}
@@ -210,7 +212,7 @@ public abstract class MainroomMonster extends Monster{
 		this.happiness_ = happiness;
 	}
 	
-	public int getTiredness ()
+	public float getTiredness ()
 	{
 		return this.tiredness_;
 	}
@@ -220,7 +222,7 @@ public abstract class MainroomMonster extends Monster{
 		this.tiredness_ = tiredness;
 	}
 	
-	public int getDirtness ()
+	public float getDirtness ()
 	{
 		return this.dirtness_;
 	}
