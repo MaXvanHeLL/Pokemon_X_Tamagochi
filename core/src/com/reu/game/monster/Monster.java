@@ -4,6 +4,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Monster  extends Actor{
 	
+	protected int happiness_;
+	protected int hunger_;
+	protected int tiredness_;
+	protected int dirtness_;
+	
 	protected int strength_;
 	protected int health_;
 	protected int agility_;
