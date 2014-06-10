@@ -87,7 +87,7 @@ public class MainRoom extends ReuGameStage{
 		addActor(monster_);
 		
 		// Create the portal! Nusselts loves portals!
-		portal_ = new MainRoomPortal(Utils.GetPixelX(39.25f), Utils.GetPixelY(116.875f));
+		portal_ = new MainRoomPortal(Utils.GetPixelX(32.5f), Utils.GetPixelY(83.5f));
 		addActor(portal_);
 		
 		// This code is only here for testing purpose. It will be removed later,

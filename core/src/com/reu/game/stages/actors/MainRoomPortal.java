@@ -16,7 +16,7 @@ public class MainRoomPortal extends Actor{
 	
 	public MainRoomPortal(float position_x, float position_y){
 		texture_ = new TextureRegion(new Texture(Gdx.files.internal("door.png")));
-		setWidth(Utils.GetPixelX(12.0f));
+		setWidth(Utils.GetPixelX(25.0f));
 		setHeight(Utils.GetPixelY(11.5f));
 		setPosition(position_x, position_y);
 	}
