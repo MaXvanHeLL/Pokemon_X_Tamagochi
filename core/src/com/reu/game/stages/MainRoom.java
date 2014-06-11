@@ -21,13 +21,9 @@ public class MainRoom extends ReuGameStage{
 	private Monster monster_;
 	private MainRoomPortal portal_;
 	
-	@SuppressWarnings("unused")
 	private Rectangle kitchen_area_;
-	@SuppressWarnings("unused")
 	private Rectangle bathroom_area_;
-	@SuppressWarnings("unused")
 	private Rectangle playroom_area_;
-	@SuppressWarnings("unused")
 	private Rectangle bedroom_area_;
 	@SuppressWarnings("unused")
 	private Rectangle garden_area_;
