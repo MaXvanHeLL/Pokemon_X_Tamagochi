@@ -4,6 +4,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -25,7 +27,10 @@ public abstract class MainroomMonster extends Monster{
 	
 	protected float 	state_time_;	// The passed time since the creation of the monster
 	protected float 	stop_time_;		// The time when the running animation should stop
+	protected float		bussy_time_;	// The time when the monster isn't bussy anymore
 	protected boolean 	animated_;		// Is the monster currently animated?
+	protected boolean	busy_;			// Is the monster bussy or should it do something?
+	protected Random	r_generator_;	// Random number generator
 	
 	/***
 	 * Creates a monster
@@ -35,8 +40,9 @@ public abstract class MainroomMonster extends Monster{
 		// Initialize values
 	    state_time_   = 0f;
 	    animated_     = false;
+	    r_generator_  = new Random();
 	    
-	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f);
+	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
 		setWidth(Utils.GetPixelX(8));
 		setHeight(Utils.GetPixelX(8));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
@@ -105,6 +111,7 @@ public abstract class MainroomMonster extends Monster{
 	public void MoveTo(float x, float y)
 	{
 		animated_ = true;
+		busy_ = true;
 		clearActions();
 		// Calculate vector of movement
 		Vector2 current_position = new Vector2(getX(), getY());		 
@@ -136,25 +143,62 @@ public abstract class MainroomMonster extends Monster{
 		}
 		// Calculate time of rotation, 360 degree would take 1 second 
 		float rotation_time = 1f / 360f * Math.abs(old_angle - angle);
-		// Calculate time of movement, quarter of the room width per second
-		float moving_time = length / Utils.GetPixelY(40);
+		// Calculate time of movement, 1/8 of the room width per second
+		float moving_time = length / Utils.GetPixelY(20);
 		addAction(sequence(rotateTo(angle, rotation_time), moveTo(x - (getOriginX() * getScaleX()),y - (getOriginY() * getScaleY()), moving_time)));
 		stop_time_ = state_time_ + rotation_time + moving_time;
 	 }
+	
+	private void doSomething()
+	{
+		busy_ = true;
+		int chance = Math.abs(r_generator_.nextInt(100));
+		// 50 % chance to wait a random amount of time
+		if(chance < 70)
+		{
+			// Wait between 500 and 1500 ms
+			int wait_ms = (Math.abs(r_generator_.nextInt(800))) + 400;
+			bussy_time_ = state_time_ + (wait_ms / 1000.0f);
+		}
+		else
+		{
+			// Move to random position on the stone ground
+			int random_x = Math.abs(r_generator_.nextInt(35)) + 27;	// Random x from 27 to 62
+			int random_y = Math.abs(r_generator_.nextInt((int)((Gdx.graphics.getHeight()/2.0f) - 2 * getHeight())));
+			MoveTo(Utils.GetPixelX((float)random_x), (float)random_y + getHeight());
+		}
+	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
 		state_time_ += Gdx.graphics.getDeltaTime();
+		// Animation stuff
 		if(animated_)
 		{
 			current_frame_ = walk_animation_.getKeyFrame(state_time_, true);
 			if(state_time_ > stop_time_)
+			{
 				animated_ = false;
+				busy_ = false;
+			}
 		}
 		else
 		{
 			current_frame_ = walk_animation_.getKeyFrame(0.5f, true);
+		}
+		
+		// Do random things while nothing happens
+		if(busy_)
+		{
+			if(state_time_ > bussy_time_)
+			{
+				busy_ = false;
+			}
+		}
+		else
+		{
+			doSomething();
 		}
 
 	    batch.draw(current_frame_, getX(), getY(), getOriginX(), getOriginY(),

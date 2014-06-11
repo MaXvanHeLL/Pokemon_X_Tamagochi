@@ -96,7 +96,23 @@ public class MainRoom extends ReuGameStage{
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{
 				MainroomMonster temp = (MainroomMonster) monster_;
-				temp.MoveTo(x, y);
+				if(Utils.PointInRectangle(kitchen_area_, x, y))
+				{
+					System.out.println("Would enter kitchen!");
+				}
+				if(Utils.PointInRectangle(bathroom_area_, x, y))
+				{
+					System.out.println("Would enter bathroom!");
+				}
+				if(Utils.PointInRectangle(playroom_area_, x, y))
+				{
+					System.out.println("Would enter playroom!");
+				}
+				if(Utils.PointInRectangle(bedroom_area_, x, y))
+				{
+					System.out.println("Would enter bedroom!");
+				}
+				//temp.MoveTo(x, y);
 				return true;
 			}});
 				

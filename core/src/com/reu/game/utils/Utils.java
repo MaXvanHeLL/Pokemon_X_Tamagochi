@@ -16,6 +16,10 @@ public class Utils {
 	    return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
 	}
 	
+	public static boolean PointInRectangle (Rectangle r, float x, float y) {
+	    return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
+	}
+	
 	public static float GetPixelX(float x_raster){
 		return Gdx.graphics.getWidth() / 90.0f * x_raster;
 	}
