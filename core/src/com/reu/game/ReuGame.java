@@ -72,7 +72,7 @@ public class ReuGame extends ApplicationAdapter {
 	public void SetCurrentStage(RoomType type)
 	{
 		Gdx.input.setInputProcessor(stages_.get(type));
-		this.current_room_ = type;
+		this.setCurrent_room_(type);
 	}
 	
 	/***
@@ -123,16 +123,24 @@ public class ReuGame extends ApplicationAdapter {
 	@Override
 	public void resize (int width, int height) {
 	    // See below for what true means.
-	    stages_.get(current_room_).getViewport().update(width, height, true);
+	    stages_.get(getCurrent_room_()).getViewport().update(width, height, true);
 	}
 	
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stages_.get(current_room_).act(Gdx.graphics.getDeltaTime());
-		stages_.get(current_room_).PostAct();
-		stages_.get(current_room_).draw();
+		stages_.get(getCurrent_room_()).act(Gdx.graphics.getDeltaTime());
+		stages_.get(getCurrent_room_()).PostAct();
+		stages_.get(getCurrent_room_()).draw();
+	}
+
+	public RoomType getCurrent_room_() {
+		return current_room_;
+	}
+
+	public void setCurrent_room_(RoomType current_room_) {
+		this.current_room_ = current_room_;
 	}
 }
 

@@ -91,6 +91,9 @@ public class MainRoom extends ReuGameStage{
 		addListener(new InputListener(){
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{
+				
+				System.out.println(parent.getCurrent_room_());
+				
 				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
