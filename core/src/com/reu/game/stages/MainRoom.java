@@ -28,7 +28,7 @@ public class MainRoom extends ReuGameStage{
 	@SuppressWarnings("unused")
 	private Rectangle garden_area_;
 	
-	public MainRoom(ReuGame parent){
+	public MainRoom(final ReuGame parent){
 		super(parent);
 		
 		
@@ -92,19 +92,20 @@ public class MainRoom extends ReuGameStage{
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{
 				MainroomMonster temp = (MainroomMonster) monster_;
-				if(Utils.PointInRectangle(kitchen_area_, x, y))
+				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
 					System.out.println("Would enter kitchen!");
+					parent.SetCurrentStage(RoomType.KITCHEN);
 				}
-				if(Utils.PointInRectangle(bathroom_area_, x, y))
+				if(Utils.MonsterInRectangle(bathroom_area_, x, y))
 				{
 					System.out.println("Would enter bathroom!");
 				}
-				if(Utils.PointInRectangle(playroom_area_, x, y))
+				if(Utils.MonsterInRectangle(playroom_area_, x, y))
 				{
 					System.out.println("Would enter playroom!");
 				}
-				if(Utils.PointInRectangle(bedroom_area_, x, y))
+				if(Utils.MonsterInRectangle(bedroom_area_, x, y))
 				{
 					System.out.println("Would enter bedroom!");
 				}

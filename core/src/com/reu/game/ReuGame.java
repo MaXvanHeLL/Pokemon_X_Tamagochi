@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.reu.game.stages.Kitchen;
 import com.reu.game.stages.MainRoom;
 import com.reu.game.stages.ReuGameStage;
 import com.reu.game.types.MonsterType;
@@ -38,6 +39,8 @@ public class ReuGame extends ApplicationAdapter {
 		// Add all the stages to the stage map!
 		stages_ = new HashMap<RoomType, ReuGameStage>();
 		stages_.put(RoomType.MAINROOM, new MainRoom(this));
+		stages_.put(RoomType.KITCHEN, new Kitchen(this));
+		
 		
 		// Set the stage to the Mainroom on start up
 		SetCurrentStage(RoomType.MAINROOM);
@@ -113,6 +116,8 @@ public class ReuGame extends ApplicationAdapter {
 		// This is the first line of code which we actually use! It defines our
 		// house image as Texture which we can use as background later!
 		skin_.add("MainRoom", new Texture(Gdx.files.internal("house.png")));
+		
+		skin_.add("Kitchen", new Texture(Gdx.files.internal("kitchen.png")));
 	}
 
 	@Override
