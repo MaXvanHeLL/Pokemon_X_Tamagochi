@@ -27,5 +27,7 @@ public class MainRoomPortal extends Actor{
 	    batch.draw(texture_, getX(), getY(), getOriginX(), getOriginY(),
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 	} 
+	
+	
 
 }

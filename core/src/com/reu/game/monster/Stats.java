@@ -11,7 +11,7 @@ public class Stats {
 	protected int health_;
 	protected int agility_;
 	
-	public Stats(float happiness, float hunger, float tiredness, float dirtness, int strength, int health, int agility)
+	public Stats(float hunger, float happiness, float tiredness, float dirtness, int strength, int health, int agility)
 	{
 		this.happiness_ = happiness;
 		this.hunger_ = hunger;

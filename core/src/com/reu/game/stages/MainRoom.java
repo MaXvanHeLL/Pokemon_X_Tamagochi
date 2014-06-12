@@ -1,6 +1,7 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -31,6 +32,9 @@ public class MainRoom extends ReuGameStage{
 	public MainRoom(final ReuGame parent){
 		super(parent);
 		
+		
+		// -- important for catching the Back Button !!
+				Gdx.input.setCatchBackKey(true);
 		
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
@@ -132,4 +136,15 @@ public class MainRoom extends ReuGameStage{
 			System.exit(0);
 		}*/
 	}
+	
+	  @Override
+	   public boolean keyDown(int keycode) {
+		  
+	 
+		  parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
+		  parent_.getPrefs().flush();
+				  
+		 System.exit(0);
+	        return false;
+	   }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -27,6 +28,7 @@ public class ReuGame extends ApplicationAdapter {
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
 	
 	private Stats nusselts_stats_;
+	private Preferences prefs;
 	
 	@SuppressWarnings("unused")
 	private GameMode current_mode_;
@@ -50,7 +52,9 @@ public class ReuGame extends ApplicationAdapter {
 		// Set the Game Mode to Care Mode on start up
 		SetCurrentGameMode(GameMode.CARE_MODE);
 		
-		this.setNusselts_stats_(new Stats(100, 100, 100, 100, 100, 100, 100));
+		// -- loading Stats from Phone_Memory
+		setPrefs(Gdx.app.getPreferences("My Preferences"));
+		this.setNusselts_stats_(new Stats(getPrefs().getFloat("hunger", 100), 100, 100, 100, 100, 100, 100));
 
 	}
 	
@@ -162,6 +166,15 @@ public class ReuGame extends ApplicationAdapter {
 	public void setNusselts_stats_(Stats nusselts_stats_) {
 		this.nusselts_stats_ = nusselts_stats_;
 	}
+
+	public Preferences getPrefs() {
+		return prefs;
+	}
+
+	public void setPrefs(Preferences prefs) {
+		this.prefs = prefs;
+	}
+	
 }
 
 
@@ -233,3 +246,5 @@ button.setText("Good job!");
 	}
 *
 */
+
+
