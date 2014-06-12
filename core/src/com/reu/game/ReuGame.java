@@ -52,10 +52,18 @@ public class ReuGame extends ApplicationAdapter {
 		// Set the Game Mode to Care Mode on start up
 		SetCurrentGameMode(GameMode.CARE_MODE);
 		
-		// -- loading Stats from Phone_Memory
-		setPrefs(Gdx.app.getPreferences("My Preferences"));
-		this.setNusselts_stats_(new Stats(getPrefs().getFloat("hunger", 100), 100, 100, 100, 100, 100, 100));
+		// -- loading Nusselts Stats from Phone_Memory
+		// ----------------------------------------------
+		setPrefs(Gdx.app.getPreferences("Nusselts Preferences"));
+	//	this.setNusselts_stats_(new Stats(getPrefs().getFloat("hunger", 100), 100, 100, 100, 100, 100, 100));
+		nusselts_stats_ = new Stats();
+		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 100));
+		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 100));	
+		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 100));
+		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 100));
 
+		
+		
 	}
 	
 	/***

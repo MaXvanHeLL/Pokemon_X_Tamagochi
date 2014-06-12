@@ -142,8 +142,14 @@ public class MainRoom extends ReuGameStage{
 		  
 	 
 		  parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
+		  parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
+		  parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
+		  parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
+
+		  // -- always flush after changing the Preferences to make effect on Memory
 		  parent_.getPrefs().flush();
 				  
+		 // -- just temporary dirty work :D
 		 System.exit(0);
 	        return false;
 	   }

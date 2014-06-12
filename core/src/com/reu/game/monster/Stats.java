@@ -23,7 +23,11 @@ public class Stats {
 		this.agility_ = agility;
 	}
 	
-	// CARE_MODE Attributes
+	public Stats() {
+		// TODO NOTHING HAHAHAHHAHA
+	}
+
+		// CARE_MODE Attributes
 		public float getHunger ()
 		{
 			return this.hunger_;
