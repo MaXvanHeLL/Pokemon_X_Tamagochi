@@ -90,13 +90,11 @@ public class MainRoom extends ReuGameStage{
 		// but it shows how clicking and moving could work.
 		addListener(new InputListener(){
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
-			{
-				
-				System.out.println(parent.getCurrent_room_());
-				
+			{				
 				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
+					// you really wana have that in PostAct()? gets called everytime in render()?!
 					System.out.println("Would enter kitchen!");
 					parent.SetCurrentStage(RoomType.KITCHEN);
 				}

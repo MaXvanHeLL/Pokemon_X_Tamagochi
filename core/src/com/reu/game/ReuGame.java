@@ -115,9 +115,16 @@ public class ReuGame extends ApplicationAdapter {
 		
 		// This is the first line of code which we actually use! It defines our
 		// house image as Texture which we can use as background later!
+		
+		// MainRoom Stage
 		skin_.add("MainRoom", new Texture(Gdx.files.internal("house.png")));
 		
+		// Kitchen Stage
 		skin_.add("Kitchen", new Texture(Gdx.files.internal("kitchen.png")));
+		skin_.add("kitchen_button", new Texture(Gdx.files.internal("badlogic.jpg")));
+		skin_.add("kitchen_button_down", new Texture(Gdx.files.internal("door.png")));
+
+		
 	}
 
 	@Override

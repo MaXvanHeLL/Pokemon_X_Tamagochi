@@ -2,7 +2,11 @@ package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
@@ -13,7 +17,10 @@ public class Kitchen extends ReuGameStage{
 	ReuGame parent_;
 	public static RoomType type_ = RoomType.KITCHEN;
 	private Table table_;
+    private TextButton button_;
+    private TextButtonStyle button_style_;
 	private Monster monster_;
+	
 	
 	public Kitchen(ReuGame parent){
 		super(parent);
@@ -23,7 +30,26 @@ public class Kitchen extends ReuGameStage{
 		table_.setBackground(parent.getSkin().getDrawable("Kitchen"));
 		table_.setFillParent(true);
 		table_.align(Align.top | Align.left);
+		
+		
+		button_style_ = new TextButtonStyle();
+		BitmapFont font = new BitmapFont();
+		button_style_.font = font;
+		button_style_.up = parent_.getSkin().getDrawable("kitchen_button");
+        button_style_.down = parent_.getSkin().getDrawable("kitchen_button_down");
+		button_ = new TextButton(" - --  - - CLICK ME !!!!!!", button_style_);
+		
+		table_.add(button_);
+	
+		
+		
 		addActor(table_);
+		
+		button_style_ = new TextButtonStyle();
+		button_style_.up = parent_.getSkin().getDrawable("kitchen_button");
+        button_style_.down = parent_.getSkin().getDrawable("kitchen_button");
+        
+//        button_ = new TextButton("Button 1", button_style_);
 		
 		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
