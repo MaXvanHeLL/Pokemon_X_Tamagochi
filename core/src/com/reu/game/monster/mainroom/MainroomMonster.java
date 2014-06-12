@@ -47,16 +47,7 @@ public abstract class MainroomMonster extends Monster{
 		setHeight(Utils.GetPixelX(8));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
 		
-		// CARE_MODE Attributes
-		setHappiness(0);
-		setTiredness(0);
-		setDirtness(0);
-		setHunger(0);
-		
-		//BATTLE_MODE Attributes
-		setStrength(100);
-		setAgility(50);
-		setHealth(200);
+	
 	}
 	
 	/***
@@ -205,75 +196,5 @@ public abstract class MainroomMonster extends Monster{
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
 	} 
-	
-	// BATTLE_MODE Attributes
-	public int getStrength ()
-	{
-		return this.strength_;
-	}
-	
-	public void setStrength(int strength)
-	{
-		this.strength_ = strength;
-	}
-	
-	public int getHealth ()
-	{
-		return this.health_;
-	}
-	
-	public void setHealth(int health)
-	{
-		this.health_ = health;
-	}
-	
-	public int getAgility ()
-	{
-		return this.agility_;
-	}
-	public void setAgility(int agility)
-	{
-		this.agility_ = agility;
-	}
-	
-	// CARE_MODE Attributes
-	public float getHunger ()
-	{
-		return this.hunger_;
-	}
-	
-	public void setHunger(int hunger)
-	{
-		this.hunger_ = hunger;
-	}
-	
-	public float getHappiness ()
-	{
-		return this.happiness_;
-	}
-	public void setHappiness(int happiness)
-	{
-		this.happiness_ = happiness;
-	}
-	
-	public float getTiredness ()
-	{
-		return this.tiredness_;
-	}
-	
-	public void setTiredness(int tiredness)
-	{
-		this.tiredness_ = tiredness;
-	}
-	
-	public float getDirtness ()
-	{
-		return this.dirtness_;
-	}
-	
-	// dirty little Nusselts! :D
-	public void setDirtness(int dirtness)
-	{
-		this.dirtness_ = dirtness;
-	}
+
 }

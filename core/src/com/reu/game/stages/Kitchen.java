@@ -41,12 +41,7 @@ public class Kitchen extends ReuGameStage{
         button_style_.down = parent_.getSkin().getDrawable("kitchen_button_down");
 		button_ = new TextButton(" - --  - - CLICK ME !!!!!!", button_style_);
 		
-		button_.addListener( new ClickListener() {             
-		    @Override
-		    public void clicked(InputEvent event, float x, float y) {
-		        System.out.println("cliiiiiiiiicked");
-		    };
-		});
+		
 		
 		table_.add(button_);
 	
@@ -64,7 +59,16 @@ public class Kitchen extends ReuGameStage{
 		// -- important for catching the Back Button to avoid program Exit !!
 		Gdx.input.setCatchBackKey(true);
 
-		
+		button_.addListener( new ClickListener() {             
+		    @Override
+		    public void clicked(InputEvent event, float x, float y) {
+		        if(parent_.getNusselts_stats_().getHunger() < 1000)
+		        {
+		        	System.out.println(parent_.getNusselts_stats_().getHunger());
+		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 1);
+		        }
+		    };
+		});
 		
 /*		// -- I wanted to add the InputProcessor Listener directly to the class "Kitchen",
  * 		   but it didnt worked that way - final implementation see below ;)

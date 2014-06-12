@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.reu.game.monster.Stats;
 import com.reu.game.stages.Kitchen;
 import com.reu.game.stages.MainRoom;
 import com.reu.game.stages.ReuGameStage;
@@ -24,6 +25,8 @@ public class ReuGame extends ApplicationAdapter {
 	
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
+	
+	private Stats nusselts_stats_;
 	
 	@SuppressWarnings("unused")
 	private GameMode current_mode_;
@@ -46,6 +49,8 @@ public class ReuGame extends ApplicationAdapter {
 		SetCurrentStage(RoomType.MAINROOM);
 		// Set the Game Mode to Care Mode on start up
 		SetCurrentGameMode(GameMode.CARE_MODE);
+		
+		this.setNusselts_stats_(new Stats(100, 100, 100, 100, 100, 100, 100));
 
 	}
 	
@@ -148,6 +153,14 @@ public class ReuGame extends ApplicationAdapter {
 
 	public void setCurrent_room_(RoomType current_room_) {
 		this.current_room_ = current_room_;
+	}
+
+	public Stats getNusselts_stats_() {
+		return nusselts_stats_;
+	}
+
+	public void setNusselts_stats_(Stats nusselts_stats_) {
+		this.nusselts_stats_ = nusselts_stats_;
 	}
 }
 
