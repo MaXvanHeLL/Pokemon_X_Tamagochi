@@ -1,20 +1,13 @@
 package com.reu.game.stages;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
-import com.reu.game.monster.mainroom.MainroomMonster;
 import com.reu.game.types.RoomType;
-import com.reu.game.utils.Utils;
 
 public class Kitchen extends ReuGameStage{
 	ReuGame parent_;
@@ -35,14 +28,12 @@ public class Kitchen extends ReuGameStage{
 		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
 		
-		
+		// important for catching the Back Button to avoid program Exit !!
 		Gdx.input.setCatchBackKey(true);
-		
-		System.out.println(parent.getCurrent_room_());
 
-
-
-/*		
+/*		// I wanted to add the InputProcessor Listener directly to the class "Kitchen",
+ * 		   but it didnt worked that way - final implementation see below ;)
+ * 
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean keyDown (int keycode) {
 				   if(keycode == Keys.BACK){
@@ -55,26 +46,14 @@ public class Kitchen extends ReuGameStage{
 				   return true;
 
 			   }
-
 			});
-
-*/				
-			
-		
-		
-		
+*/						
 	}
-	
 	  @Override
 	   public boolean keyDown(int keycode) {
 		  
-		  
-			System.out.println(parent_.getCurrent_room_());
-
-		  
 	        if(keycode == Keys.BACK){
 	        	  this.parent_.SetCurrentStage(RoomType.MAINROOM);
-				  System.out.println("BAAAAAAAACK");
 				  return true;
 	        }
 	        return false;
