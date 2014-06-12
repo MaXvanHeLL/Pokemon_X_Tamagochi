@@ -149,8 +149,10 @@ public class MainRoom extends ReuGameStage{
 		  // -- always flush after changing the Preferences to make effect on Memory
 		  parent_.getPrefs().flush();
 				  
-		 // -- just temporary dirty work :D
+		 // -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
+		 // all the fancy Memory flushing stuff which is done here :)
 		 System.exit(0);
 	        return false;
 	   }
+	 
 }

@@ -158,6 +158,8 @@ public class ReuGame extends ApplicationAdapter {
 		stages_.get(getCurrent_room_()).PostAct();
 		stages_.get(getCurrent_room_()).draw();
 	}
+	
+
 
 	public RoomType getCurrent_room_() {
 		return current_room_;
