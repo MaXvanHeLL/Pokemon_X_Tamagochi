@@ -3,11 +3,13 @@ package com.reu.game.stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
@@ -39,10 +41,15 @@ public class Kitchen extends ReuGameStage{
         button_style_.down = parent_.getSkin().getDrawable("kitchen_button_down");
 		button_ = new TextButton(" - --  - - CLICK ME !!!!!!", button_style_);
 		
+		button_.addListener( new ClickListener() {             
+		    @Override
+		    public void clicked(InputEvent event, float x, float y) {
+		        System.out.println("cliiiiiiiiicked");
+		    };
+		});
+		
 		table_.add(button_);
 	
-		
-		
 		addActor(table_);
 		
 		button_style_ = new TextButtonStyle();
@@ -54,10 +61,12 @@ public class Kitchen extends ReuGameStage{
 		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
 		
-		// important for catching the Back Button to avoid program Exit !!
+		// -- important for catching the Back Button to avoid program Exit !!
 		Gdx.input.setCatchBackKey(true);
 
-/*		// I wanted to add the InputProcessor Listener directly to the class "Kitchen",
+		
+		
+/*		// -- I wanted to add the InputProcessor Listener directly to the class "Kitchen",
  * 		   but it didnt worked that way - final implementation see below ;)
  * 
 		Gdx.input.setInputProcessor(new InputAdapter () {
@@ -84,7 +93,4 @@ public class Kitchen extends ReuGameStage{
 	        }
 	        return false;
 	   }
-
-
-
 }
