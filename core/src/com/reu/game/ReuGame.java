@@ -151,7 +151,8 @@ public class ReuGame extends ApplicationAdapter {
 		skin_.add("kitchen_button", new Texture(Gdx.files.internal("badlogic.jpg")));
 		skin_.add("kitchen_button_down", new Texture(Gdx.files.internal("door.png")));
 
-		
+		// Test Skins
+		skin_.add("CircleMask", new Texture(Gdx.files.internal("mask_circle.png")));
 	}
 
 	@Override

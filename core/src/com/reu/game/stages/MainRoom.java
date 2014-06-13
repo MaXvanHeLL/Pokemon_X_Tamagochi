@@ -1,6 +1,7 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -54,11 +55,33 @@ public class MainRoom extends ReuGameStage{
 		Table slider_table_ = new Table();
 		slider_table_.align(Align.top | Align.left);
 
-		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(new Image(parent.getSkin().getDrawable("green"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		
+		
+		Table hunger = new Table();
+		hunger.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		hunger.setBackground(parent.getSkin().getDrawable("red"));
+		hunger.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(hunger).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		
+		Table happyness = new Table();
+		happyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		happyness.setBackground(parent.getSkin().getDrawable("green"));
+		happyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(happyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		
+		slider_table_.add(new Image(parent.getSkin().getDrawable("green"))).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		
+		Table tiredness = new Table();
+		tiredness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		tiredness.setBackground(parent.getSkin().getDrawable("red"));
+		tiredness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(tiredness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		
+		Table dirtyness = new Table();
+		dirtyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		dirtyness.setBackground(parent.getSkin().getDrawable("green"));
+		dirtyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(dirtyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
 		
 		table_.add(slider_table_).expand().bottom();
 				
