@@ -1,10 +1,13 @@
 package com.reu.game.stages.actors;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,6 +20,7 @@ import com.reu.game.utils.Utils;
 public class SlidingStats extends Table{
 	@SuppressWarnings("rawtypes")
 	private Cell			menue_;
+	private Table			stats_;
 	private Table 			window_;
 	private Table 			ribbon_;
 	private Table 			hunger_;
@@ -109,7 +113,54 @@ public class SlidingStats extends Table{
 		window_.background(skin_.getDrawable("RibbonRepeat"));
 		window_.setHeight(0);
 
-		menue_ = window_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(0.0f));
+		menue_ = window_.add(new Image(skin_.getDrawable("Portrait"))).width(Utils.GetPixelX(26.9375f)).height(Utils.GetPixelY(26.9375f)).padLeft(Utils.GetPixelX(5.0f)).padRight(Utils.GetPixelX(1.0f)).padTop(Utils.GetPixelY(1.0f));
+		stats_ = new Table();
+		stats_.align(Align.bottom | Align.center);
+		window_.add(stats_).width(Utils.GetPixelX(33.9375f));
+		
+		BitmapFont font = new BitmapFont();
+		font.scale(0.8f);
+		LabelStyle label_style = new LabelStyle(font, Color.BLACK);
+
+		Label name = new Label("Name:", label_style);
+		Label nameData = new Label("NUSSELTS", label_style);
+		stats_.add(name).left();
+		stats_.add(nameData).left();
+		stats_.row();
+		Label weight = new Label("Weight:", label_style);
+		Label weightData = new Label("14 kg", label_style);
+		stats_.add(weight).left();
+		stats_.add(weightData).left();
+		stats_.row();
+		Label age = new Label("Age:", label_style);
+		Label ageData = new Label("6 days", label_style);
+		stats_.add(age).left();
+		stats_.add(ageData).left();
+		stats_.row();
+		
+		window_.row();
+		
+		Label hunger = new Label("Hunger:", label_style);
+		window_.add(hunger);
+		window_.add();
+		
+		window_.row();
+		
+		Label happy = new Label("Happy:", label_style);
+		window_.add(happy);
+		window_.add();
+		
+		window_.row();
+		
+		Label dirty = new Label("Dirty:", label_style);
+		window_.add(dirty);
+		window_.add();
+		
+		window_.row();
+		
+		Label tired = new Label("Tired:", label_style);
+		window_.add(tired);
+		window_.add();
 		
 		add(window_);
 		

@@ -163,6 +163,7 @@ public class ReuGame extends ApplicationAdapter {
 		skin_.add("IconDirty", new Texture(Gdx.files.internal("overlay_cleaness.png")));
 		skin_.add("ButtonUp", new Texture(Gdx.files.internal("button_db_norm.png")));
 		skin_.add("ButtonDown", new Texture(Gdx.files.internal("button_db_active.png")));
+		skin_.add("Portrait", new Texture(Gdx.files.internal("portrait.png")));
 	}
 
 	@Override
