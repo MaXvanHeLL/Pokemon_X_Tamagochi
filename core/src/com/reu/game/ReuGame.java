@@ -48,9 +48,8 @@ public class ReuGame extends ApplicationAdapter {
 		nusselts_stats_ = new Stats();
 		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 100));
 		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 100));	
-		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 100));
 		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 100));	
-		
+		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 100));
 		
 		// Add all the stages to the stage map!
 		stages_ = new HashMap<RoomType, ReuGameStage>();

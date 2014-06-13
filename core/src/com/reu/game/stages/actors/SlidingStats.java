@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -148,25 +149,62 @@ public class SlidingStats extends Table{
 		
 		Label hunger = new Label("Hunger:", label_style);
 		window_.add(hunger);
-		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		Stack hunger_stack = new Stack();
+		hunger_stack.setWidth(Utils.GetPixelX(37f));
+		hunger_stack.setHeight(Utils.GetPixelY(4f));
+		Table hunger_table = new Table();
+		hunger_table.setFillParent(true);
+		hunger_table.add(new Image(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHunger() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		hunger_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHunger() / 100.f)));
+		hunger_stack.add(hunger_table);
+		hunger_stack.add(new Image(skin_.getDrawable("BarFrame")));
+		window_.add(hunger_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
 		window_.row().padTop(Utils.GetPixelY(2f));
 		
 		Label happy = new Label("Happy:", label_style);
 		window_.add(happy);
-		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		Stack happy_stack = new Stack();
+		happy_stack.setWidth(Utils.GetPixelX(37f));
+		happy_stack.setHeight(Utils.GetPixelY(4f));
+		Table happy_table = new Table();
+		happy_table.setFillParent(true);
+		happy_table.add(new Image(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHappiness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		happy_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHappiness() / 100.f)));
+		happy_stack.add(happy_table);
+		happy_stack.add(new Image(skin_.getDrawable("BarFrame")));
+		window_.add(happy_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
 		window_.row().padTop(Utils.GetPixelY(2f));
 		
-		Label dirty = new Label("Dirty:", label_style);
-		window_.add(dirty);
-		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		Label tired = new Label("Tired:", label_style);
+		window_.add(tired);
+		Stack tired_stack = new Stack();
+		tired_stack.setWidth(Utils.GetPixelX(37f));
+		tired_stack.setHeight(Utils.GetPixelY(4f));
+		Table tired_table = new Table();
+		tired_table.setFillParent(true);
+		tired_table.add(new Image(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getTiredness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		tired_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getTiredness() / 100.f)));
+		tired_stack.add(tired_table);
+		tired_stack.add(new Image(skin_.getDrawable("BarFrame")));
+		window_.add(tired_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
 		window_.row().padTop(Utils.GetPixelY(2f)).padBottom(Utils.GetPixelY(4f));
 		
-		Label tired = new Label("Tired:", label_style);
-		window_.add(tired);
-		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		Label dirty = new Label("Dirty:", label_style);
+		window_.add(dirty);
+		Stack dirty_stack = new Stack();
+		dirty_stack.setWidth(Utils.GetPixelX(37f));
+		dirty_stack.setHeight(Utils.GetPixelY(4f));
+		Table dirty_table = new Table();
+		dirty_table.setFillParent(true);
+		dirty_table.add(new Image(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getDirtness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		dirty_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getDirtness() / 100.f)));
+		dirty_stack.add(dirty_table);
+		dirty_stack.add(new Image(skin_.getDrawable("BarFrame")));
+		window_.add(dirty_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		
 	}
 	
 	private void buildTable(boolean with_window)
