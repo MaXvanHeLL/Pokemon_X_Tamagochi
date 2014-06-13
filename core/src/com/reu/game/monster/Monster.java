@@ -4,8 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Monster  extends Actor{
 	
-
-	
 	/***
 	 * Get the x-center of the monster
 	 * @return The horizontal center
@@ -22,6 +20,6 @@ public abstract class Monster  extends Actor{
 		return getY() + (getOriginY() * getScaleY());
 	}
 	
-	
-
+	public void Reset()	{		
+	}
 }

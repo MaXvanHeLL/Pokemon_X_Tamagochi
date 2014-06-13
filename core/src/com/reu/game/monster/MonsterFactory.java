@@ -1,7 +1,7 @@
 package com.reu.game.monster;
 
 import com.reu.game.monster.Monster;
-import com.reu.game.monster.mainroom.KitchenNusselts;
+import com.reu.game.monster.kitchen.KitchenNusselts;
 import com.reu.game.monster.mainroom.MainroomNusselts;
 import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
+import com.reu.game.monster.mainroom.MainroomMonster;
 import com.reu.game.stages.actors.MainRoomPortal;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
@@ -90,31 +91,36 @@ public class MainRoom extends ReuGameStage{
 		
 		// This code is only here for testing purpose. It will be removed later,
 		// but it shows how clicking and moving could work.
-		addListener(new InputListener(){
+		addListener(new InputListener()
+		{
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{				
-				//MainroomMonster temp = (MainroomMonster) monster_;
+				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
 					// you really wana have that in PostAct()? gets called everytime in render()?!
 					System.out.println("Would enter kitchen!");
-					parent.SetCurrentStage(RoomType.KITCHEN);
+					temp.GoToRoom(RoomType.KITCHEN);
 				}
 				if(Utils.MonsterInRectangle(bathroom_area_, x, y))
 				{
+					temp.GoToRoom(RoomType.BATHROOM);
 					System.out.println("Would enter bathroom!");
 				}
 				if(Utils.MonsterInRectangle(playroom_area_, x, y))
 				{
+					temp.GoToRoom(RoomType.PLAYROOM);
 					System.out.println("Would enter playroom!");
 				}
 				if(Utils.MonsterInRectangle(bedroom_area_, x, y))
 				{
+					temp.GoToRoom(RoomType.BEDROOM);
 					System.out.println("Would enter bedroom!");
 				}
 				//temp.MoveTo(x, y);
 				return true;
-			}});
+			}
+		});
 				
 				
 		// Compute rectangles for the rooms! Rectangles fit the background!
@@ -124,11 +130,21 @@ public class MainRoom extends ReuGameStage{
 	    bedroom_area_ = new Rectangle(Gdx.graphics.getWidth()-Utils.GetPixelX(32.5f), Gdx.graphics.getHeight()-Utils.GetPixelY(75),Utils.GetPixelX(32.5f),Utils.GetPixelY(35));
 	}
 	
+	public void ResetRoom()
+	{
+		monster_.Reset();
+	}
+	
 	@Override
 	public void PostAct()
 	{
 		// This is test functionality... Whenever nusselts enters the kitchen region the game
 		// should close (later it should switch to the kitchen stage!)
+		if(Utils.MonsterInRectangle(kitchen_area_, monster_.GetCenterX(), monster_.GetCenterY()))
+		{
+			parent_.SetCurrentStage(RoomType.KITCHEN);
+			ResetRoom();
+		}
 		/*if(Utils.PointInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			System.exit(0);

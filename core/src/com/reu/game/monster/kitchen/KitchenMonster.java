@@ -1,4 +1,4 @@
-package com.reu.game.monster.mainroom;
+package com.reu.game.monster.kitchen;
 
 import com.reu.game.monster.Monster;
 
