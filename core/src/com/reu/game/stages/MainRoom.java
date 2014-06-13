@@ -48,7 +48,7 @@ public class MainRoom extends ReuGameStage{
 		addActor(portal_);
 		
 		// The ribbon + sliding window
-		slider_table_ = new SlidingStats(parent_.getSkin());
+		slider_table_ = new SlidingStats(parent_.getSkin(), parent_.getNusselts_stats_());
 		addActor(slider_table_);
 		
 		// This code is only here for testing purpose. It will be removed later,
@@ -127,7 +127,7 @@ public class MainRoom extends ReuGameStage{
 		 // -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
 		 // all the fancy Memory flushing stuff which is done here :)
 		 System.exit(0);
-	        return false;
+	     return false;
 	   }
 	 
 }

@@ -1,6 +1,9 @@
 package com.reu.game.stages.actors;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,16 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.esotericsoftware.tablelayout.Cell;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.reu.game.monster.Stats;
 import com.reu.game.utils.Utils;
 
 public class SlidingStats extends Table{
-	@SuppressWarnings("rawtypes")
-	private Cell			menue_;
 	private Table			stats_;
 	private Table 			window_;
 	private Table 			ribbon_;
@@ -29,91 +29,97 @@ public class SlidingStats extends Table{
 	private Table			dirtness_;
 	private Skin			skin_;
 	
+	private Stats			monster_stats_;
+	
+	
 	private boolean			opened_;
 
-	public SlidingStats(Skin skin)
+	public SlidingStats(Skin skin, Stats stats)
 	{
 		opened_ = false;
 		skin_ = skin;
 		
+		monster_stats_ = stats;
+		
 		// Init Table
 		align(Align.bottom | Align.center);
 		setFillParent(true);
-		add().width(Utils.GetPixelX(11.0625f)).pad(0);
 		
+		// Build parts
+		buildRibbon();
+		buildWindow();
 		
+		// Create Table
+		buildTable(false);
+	}
+	
+	private void buildRibbon()
+	{
 		// Adjust the top of the ribbon
 		ribbon_ = new Table();
 		ribbon_.align(Align.top | Align.center);
-		ribbon_.setBackground(skin.getDrawable("RibbonTop"));
+		ribbon_.setBackground(skin_.getDrawable("RibbonTop"));
 
 		// Add hungry stat view
 		hunger_ = new Table();
 		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		hunger_.setBackground(skin_.getDrawable("red"));
+		hunger_.setBackground(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"));
 		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));
 		
+		// Add happiness stat view
 		happiness_ = new Table();
 		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		happiness_.setBackground(skin_.getDrawable("green"));
+		happiness_.setBackground(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"));
 		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
-		
+			
+		// Add button
 		ImageButtonStyle button_style = new ImageButtonStyle();
 		button_style.up = skin_.getDrawable("ButtonUp");
 		button_style.down = skin_.getDrawable("ButtonDown");
-		
+				
 		ImageButton button = new ImageButton(button_style);
-		
+				
 		button.addListener( new ClickListener() {             
-		    @Override
-		    public void clicked(InputEvent event, float x, float y) {
-		    	if(!opened_)
-		    	{
-		        	menue_.height(Utils.GetPixelY(80.0f));
-		        	window_.setHeight(Utils.GetPixelY(80.0f));
-		        	setHeight(getHeight()+Utils.GetPixelY(80.0f));
-		        	opened_ = true;
-		    	}
-		    	else
-		    	{
-		    		menue_.height(Utils.GetPixelY(0.0f));
-		    		window_.setHeight(Utils.GetPixelY(0.0f));
-		        	setHeight(Utils.GetPixelY(0.0f));
-		        	opened_ = false;
-		    	}
-		    };
-		});
-		
+		@Override
+		public void clicked(InputEvent event, float x, float y) {
+			if(!opened_)
+			{
+				buildTable(true);
+				opened_ = true;
+			}
+			else
+			{
+				buildTable(false);
+				opened_ = false;
+			}};});
+				
 		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f))).expandY().top().padTop(Utils.GetPixelY(1.2f));;
 		
+		// Add tiredness stat view
 		tiredness_ = new Table();
 		tiredness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		tiredness_.setBackground(skin_.getDrawable("red"));
+		tiredness_.setBackground(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"));
 		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
-		
+				
 		dirtness_ = new Table();
 		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		dirtness_.setBackground(skin_.getDrawable("green"));
+		dirtness_.setBackground(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"));
 		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
-		
-		add(ribbon_);
-		
-		add().width(Utils.GetPixelX(11.0625f)).pad(0);
-		
-		row();
-		
-		add().width(Utils.GetPixelX(11.0625f)).pad(0);
-		
+
+	}
+	
+	private void buildWindow()
+	{
 		window_ = new Table();
 		window_.align(Align.bottom | Align.center);
 		window_.background(skin_.getDrawable("RibbonRepeat"));
 		window_.setHeight(0);
 
-		menue_ = window_.add(new Image(skin_.getDrawable("Portrait"))).width(Utils.GetPixelX(26.9375f)).height(Utils.GetPixelY(26.9375f)).padLeft(Utils.GetPixelX(5.0f)).padRight(Utils.GetPixelX(1.0f)).padTop(Utils.GetPixelY(1.0f));
+		window_.add(new Image(skin_.getDrawable("Portrait"))).width(Utils.GetPixelX(26.9375f)).height(Utils.GetPixelY(26.9375f)).padLeft(Utils.GetPixelX(6.0f)).padRight(Utils.GetPixelX(0.0f)).padTop(Utils.GetPixelY(1.0f)).colspan(2);
 		stats_ = new Table();
 		stats_.align(Align.bottom | Align.center);
 		window_.add(stats_).width(Utils.GetPixelX(33.9375f));
@@ -138,32 +144,53 @@ public class SlidingStats extends Table{
 		stats_.add(ageData).left();
 		stats_.row();
 		
-		window_.row();
+		window_.row().padTop(Utils.GetPixelY(4f));
 		
-		Label hunger = new Label("Hunger:", label_style);
+		Label hunger = new Label("Hunger:", label_style);_
 		window_.add(hunger);
-		window_.add();
+		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
-		window_.row();
+		window_.row().padTop(Utils.GetPixelY(2f));
 		
 		Label happy = new Label("Happy:", label_style);
 		window_.add(happy);
-		window_.add();
+		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
-		window_.row();
+		window_.row().padTop(Utils.GetPixelY(2f));
 		
 		Label dirty = new Label("Dirty:", label_style);
 		window_.add(dirty);
-		window_.add();
+		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
-		window_.row();
+		window_.row().padTop(Utils.GetPixelY(2f)).padBottom(Utils.GetPixelY(4f));
 		
 		Label tired = new Label("Tired:", label_style);
 		window_.add(tired);
-		window_.add();
-		
-		add(window_);
-		
+		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+	}
+	
+	private void buildTable(boolean with_window)
+	{
+		clearChildren();
 		add().width(Utils.GetPixelX(11.0625f)).pad(0);
+		add(ribbon_);
+		add().width(Utils.GetPixelX(11.0625f)).pad(0);		
+		row();
+		if(with_window)
+		{
+			add().width(Utils.GetPixelX(11.0625f)).pad(0);
+			add(window_);
+			add().width(Utils.GetPixelX(11.0625f)).pad(0);
+		}
+	}
+	
+	private Skin getAttentionColor(float value)
+	{
+		Skin to_ret = new Skin();
+		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.rgba8888(1 - (value / 100.0f), (value / 100.0f), 0, 1));
+		pixmap.fill();
+		to_ret.add("color", new Texture(pixmap));
+		return to_ret;
 	}
 }
