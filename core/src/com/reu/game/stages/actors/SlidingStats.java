@@ -38,7 +38,7 @@ public class SlidingStats extends Table{
 		ribbon_ = new Table();
 		ribbon_.align(Align.bottom | Align.center);
 		ribbon_.setBackground(skin.getDrawable("RibbonTop"));
-		ribbon_.add().width(Utils.GetPixelX(67.875f)).height(0).colspan(5).pad(0);
+		ribbon_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(10.0f)).colspan(5).pad(0);
 		ribbon_.row().pad(0);
 
 		// Add hungry stat view
@@ -100,7 +100,8 @@ public class SlidingStats extends Table{
 		
 		window_ = new Table();
 		window_.align(Align.bottom | Align.center);
-		window_.background(skin_.getDrawable("RibbonRepeat"));
+		window_.background(skin_.getDrawable("white"));
+		window_.setHeight(0);
 		
 		menue_ = window_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(0.0f));
 		
