@@ -45,14 +45,14 @@ public class SlidingStats extends Table{
 		hunger_ = new Table();
 		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		hunger_.setBackground(skin_.getDrawable("red"));
-		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
-		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
+		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(1.0f));;
 		
 		happiness_ = new Table();
 		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		happiness_.setBackground(skin_.getDrawable("green"));
-		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
-		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
+		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(1.0f));;
 		
 		TextButton button = new TextButton("Click me!", skin_);
 		
@@ -70,7 +70,7 @@ public class SlidingStats extends Table{
 		    	{
 		    		menue_.height(Utils.GetPixelY(0.0f));
 		    		window_.setHeight(Utils.GetPixelY(0.0f));
-		        	setHeight(Utils.GetPixelY(10.0f));
+		        	setHeight(Utils.GetPixelY(8.0f));
 		        	opened_ = false;
 		    	}
 		    };
@@ -81,14 +81,14 @@ public class SlidingStats extends Table{
 		tiredness_ = new Table();
 		tiredness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		tiredness_.setBackground(skin_.getDrawable("red"));
-		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
-		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
+		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(1.0f));;
 		
 		dirtness_ = new Table();
 		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		dirtness_.setBackground(skin_.getDrawable("green"));
-		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
-		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).padBottom(Utils.GetPixelY(4.0f));
+		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).padBottom(Utils.GetPixelY(1.0f));
 		
 		add(ribbon_);
 		
