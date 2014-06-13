@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.esotericsoftware.tablelayout.Cell;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
@@ -24,7 +26,7 @@ public class MainRoom extends ReuGameStage{
 	private Table 			table_;
 	private Monster 		monster_;
 	private MainRoomPortal 	portal_;
-	private Container 		slider_;
+	private Cell			menue_;
 	
 	private Rectangle kitchen_area_;
 	private Rectangle bathroom_area_;
@@ -41,19 +43,20 @@ public class MainRoom extends ReuGameStage{
 		Gdx.input.setCatchBackKey(true);
 				
 		// Create a table that fills the screen. Everything else will go inside.
-	    table_ = new Table();
-		table_.setBackground(parent.getSkin().getDrawable("MainRoom"));
-		table_.setFillParent(true);
-		table_.align(Align.top | Align.left);
-		addActor(table_);
+		addActor(new Image(parent.getSkin().getDrawable("MainRoom")));
+				
+		// Get the right monster for this room, the monster factory will make
+		// decisions for us!
+		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
+		addActor(monster_);
 		
-
+		// Create the portal! Nusselts loves portals!
+		portal_ = new MainRoomPortal(Utils.GetPixelX(32.5f), Utils.GetPixelY(83.5f));
+		addActor(portal_);
 		
-		
-		// Uncomment this code to see were the kitchen would be... Use it to find the right
-		// Measures for the kitchen
 		Table slider_table_ = new Table();
-		slider_table_.align(Align.top | Align.left);
+		slider_table_.align(Align.bottom | Align.center);
+		slider_table_.setFillParent(true);
 
 		
 		
@@ -69,7 +72,20 @@ public class MainRoom extends ReuGameStage{
 		happyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
 		slider_table_.add(happyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
 		
-		slider_table_.add(new Image(parent.getSkin().getDrawable("green"))).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		TextButton button = new TextButton("Click me!", parent_.getSkin());
+		
+		button.addListener( new ClickListener() {             
+		    @Override
+		    public void clicked(InputEvent event, float x, float y) {
+		        if(parent_.getNusselts_stats_().getHunger() < 1000)
+		        {
+		        	menue_.height(Utils.GetPixelY(90.0f));
+		        	// Check this
+		        }
+		    };
+		});
+		
+		slider_table_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)));
 		
 		Table tiredness = new Table();
 		tiredness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
@@ -83,39 +99,15 @@ public class MainRoom extends ReuGameStage{
 		dirtyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
 		slider_table_.add(dirtyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
 		
-		table_.add(slider_table_).expand().bottom();
-				
-		/*Cell bath = table_.add(new Image(parent.getSkin().getDrawable("white")));
-		bath.width(Utils.GetPixelX(41.0f));
-		bath.height(Utils.GetPixelY(40));
-		bath.align(Align.left | Align.top);
-		bath.padLeft(Utils.GetPixelX(8.3f));
-				
-		table_.row();
-
-				
-		Cell playroom = table_.add(new Image(parent.getSkin().getDrawable("white")));
-		playroom.width(Utils.GetPixelX(32.5f));
-		playroom.height(Utils.GetPixelY(35));
-		playroom.align(Align.left | Align.top);
-				
-		Cell bed = table_.add(new Image(parent.getSkin().getDrawable("white")));
-		bed.width(Utils.GetPixelX(32.5f));
-		bed.height(Utils.GetPixelY(35));
-		bed.align(Align.left | Align.top);
-		bed.padLeft(Utils.GetPixelX(16.5f));*/
-			
+		slider_table_.row();
 		
+		table_ = new Table();
+		table_.align(Align.bottom | Align.center);
+		table_.setFillParent(true);
+		table_.background(parent_.getSkin().getDrawable("white"));
+		menue_ = table_.add().width(Utils.GetPixelX(90.0f)).height(Utils.GetPixelY(0.0f));
 		
-		
-		// Get the right monster for this room, the monster factory will make
-		// decisions for us!
-		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
-		addActor(monster_);
-		
-		// Create the portal! Nusselts loves portals!
-		portal_ = new MainRoomPortal(Utils.GetPixelX(32.5f), Utils.GetPixelY(83.5f));
-		addActor(portal_);
+		addActor(slider_table_);
 		
 		// This code is only here for testing purpose. It will be removed later,
 		// but it shows how clicking and moving could work.
@@ -149,7 +141,6 @@ public class MainRoom extends ReuGameStage{
 				return true;
 			}
 		});
-				
 				
 		// Compute rectangles for the rooms! Rectangles fit the background!
 	    kitchen_area_ = new Rectangle(0, Gdx.graphics.getHeight()-Utils.GetPixelY(40),Utils.GetPixelX(41.0f),Utils.GetPixelY(40));
