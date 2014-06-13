@@ -1,11 +1,9 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,16 +15,16 @@ import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
 import com.reu.game.stages.actors.MainRoomPortal;
+import com.reu.game.stages.actors.SlidingStats;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
 public class MainRoom extends ReuGameStage{
 	
 	public static RoomType type_ = RoomType.MAINROOM;
-	private Table 			table_;
+	private SlidingStats	slider_table_;
 	private Monster 		monster_;
 	private MainRoomPortal 	portal_;
-	private Cell			menue_;
 	
 	private Rectangle kitchen_area_;
 	private Rectangle bathroom_area_;
@@ -54,59 +52,8 @@ public class MainRoom extends ReuGameStage{
 		portal_ = new MainRoomPortal(Utils.GetPixelX(32.5f), Utils.GetPixelY(83.5f));
 		addActor(portal_);
 		
-		Table slider_table_ = new Table();
-		slider_table_.align(Align.bottom | Align.center);
-		slider_table_.setFillParent(true);
-
-		
-		
-		Table hunger = new Table();
-		hunger.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		hunger.setBackground(parent.getSkin().getDrawable("red"));
-		hunger.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(hunger).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
-		
-		Table happyness = new Table();
-		happyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		happyness.setBackground(parent.getSkin().getDrawable("green"));
-		happyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(happyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
-		
-		TextButton button = new TextButton("Click me!", parent_.getSkin());
-		
-		button.addListener( new ClickListener() {             
-		    @Override
-		    public void clicked(InputEvent event, float x, float y) {
-		        if(parent_.getNusselts_stats_().getHunger() < 1000)
-		        {
-		        	menue_.height(Utils.GetPixelY(90.0f));
-		        	// Check this
-		        }
-		    };
-		});
-		
-		slider_table_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)));
-		
-		Table tiredness = new Table();
-		tiredness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		tiredness.setBackground(parent.getSkin().getDrawable("red"));
-		tiredness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(tiredness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
-		
-		Table dirtyness = new Table();
-		dirtyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		dirtyness.setBackground(parent.getSkin().getDrawable("green"));
-		dirtyness.add(new Image(parent.getSkin().getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		slider_table_.add(dirtyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
-		
-		slider_table_.row();
-		
-		table_ = new Table();
-		table_.align(Align.bottom | Align.center);
-		table_.setFillParent(true);
-		table_.background(parent_.getSkin().getDrawable("white"));
-		menue_ = table_.add().width(Utils.GetPixelX(90.0f)).height(Utils.GetPixelY(0.0f));
-		
+		// The ribbon + sliding window
+		slider_table_ = new SlidingStats(parent_.getSkin());
 		addActor(slider_table_);
 		
 		// This code is only here for testing purpose. It will be removed later,
