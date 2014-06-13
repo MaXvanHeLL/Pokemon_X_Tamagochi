@@ -146,7 +146,7 @@ public class SlidingStats extends Table{
 		
 		window_.row().padTop(Utils.GetPixelY(4f));
 		
-		Label hunger = new Label("Hunger:", label_style);_
+		Label hunger = new Label("Hunger:", label_style);
 		window_.add(hunger);
 		window_.add(new Image(skin_.getDrawable("BarFrame"))).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
 		
