@@ -64,6 +64,7 @@ public class SlidingStats extends Table{
 		        	menue_.height(Utils.GetPixelY(80.0f));
 		        	window_.setHeight(Utils.GetPixelY(80.0f));
 		        	setHeight(getHeight()+Utils.GetPixelY(80.0f));
+		        	window_.setVisible(true);
 		        	opened_ = true;
 		    	}
 		    	else
@@ -71,6 +72,7 @@ public class SlidingStats extends Table{
 		    		menue_.height(Utils.GetPixelY(0.0f));
 		    		window_.setHeight(Utils.GetPixelY(0.0f));
 		        	setHeight(Utils.GetPixelY(8.0f));
+		        	window_.setVisible(false);
 		        	opened_ = false;
 		    	}
 		    };
@@ -100,8 +102,10 @@ public class SlidingStats extends Table{
 		
 		window_ = new Table();
 		window_.align(Align.bottom | Align.center);
-		window_.background(skin_.getDrawable("white"));
+		window_.background(skin_.getDrawable("RibbonRepeat"));
+		window_.setVisible(false);
 		window_.setHeight(0);
+		window_.padBottom(-100);
 		
 		menue_ = window_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(0.0f));
 		
