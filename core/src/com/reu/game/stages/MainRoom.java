@@ -1,7 +1,6 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
-import com.reu.game.monster.mainroom.MainroomMonster;
 import com.reu.game.stages.actors.MainRoomPortal;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
@@ -95,7 +93,7 @@ public class MainRoom extends ReuGameStage{
 		addListener(new InputListener(){
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{				
-				MainroomMonster temp = (MainroomMonster) monster_;
+				//MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
 					// you really wana have that in PostAct()? gets called everytime in render()?!
