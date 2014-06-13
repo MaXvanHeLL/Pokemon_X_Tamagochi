@@ -36,7 +36,10 @@ public class MainRoom extends ReuGameStage{
 		Gdx.input.setCatchBackKey(true);
 				
 		// Create a table that fills the screen. Everything else will go inside.
-		addActor(new Image(parent.getSkin().getDrawable("MainRoom")));
+		Image background = new Image(parent.getSkin().getDrawable("MainRoom"));
+		background.setWidth(Utils.GetPixelX(90));
+		background.setHeight(Utils.GetPixelY(160));
+		addActor(background);
 				
 		// Get the right monster for this room, the monster factory will make
 		// decisions for us!
