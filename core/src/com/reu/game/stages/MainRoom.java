@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.esotericsoftware.tablelayout.Cell;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
@@ -17,9 +20,10 @@ import com.reu.game.utils.Utils;
 public class MainRoom extends ReuGameStage{
 	
 	public static RoomType type_ = RoomType.MAINROOM;
-	private Table table_;
-	private Monster monster_;
-	private MainRoomPortal portal_;
+	private Table 			table_;
+	private Monster 		monster_;
+	private MainRoomPortal 	portal_;
+	private Container 		slider_;
 	
 	private Rectangle kitchen_area_;
 	private Rectangle bathroom_area_;
@@ -33,8 +37,8 @@ public class MainRoom extends ReuGameStage{
 		
 		
 		// -- important for catching the Back Button !!
-				Gdx.input.setCatchBackKey(true);
-		
+		Gdx.input.setCatchBackKey(true);
+				
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("MainRoom"));
@@ -42,41 +46,38 @@ public class MainRoom extends ReuGameStage{
 		table_.align(Align.top | Align.left);
 		addActor(table_);
 		
-		// Add dummy object to table... else screen would be empty, table needs
-		// at least one object to be shown.
-		//table_.add(new Image(parent.getSkin().getDrawable("white")));
+
 		
 		
 		// Uncomment this code to see were the kitchen would be... Use it to find the right
 		// Measures for the kitchen
-		/*Cell kitchen = table_.add(new Image(parent.getSkin().getDrawable("white")));
-		kitchen.width(Utils.GetPixelX(41.0f));
-		kitchen.height(Utils.GetPixelY(40));
-		kitchen.align(Align.left | Align.top);
-		
-		Cell bath = table_.add(new Image(parent.getSkin().getDrawable("white")));
+		Cell slider = table_.add(new Image(parent.getSkin().getDrawable("white")));
+		slider.width(Utils.GetPixelX(90.0f));
+		slider.height(Utils.GetPixelY(80.0f));
+		slider.align(Align.left | Align.top);
+		slider.padTop(Utils.GetPixelY(150.0f));
+		slider.padLeft(Utils.GetPixelX(0.0f));
+				
+		/*Cell bath = table_.add(new Image(parent.getSkin().getDrawable("white")));
 		bath.width(Utils.GetPixelX(41.0f));
 		bath.height(Utils.GetPixelY(40));
 		bath.align(Align.left | Align.top);
 		bath.padLeft(Utils.GetPixelX(8.3f));
-		
+				
 		table_.row();
-		
+
+				
 		Cell playroom = table_.add(new Image(parent.getSkin().getDrawable("white")));
 		playroom.width(Utils.GetPixelX(32.5f));
 		playroom.height(Utils.GetPixelY(35));
 		playroom.align(Align.left | Align.top);
-		
+				
 		Cell bed = table_.add(new Image(parent.getSkin().getDrawable("white")));
 		bed.width(Utils.GetPixelX(32.5f));
 		bed.height(Utils.GetPixelY(35));
 		bed.align(Align.left | Align.top);
 		bed.padLeft(Utils.GetPixelX(16.5f));*/
-		
-		// Width of "upper rooms" 41 raster left, 8.3 raster padding 40.7 raster right
-		// Height of "upper rooms" 40 raster
-		// Width of "lower rooms" 32.5 raster left, 25 raster padding, 32.5 raster right
-		// Height of "lower rooms" 35 raster
+			
 		
 		
 		
