@@ -156,6 +156,7 @@ public class ReuGame extends ApplicationAdapter {
 		
 		// Ribon Skins
 		skin_.add("RibbonTop", new Texture(Gdx.files.internal("ribbon_top.png")));
+		skin_.add("RibbonRepeat", new Texture(Gdx.files.internal("dashboard_bg.png")));
 		skin_.add("IconHappy", new Texture(Gdx.files.internal("overlay_happiness.png")));
 		skin_.add("IconHungry", new Texture(Gdx.files.internal("overlay_food.png")));
 		skin_.add("IconTired", new Texture(Gdx.files.internal("overlay_tiredness.png")));

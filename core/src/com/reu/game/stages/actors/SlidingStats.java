@@ -11,6 +11,7 @@ import com.esotericsoftware.tablelayout.Cell;
 import com.reu.game.utils.Utils;
 
 public class SlidingStats extends Table{
+	@SuppressWarnings("rawtypes")
 	private Cell			menue_;
 	private Table 			window_;
 	private Table 			ribbon_;
@@ -37,21 +38,21 @@ public class SlidingStats extends Table{
 		ribbon_ = new Table();
 		ribbon_.align(Align.bottom | Align.center);
 		ribbon_.setBackground(skin.getDrawable("RibbonTop"));
-		ribbon_.add().width(Utils.GetPixelX(67.875f)).height(0).colspan(5);
-		ribbon_.row();
+		ribbon_.add().width(Utils.GetPixelX(67.875f)).height(0).colspan(5).pad(0);
+		ribbon_.row().pad(0);
 
-		
+		// Add hungry stat view
 		hunger_ = new Table();
-		hunger_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		hunger_.setBackground(skin_.getDrawable("red"));
-		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
+		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
 		
 		happiness_ = new Table();
-		happiness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		happiness_.setBackground(skin_.getDrawable("green"));
-		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
+		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
 		
 		TextButton button = new TextButton("Click me!", skin_);
 		
@@ -75,19 +76,19 @@ public class SlidingStats extends Table{
 		    };
 		});
 		
-		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)));
+		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f)));
 		
 		tiredness_ = new Table();
-		tiredness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		tiredness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		tiredness_.setBackground(skin_.getDrawable("red"));
-		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
+		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelY(4.0f));;
 		
 		dirtness_ = new Table();
-		dirtness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		dirtness_.setBackground(skin_.getDrawable("green"));
-		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(9.0f)).height(Utils.GetPixelY(9.0f));
+		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).padBottom(Utils.GetPixelY(4.0f));
 		
 		add(ribbon_);
 		
@@ -99,7 +100,7 @@ public class SlidingStats extends Table{
 		
 		window_ = new Table();
 		window_.align(Align.bottom | Align.center);
-		window_.background(skin_.getDrawable("white"));
+		window_.background(skin_.getDrawable("RibbonRepeat"));
 		
 		menue_ = window_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(0.0f));
 		
