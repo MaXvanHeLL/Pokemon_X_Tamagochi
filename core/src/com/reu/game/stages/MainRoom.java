@@ -51,12 +51,16 @@ public class MainRoom extends ReuGameStage{
 		
 		// Uncomment this code to see were the kitchen would be... Use it to find the right
 		// Measures for the kitchen
-		Cell slider = table_.add(new Image(parent.getSkin().getDrawable("white")));
-		slider.width(Utils.GetPixelX(90.0f));
-		slider.height(Utils.GetPixelY(80.0f));
-		slider.align(Align.left | Align.top);
-		slider.padTop(Utils.GetPixelY(150.0f));
-		slider.padLeft(Utils.GetPixelX(0.0f));
+		Table slider_table_ = new Table();
+		slider_table_.align(Align.top | Align.left);
+
+		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(new Image(parent.getSkin().getDrawable("green"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		slider_table_.add(new Image(parent.getSkin().getDrawable("red"))).padLeft(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		
+		table_.add(slider_table_).expand().bottom();
 				
 		/*Cell bath = table_.add(new Image(parent.getSkin().getDrawable("white")));
 		bath.width(Utils.GetPixelX(41.0f));

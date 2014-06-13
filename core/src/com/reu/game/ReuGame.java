@@ -115,6 +115,16 @@ public class ReuGame extends ApplicationAdapter {
 		pixmap.fill();
 		skin_.add("white", new Texture(pixmap));
 		
+		pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.RED);
+		pixmap.fill();
+		skin_.add("red", new Texture(pixmap));
+		
+		pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.GREEN);
+		pixmap.fill();
+		skin_.add("green", new Texture(pixmap));
+		
 		// Store the default libgdx font under the name "default".
 		skin_.add("default", new BitmapFont());
 		
