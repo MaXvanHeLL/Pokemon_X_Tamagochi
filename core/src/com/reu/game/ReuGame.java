@@ -153,6 +153,13 @@ public class ReuGame extends ApplicationAdapter {
 
 		// Test Skins
 		skin_.add("CircleMask", new Texture(Gdx.files.internal("mask_circle.png")));
+		
+		// Ribon Skins
+		skin_.add("RibbonTop", new Texture(Gdx.files.internal("ribbon_top.png")));
+		skin_.add("IconHappy", new Texture(Gdx.files.internal("overlay_happiness.png")));
+		skin_.add("IconHungry", new Texture(Gdx.files.internal("overlay_food.png")));
+		skin_.add("IconTired", new Texture(Gdx.files.internal("overlay_tiredness.png")));
+		skin_.add("IconDirty", new Texture(Gdx.files.internal("overlay_cleaness.png")));
 	}
 
 	@Override

@@ -12,7 +12,12 @@ import com.reu.game.utils.Utils;
 
 public class SlidingStats extends Table{
 	private Cell			menue_;
-	private Table 			table_;
+	private Table 			window_;
+	private Table 			ribbon_;
+	private Table 			hunger_;
+	private Table 			tiredness_;
+	private Table 			happiness_;
+	private Table			dirtness_;
 	private Skin			skin_;
 	
 	private boolean			opened_;
@@ -25,18 +30,28 @@ public class SlidingStats extends Table{
 		// Init Table
 		align(Align.bottom | Align.center);
 		setFillParent(true);
+		add().width(Utils.GetPixelX(11.0625f)).pad(0);
 		
-		Table hunger = new Table();
-		hunger.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		hunger.setBackground(skin_.getDrawable("red"));
-		hunger.add(new Image(skin_.getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		add(hunger).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
 		
-		Table happyness = new Table();
-		happyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		happyness.setBackground(skin_.getDrawable("green"));
-		happyness.add(new Image(skin_.getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		add(happyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		// Adjust the top of the ribbon
+		ribbon_ = new Table();
+		ribbon_.align(Align.bottom | Align.center);
+		ribbon_.setBackground(skin.getDrawable("RibbonTop"));
+		ribbon_.add().width(Utils.GetPixelX(67.875f)).height(0).colspan(5);
+		ribbon_.row();
+
+		
+		hunger_ = new Table();
+		hunger_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		hunger_.setBackground(skin_.getDrawable("red"));
+		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		
+		happiness_ = new Table();
+		happiness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		happiness_.setBackground(skin_.getDrawable("green"));
+		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
 		
 		TextButton button = new TextButton("Click me!", skin_);
 		
@@ -46,42 +61,50 @@ public class SlidingStats extends Table{
 		    	if(!opened_)
 		    	{
 		        	menue_.height(Utils.GetPixelY(80.0f));
-		        	table_.setHeight(Utils.GetPixelY(80.0f));
+		        	window_.setHeight(Utils.GetPixelY(80.0f));
 		        	setHeight(getHeight()+Utils.GetPixelY(80.0f));
 		        	opened_ = true;
 		    	}
 		    	else
 		    	{
 		    		menue_.height(Utils.GetPixelY(0.0f));
-		        	table_.setHeight(Utils.GetPixelY(0.0f));
+		    		window_.setHeight(Utils.GetPixelY(0.0f));
 		        	setHeight(Utils.GetPixelY(10.0f));
 		        	opened_ = false;
 		    	}
 		    };
 		});
 		
-		add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)));
+		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f)).padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f)));
 		
-		Table tiredness = new Table();
-		tiredness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		tiredness.setBackground(skin_.getDrawable("red"));
-		tiredness.add(new Image(skin_.getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		add(tiredness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		tiredness_ = new Table();
+		tiredness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		tiredness_.setBackground(skin_.getDrawable("red"));
+		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
 		
-		Table dirtyness = new Table();
-		dirtyness.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
-		dirtyness.setBackground(skin_.getDrawable("green"));
-		dirtyness.add(new Image(skin_.getDrawable("CircleMask"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
-		add(dirtyness).padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f));
+		dirtness_ = new Table();
+		dirtness_.padTop(Utils.GetPixelX(1.0f)).padBottom(Utils.GetPixelX(1.0f));
+		dirtness_.setBackground(skin_.getDrawable("green"));
+		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(8.0f)).height(Utils.GetPixelY(8.0f));
+		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f));
+		
+		add(ribbon_);
+		
+		add().width(Utils.GetPixelX(11.0625f)).pad(0);
 		
 		row();
 		
-		table_ = new Table();
-		table_.align(Align.bottom | Align.center);
-		table_.background(skin_.getDrawable("white"));
+		add().width(Utils.GetPixelX(11.0625f)).pad(0);
 		
-		menue_ = table_.add().width(Utils.GetPixelX(90.0f)).height(Utils.GetPixelY(0.0f));
+		window_ = new Table();
+		window_.align(Align.bottom | Align.center);
+		window_.background(skin_.getDrawable("white"));
 		
-		add(table_).colspan(5);
+		menue_ = window_.add().width(Utils.GetPixelX(67.875f)).height(Utils.GetPixelY(0.0f));
+		
+		add(window_);
+		
+		add().width(Utils.GetPixelX(11.0625f)).pad(0);
 	}
 }
