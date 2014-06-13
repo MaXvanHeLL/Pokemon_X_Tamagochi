@@ -61,8 +61,6 @@ public class ReuGame extends ApplicationAdapter {
 		SetCurrentStage(RoomType.MAINROOM);
 		// Set the Game Mode to Care Mode on start up
 		SetCurrentGameMode(GameMode.CARE_MODE);
-		
-		
 	}
 	
 	/***

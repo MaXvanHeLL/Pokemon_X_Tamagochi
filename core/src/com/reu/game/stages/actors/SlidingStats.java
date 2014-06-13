@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.reu.game.monster.Stats;
 import com.reu.game.utils.Utils;
 
@@ -46,12 +45,7 @@ public class SlidingStats extends Table{
 		align(Align.bottom | Align.center);
 		setFillParent(true);
 		
-		// Build parts
-		buildRibbon();
-		buildWindow();
-		
-		// Create Table
-		buildTable(false);
+		updateStats(monster_stats_);
 	}
 	
 	private void buildRibbon()
@@ -230,5 +224,16 @@ public class SlidingStats extends Table{
 		pixmap.fill();
 		to_ret.add("color", new Texture(pixmap));
 		return to_ret;
+	}
+	
+	public void updateStats(Stats stats)
+	{
+		monster_stats_ = stats;
+		// Build parts
+		buildRibbon();
+		buildWindow();
+				
+		// Create Table
+		buildTable(opened_);
 	}
 }
