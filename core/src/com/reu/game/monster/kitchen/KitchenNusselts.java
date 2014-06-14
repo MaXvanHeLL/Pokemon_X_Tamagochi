@@ -9,8 +9,7 @@ public class KitchenNusselts extends KitchenMonster
 		LoadMonsterTexture("nusselts_still.png");
 		LoadEatAnimation(6, 6, "eating.png", 1);
 		LoadIdleAnimation(6, 6, "idle_1.png", 1);
-		LoadIdleAnimation(6, 6, "eating.png", 1);
-		LoadIdleAnimation(6, 6, "walking.png", 1);
+		LoadIdleAnimation(6, 6, "idle_2.png", 1);
 		LoadNoooAnimation(6, 6, "idle_1.png", 1);
 	}
 }
