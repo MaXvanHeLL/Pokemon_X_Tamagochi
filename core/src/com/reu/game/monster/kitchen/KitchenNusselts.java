@@ -1,5 +1,7 @@
 package com.reu.game.monster.kitchen;
 
+import com.reu.game.ReuGame;
+
 
 public class KitchenNusselts extends KitchenMonster
 {
@@ -7,9 +9,9 @@ public class KitchenNusselts extends KitchenMonster
 	{
 		super();
 		LoadMonsterTexture("nusselts_still.png");
-		LoadEatAnimation(6, 6, "eating.png", 1);
-		LoadIdleAnimation(6, 6, "idle_1.png", 1);
-		LoadIdleAnimation(6, 6, "idle_2.png", 1);
-		LoadNoooAnimation(6, 6, "no.png", 1);
+		AddEatAnimation(ReuGame.getAnimation("EatAnimation"));
+		AddIdleAnimations(ReuGame.getAnimation("Idle0"));
+		AddIdleAnimations(ReuGame.getAnimation("Idle1"));
+		AddNoooAnimation(ReuGame.getAnimation("Nonono"));
 	}
 }

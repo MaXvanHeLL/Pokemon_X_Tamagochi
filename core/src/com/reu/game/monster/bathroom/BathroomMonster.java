@@ -46,39 +46,16 @@ public class BathroomMonster extends Monster{
 		bathing_ = false;
 	}
 	
-	/***
-	 * Loads an idle animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param idle_sheet_path The path to the Idle Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadIdleAnimation(int frame_cols, int frame_rows, String walk_sheet_path, float duration)
+	protected void AddIdleAnimations(Animation to_add)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(walk_sheet_path)));
-		// Create the animation itself and save it to the member
-		idle_animations_.add(new Animation(duration / walk_frames.length, walk_frames));
+		idle_animations_.add(to_add);
 	}
 	
-	/***
-	 * Loads an bath animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param bath_sheet_path The path to the Eat Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadBathAnimation(int frame_cols, int frame_rows, String bath_sheet_path, float duration)
+	protected void AddBathAnimation(Animation to_add)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(bath_sheet_path)));
-		// Create the animation itself and save it to the member
-		bath_animation_ = new Animation(duration / walk_frames.length, walk_frames);
+		bath_animation_ = to_add;
 	}
+
 	
 	/***
 	 * Loads the texture of your monster! THIS FUNCTION MUST BE CALLED!

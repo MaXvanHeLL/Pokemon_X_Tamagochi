@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.reu.game.monster.Stats;
 import com.reu.game.stages.Bathroom;
@@ -119,10 +120,61 @@ public class ReuGame extends ApplicationAdapter
 		this.current_mode_ = game_mode;
 	}
 	
-	
-	private LoadAnimations()
+	/***
+	 * Loads all animations at the beginning. Be careful to much stuff crashes the program
+	 */
+	private void LoadAnimations()
 	{
+		// Mainroom only
+		animations_.put("WalkAnimation", LoadSingleAnimation(6,6, "walking.png"));
 		
+		// Kitchen only
+		animations_.put("EatAnimation", LoadSingleAnimation(6,6, "eating.png"));
+		
+		// Shared animations
+		animations_.put("Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
+		animations_.put("Idle1", LoadSingleAnimation(6,6, "idle_2.png"));
+		animations_.put("Nonono", LoadSingleAnimation(6,6, "no.png"));
+	}
+	
+	protected Animation LoadSingleAnimation(int frame_cols, int frame_rows, String sheet_path)
+	{
+		// Create the single frames of the animation
+		TextureRegion[] walk_frames = LoadTextureRegion(frame_cols, frame_rows, new Texture(Gdx.files.internal(sheet_path)));
+		// Create the animation itself and save it to the member
+		return new Animation(1.0f / walk_frames.length, walk_frames);
+	}
+	
+	public static Animation getAnimation(String name)
+	{
+		return animations_.get(name);
+	}
+	
+	/***
+	 * Loads the Textures of an animation.
+	 * 
+	 * @param frame_cols Number of columns in the Walk Sheet
+	 * @param frame_rows Number of rows in the Walk Sheet
+	 * @param sheet The Walk Sheet itself
+	 * @return Array of texture region for the animation
+	 */
+	protected TextureRegion[] LoadTextureRegion(int frame_cols, int frame_rows, Texture sheet)
+	{
+		// Spit the Texture into texture regions for the single frames
+		TextureRegion[][] tmp = TextureRegion.split(sheet, sheet.getWidth()/frame_cols, sheet.getHeight()/frame_rows);
+		
+		// Create the one dimensional walk frames...
+		TextureRegion[] frames = new TextureRegion[frame_cols * frame_rows];
+	    int index = 0;
+	    // ... and fill it with the frames from the two dimensional array
+	    for (int i = 0; i < frame_rows; i++) 
+	     {
+	         for (int j = 0; j < frame_cols; j++) 
+	         {
+	        	 frames[index++] = tmp[i][j];
+	         }
+	     }
+	    return frames;
 	}
 	
 	/***

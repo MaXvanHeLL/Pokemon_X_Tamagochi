@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -63,12 +62,9 @@ public abstract class MainroomMonster extends Monster{
 	 * @param frame_rows Number of rows in the Walk Sheet
 	 * @param walk_sheet_path The path to the Walk Sheet Texture
 	 */
-	protected void LoadWalkAnimation(int frame_cols, int frame_rows, String walk_sheet_path)
+	protected void AddWalkAnimation(Animation walk_animation)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(walk_sheet_path)));
-		// Create the animation itself and save it to the member
-		walk_animation_ = new Animation(1.0f / walk_frames.length, walk_frames);
+		walk_animation_ = walk_animation;
 	}
 	
 	/***

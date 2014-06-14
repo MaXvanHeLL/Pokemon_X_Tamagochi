@@ -44,55 +44,19 @@ public abstract class KitchenMonster extends Monster {
 		setPosition(Utils.GetPixelX(45 - 25), Utils.GetPixelY(60 - 25));
 	}
 	
-	/***
-	 * Loads an idle animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param idle_sheet_path The path to the Idle Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadIdleAnimation(int frame_cols, int frame_rows, String walk_sheet_path, float duration)
+	protected void AddIdleAnimations(Animation to_add)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(walk_sheet_path)));
-		// Create the animation itself and save it to the member
-		idle_animations_.add(new Animation(duration / walk_frames.length, walk_frames));
+		idle_animations_.add(to_add);
 	}
 	
-	/***
-	 * Loads an nooo animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param nooo_sheet_path The path to the Nooo Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadNoooAnimation(int frame_cols, int frame_rows, String nooo_sheet_path, float duration)
+	protected void AddNoooAnimation(Animation to_add)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(nooo_sheet_path)));
-		// Create the animation itself and save it to the member
-		nooo_animation_ = new Animation(duration / walk_frames.length, walk_frames);
+		nooo_animation_ = to_add;
 	}
 	
-	/***
-	 * Loads an eat animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param eat_sheet_path The path to the Eat Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadEatAnimation(int frame_cols, int frame_rows, String eat_sheet_path, float duration)
+	protected void AddEatAnimation(Animation to_add)
 	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(eat_sheet_path)));
-		// Create the animation itself and save it to the member
-		eat_animation_ = new Animation(duration / walk_frames.length, walk_frames);
+		eat_animation_ = to_add;
 	}
 	
 	/***

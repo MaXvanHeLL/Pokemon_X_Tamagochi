@@ -1,9 +1,11 @@
 package com.reu.game.monster.mainroom;
 
+import com.reu.game.ReuGame;
+
 public class MainroomNusselts extends MainroomMonster {
 	public MainroomNusselts()
 	{
 		super();
-		LoadWalkAnimation(6, 6, "walking.png");
+		AddWalkAnimation(ReuGame.getAnimation("WalkAnimation"));
 	}
 }
