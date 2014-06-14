@@ -1,4 +1,4 @@
-package com.reu.game.monster.kitchen;
+package com.reu.game.monster.bathroom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.reu.game.monster.Monster;
 import com.reu.game.utils.Utils;
 
-public abstract class KitchenMonster extends Monster {
+public class BathroomMonster  extends Monster{
 	protected List<Animation> idle_animations_;		// The idle animation
-	protected Animation		  eat_animation_;		// The eat animation
-	protected Animation		  nooo_animation_;		// The animation if the monster wants no more
+	protected Animation		  bath_animation_;		// The eat animation
 	protected Animation		  current_animation_;
 	protected TextureRegion   current_frame_;	    // The current frame of the monster
 	protected TextureRegion	  standartd_monster_;	// The standard texture;
@@ -28,7 +27,7 @@ public abstract class KitchenMonster extends Monster {
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
 	
-	KitchenMonster()
+	BathroomMonster()
 	{
 		// Initialize values
 	    state_time_   		= 0f;
@@ -62,37 +61,20 @@ public abstract class KitchenMonster extends Monster {
 	}
 	
 	/***
-	 * Loads an nooo animation of the monster! This MUST be called before you
+	 * Loads an bath animation of the monster! This MUST be called before you
 	 * use the monster. Else your program will ultimately fail.
 	 * 
 	 * @param frame_cols Number of columns in the Walk Sheet
 	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param nooo_sheet_path The path to the Nooo Sheet Texture
+	 * @param bath_sheet_path The path to the Eat Sheet Texture
 	 * @param duraction The duration of your idle animation
 	 */
-	protected void LoadNoooAnimation(int frame_cols, int frame_rows, String nooo_sheet_path, float duration)
+	protected void LoadBathAnimation(int frame_cols, int frame_rows, String bath_sheet_path, float duration)
 	{
 		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(nooo_sheet_path)));
+		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(bath_sheet_path)));
 		// Create the animation itself and save it to the member
-		nooo_animation_ = new Animation(duration / walk_frames.length, walk_frames);
-	}
-	
-	/***
-	 * Loads an eat animation of the monster! This MUST be called before you
-	 * use the monster. Else your program will ultimately fail.
-	 * 
-	 * @param frame_cols Number of columns in the Walk Sheet
-	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param eat_sheet_path The path to the Eat Sheet Texture
-	 * @param duraction The duration of your idle animation
-	 */
-	protected void LoadEatAnimation(int frame_cols, int frame_rows, String eat_sheet_path, float duration)
-	{
-		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(eat_sheet_path)));
-		// Create the animation itself and save it to the member
-		eat_animation_ = new Animation(duration / walk_frames.length, walk_frames);
+		bath_animation_ = new Animation(duration / walk_frames.length, walk_frames);
 	}
 	
 	/***
@@ -104,7 +86,6 @@ public abstract class KitchenMonster extends Monster {
 		standartd_monster_ = new TextureRegion(new Texture(Gdx.files.internal(textre_path)));
 	}
 	
-
 	@Override
 	public void Reset()
 	{
@@ -143,14 +124,9 @@ public abstract class KitchenMonster extends Monster {
 		busy_time_ = stop_time_;
 	}
 	
-	public void eatSomething()
+	public void takeBath()
 	{
-		playAnimation(eat_animation_, 1);
-	}
-	
-	public void pleaseNoMoreFood()
-	{
-		playAnimation(nooo_animation_, 1);
+		playAnimation(bath_animation_, 1);
 	}
 	
 	@Override
@@ -195,5 +171,4 @@ public abstract class KitchenMonster extends Monster {
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
 	} 
-
 }

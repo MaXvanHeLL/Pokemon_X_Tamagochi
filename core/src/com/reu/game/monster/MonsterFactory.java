@@ -1,6 +1,7 @@
 package com.reu.game.monster;
 
 import com.reu.game.monster.Monster;
+import com.reu.game.monster.bathroom.BathroomNusselts;
 import com.reu.game.monster.kitchen.KitchenNusselts;
 import com.reu.game.monster.mainroom.MainroomNusselts;
 import com.reu.game.types.MonsterType;
@@ -20,6 +21,8 @@ public class MonsterFactory {
 			return CreateMainroomMonster(monster);
 		case KITCHEN:
 			return CreateKitchenMonster(monster);
+		case BATHROOM:
+			return CreateBathroomMonster(monster);
 		default:
 			throw new UnsupportedOperationException();
 		}
@@ -41,6 +44,16 @@ public class MonsterFactory {
 		{
 		case NUSSELTS:
 			return new KitchenNusselts();
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
+	private static Monster CreateBathroomMonster(MonsterType monster)
+	{
+		switch(monster)
+		{
+		case NUSSELTS:
+			return new BathroomNusselts();
 		default:
 			throw new UnsupportedOperationException();
 		}
