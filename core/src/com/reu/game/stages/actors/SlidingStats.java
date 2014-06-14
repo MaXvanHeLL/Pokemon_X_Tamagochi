@@ -81,6 +81,11 @@ public class SlidingStats extends Table{
 		align(Align.bottom | Align.center);
 		setFillParent(true);
 		
+
+		BitmapFont font = new BitmapFont();
+		font.scale(0.8f);
+		label_style_ = new LabelStyle(font, Color.BLACK);
+		
 		// Build parts
 		buildRibbon();
 		buildWindow();
@@ -197,10 +202,6 @@ public class SlidingStats extends Table{
 		stats_ = new Table();
 		stats_.align(Align.bottom | Align.center);
 		window_.add(stats_).width(Utils.GetPixelX(33.9375f));
-		
-		BitmapFont font = new BitmapFont();
-		font.scale(0.8f);
-		label_style_ = new LabelStyle(font, Color.BLACK);
 		
 		updateDataLabels();
 		
