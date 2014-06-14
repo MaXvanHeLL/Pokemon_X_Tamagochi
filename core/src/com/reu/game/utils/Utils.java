@@ -1,7 +1,12 @@
 package com.reu.game.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Utils {
 	/***
@@ -26,5 +31,20 @@ public class Utils {
 	
 	public static float GetPixelY(float y_raster){
 		return Gdx.graphics.getHeight() / 160.0f * y_raster;
+	}
+	
+	/***
+	 * Creates a color as skin for the new Image function
+	 * @param value	The value of the stat which the color should represent
+	 * @return		The skin which contains the color as attribute "color"
+	 */
+	public static Skin getAttentionColor(float value)
+	{
+		Skin to_ret = new Skin();
+		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.rgba8888(1 - (value / 100.0f), (value / 100.0f), 0, 1));
+		pixmap.fill();
+		to_ret.add("color", new Texture(pixmap));
+		return to_ret;
 	}
 }

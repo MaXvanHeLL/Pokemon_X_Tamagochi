@@ -118,27 +118,39 @@ public abstract class KitchenMonster extends Monster{
 	 */
 	private void doSomething()
 	{
-		busy_ = true;
+		
 		int percent = Math.abs(r_generator_.nextInt(100));
 		if(percent < 20)
 		{
 			// Code for choosing random animation
 			int index = Math.abs(r_generator_.nextInt(idle_animations_.size()));
 			playAnimation(idle_animations_.get(index), 1);
-			busy_time_ = stop_time_;
 		}
 		else
 		{
+			busy_ = true;
 			busy_time_ += 1;
 		}
 	}
 	
 	private void playAnimation(Animation to_play, float length)
 	{
+		busy_ = true;
 		animated_ = true;
 		current_animation_ = to_play;
 		animation_time_ = 0;
 		stop_time_ = state_time_ + length;
+		busy_time_ = stop_time_;
+	}
+	
+	public void eatSomething()
+	{
+		playAnimation(eat_animation_, 1);
+	}
+	
+	public void pleaseNoMoreFood()
+	{
+		playAnimation(nooo_animation_, 1);
 	}
 	
 	@Override

@@ -163,7 +163,7 @@ public class ReuGame extends ApplicationAdapter
 		// Kitchen Stage
 		//--------------------------------------------------------------------------
 		skin_.add("Kitchen", new Texture(Gdx.files.internal("kitchen.png")));
-		skin_.add("kitchen_button", new Texture(Gdx.files.internal("badlogic.jpg")));
+		skin_.add("kitchen_button_up", new Texture(Gdx.files.internal("badlogic.jpg")));
 		skin_.add("kitchen_button_down", new Texture(Gdx.files.internal("door.png")));
 		//--------------------------------------------------------------------------
 		

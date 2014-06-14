@@ -145,7 +145,7 @@ public class SlidingStats extends Table{
 		// Add hungry stat view
 		hunger_ = new Table();
 		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		hunger_.setBackground(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"));
+		hunger_.setBackground(Utils.getAttentionColor(monster_stats_.getHunger()).getDrawable("color"));
 		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
@@ -157,7 +157,7 @@ public class SlidingStats extends Table{
 		// Add happiness stat view
 		happiness_ = new Table();
 		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		happiness_.setBackground(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"));
+		happiness_.setBackground(Utils.getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"));
 		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
@@ -169,7 +169,7 @@ public class SlidingStats extends Table{
 		// Add dirtyness stat view
 		dirtness_ = new Table();
 		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		dirtness_.setBackground(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"));
+		dirtness_.setBackground(Utils.getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"));
 		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
@@ -181,7 +181,7 @@ public class SlidingStats extends Table{
 		// Add tiredness stat view
 		tiredness_ = new Table();
 		tiredness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		tiredness_.setBackground(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"));
+		tiredness_.setBackground(Utils.getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"));
 		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 
 	}
@@ -250,9 +250,8 @@ public class SlidingStats extends Table{
 	 */
 	private void updateDataLabels()
 	{
-		// TODO: Get values from "stats"-class
 		name_data_ = new Label(monster_stats_.getName(), label_style_);
-		weight_data_ = new Label(Float.toString(monster_stats_.getWeight()) + " kg", label_style_);
+		weight_data_ = new Label(Float.toString(monster_stats_.getWeight()).substring(0, 5) + " kg", label_style_);
 		age_data_ = new Label(Integer.toString(monster_stats_.getAge())+ " days", label_style_);
 	}
 	
@@ -266,7 +265,7 @@ public class SlidingStats extends Table{
 		hunger_stack_.setHeight(Utils.GetPixelY(4f));
 		Table hunger_table = new Table();
 		hunger_table.setFillParent(true);
-		hunger_table.add(new Image(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHunger() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		hunger_table.add(new Image(Utils.getAttentionColor(monster_stats_.getHunger()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHunger() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		hunger_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHunger() / 100.f)));
 		hunger_stack_.add(hunger_table);
 		hunger_stack_.add(new Image(skin_.getDrawable("BarFrame")));
@@ -282,7 +281,7 @@ public class SlidingStats extends Table{
 		happy_stack_.setHeight(Utils.GetPixelY(4f));
 		Table happy_table = new Table();
 		happy_table.setFillParent(true);
-		happy_table.add(new Image(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHappiness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		happy_table.add(new Image(Utils.getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHappiness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		happy_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHappiness() / 100.f)));
 		happy_stack_.add(happy_table);
 		happy_stack_.add(new Image(skin_.getDrawable("BarFrame")));
@@ -298,7 +297,7 @@ public class SlidingStats extends Table{
 		tired_stack_.setHeight(Utils.GetPixelY(4f));
 		Table tired_table = new Table();
 		tired_table.setFillParent(true);
-		tired_table.add(new Image(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getTiredness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		tired_table.add(new Image(Utils.getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getTiredness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		tired_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getTiredness() / 100.f)));
 		tired_stack_.add(tired_table);
 		tired_stack_.add(new Image(skin_.getDrawable("BarFrame")));
@@ -314,7 +313,7 @@ public class SlidingStats extends Table{
 		dirty_stack_.setHeight(Utils.GetPixelY(4f));
 		Table dirty_table = new Table();
 		dirty_table.setFillParent(true);
-		dirty_table.add(new Image(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getDirtness() / 100.f)).height(Utils.GetPixelY(4f)).left();
+		dirty_table.add(new Image(Utils.getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getDirtness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		dirty_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getDirtness() / 100.f)));
 		dirty_stack_.add(dirty_table);
 		dirty_stack_.add(new Image(skin_.getDrawable("BarFrame")));
@@ -337,21 +336,6 @@ public class SlidingStats extends Table{
 			add(window_);
 			add().width(Utils.GetPixelX(11.0625f)).pad(0);
 		}
-	}
-	
-	/***
-	 * Creates a color as skin for the new Image function
-	 * @param value	The value of the stat which the color should represent
-	 * @return		The skin which contains the color as attribute "color"
-	 */
-	private Skin getAttentionColor(float value)
-	{
-		Skin to_ret = new Skin();
-		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
-		pixmap.setColor(Color.rgba8888(1 - (value / 100.0f), (value / 100.0f), 0, 1));
-		pixmap.fill();
-		to_ret.add("color", new Texture(pixmap));
-		return to_ret;
 	}
 	
 	/***
