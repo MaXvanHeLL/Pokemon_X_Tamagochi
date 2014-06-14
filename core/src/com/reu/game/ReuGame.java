@@ -161,11 +161,19 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("MainRoom", new Texture(Gdx.files.internal("house.png")));
 		
 		// Kitchen Stage
+		//--------------------------------------------------------------------------
 		skin_.add("Kitchen", new Texture(Gdx.files.internal("kitchen.png")));
 		skin_.add("kitchen_button", new Texture(Gdx.files.internal("badlogic.jpg")));
 		skin_.add("kitchen_button_down", new Texture(Gdx.files.internal("door.png")));
-
-		// Test Skins
+		//--------------------------------------------------------------------------
+		
+		skin_.add("FoodAppleUp", new Texture(Gdx.files.internal("food_apple_normal.png")));
+		skin_.add("FoodAppleDown", new Texture(Gdx.files.internal("food_apple_active.png")));
+		skin_.add("FoodCarrotUp", new Texture(Gdx.files.internal("food_carrot_normal.png")));
+		skin_.add("FoodCarrotDown", new Texture(Gdx.files.internal("food_carrot_active.png")));
+		skin_.add("FoodPizzaUp", new Texture(Gdx.files.internal("food_pizza_normal.png")));
+		skin_.add("FoodPizzaDown", new Texture(Gdx.files.internal("food_pizza_active.png")));
+		
 		
 		
 		// Ribon Skins
