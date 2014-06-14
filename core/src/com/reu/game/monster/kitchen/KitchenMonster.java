@@ -16,9 +16,9 @@ public abstract class KitchenMonster extends Monster{
 	protected List<Animation> idle_animations_;		// The idle animation
 	protected Animation		  eat_animation_;		// The eat animation
 	protected Animation		  nooo_animation_;		// The animation if the monster wants no more
+	protected Animation		  current_animation_;
 	protected TextureRegion   current_frame_;	    // The current frame of the monster
 	protected TextureRegion	  standartd_monster_;	// The standard texture;
-	protected Animation		  current_animation_;	// The running animation
 	
 	protected float 		state_time_;	// The passed time since the creation of the monster
 	protected float 		stop_time_;		// The time when the running animation should stop
@@ -35,13 +35,11 @@ public abstract class KitchenMonster extends Monster{
 	    r_generator_  = new Random();
 	    
 	    idle_animations_ = new ArrayList<Animation>();
-	    
-	    
+	   
 		setWidth(Utils.GetPixelX(50));
 		setHeight(Utils.GetPixelY(50));
-		setX(Utils.GetPixelX(45 - 25));
-		setY(Utils.GetPixelY(60 - 25));
-
+		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
+		setPosition(Utils.GetPixelX(45 - 25), Utils.GetPixelY(60 - 25));
 	}
 	
 	/***
@@ -113,12 +111,14 @@ public abstract class KitchenMonster extends Monster{
 		animated_ = false;
 	}
 	
-	public void doSomething()
+	/***
+	 * Performs a random activity
+	 */
+	private void doSomething()
 	{
 		busy_ = true;
-		int index = Math.abs(r_generator_.nextInt(idle_animations_.size()));
-		current_animation_ = eat_animation_;//idle_animations_.get(index);
 		animated_ = true;
+		current_animation_ = eat_animation_;
 		stop_time_ = state_time_ + 1;
 		busy_time_ = stop_time_;
 	}
@@ -139,7 +139,7 @@ public abstract class KitchenMonster extends Monster{
 		}
 		else
 		{
-			current_frame_ = standartd_monster_;
+			current_frame_ = standartd_monster_;;
 		}
 		
 		// Do random things while nothing happens
@@ -155,9 +155,9 @@ public abstract class KitchenMonster extends Monster{
 			doSomething();
 		}
 
-
 	    batch.draw(current_frame_, getX(), getY(), getOriginX(), getOriginY(),
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
-	}
+	} 
+
 }
