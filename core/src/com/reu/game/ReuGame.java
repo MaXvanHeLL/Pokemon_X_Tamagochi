@@ -123,8 +123,15 @@ public class ReuGame extends ApplicationAdapter
 	{
 		// A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
 		// recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
-		skin_ = new Skin();
+		skin_ = new Skin();		
+	
+		//---------------------------------------------------------------------
+		// Productive code starts here, code above is just for example
 		
+		// This is the first line of code which we actually use! It defines our
+		// house image as Texture which we can use as background later!
+		
+		// General purpose skins
 		// Generate a 1x1 white texture and store it in the skin named "white".
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
@@ -141,34 +148,17 @@ public class ReuGame extends ApplicationAdapter
 		pixmap.fill();
 		skin_.add("green", new Texture(pixmap));
 		
-		// Store the default libgdx font under the name "default".
-		skin_.add("default", new BitmapFont());
-		
-		// Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin_.newDrawable("white", Color.DARK_GRAY);
-		textButtonStyle.down = skin_.newDrawable("white", Color.DARK_GRAY);
-		textButtonStyle.checked = skin_.newDrawable("white", Color.BLUE);
-		textButtonStyle.over = skin_.newDrawable("white", Color.LIGHT_GRAY);
-		textButtonStyle.font = skin_.getFont("default");
-		skin_.add("default", textButtonStyle);
-		
-		//---------------------------------------------------------------------
-		// Productive code starts here, code above is just for example
-		
-		// This is the first line of code which we actually use! It defines our
-		// house image as Texture which we can use as background later!
+		// Debugbutton skin
+		//--------------------------------------------------------------------------
+		skin_.add("DebugButtonUp", new Texture(Gdx.files.internal("badlogic.jpg")));
+		skin_.add("DebugButtonDown", new Texture(Gdx.files.internal("door.png")));
+		//--------------------------------------------------------------------------
 		
 		// MainRoom Stage
 		skin_.add("MainRoom", new Texture(Gdx.files.internal("house.png")));
 		
 		// Kitchen Stage
-		//--------------------------------------------------------------------------
 		skin_.add("Kitchen", new Texture(Gdx.files.internal("kitchen.png")));
-		skin_.add("kitchen_button_up", new Texture(Gdx.files.internal("badlogic.jpg")));
-		skin_.add("kitchen_button_down", new Texture(Gdx.files.internal("door.png")));
-		//--------------------------------------------------------------------------
-		
 		skin_.add("FoodAppleUp", new Texture(Gdx.files.internal("food_apple_normal.png")));
 		skin_.add("FoodAppleDown", new Texture(Gdx.files.internal("food_apple_active.png")));
 		skin_.add("FoodCarrotUp", new Texture(Gdx.files.internal("food_carrot_normal.png")));
@@ -176,7 +166,8 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("FoodPizzaUp", new Texture(Gdx.files.internal("food_pizza_normal.png")));
 		skin_.add("FoodPizzaDown", new Texture(Gdx.files.internal("food_pizza_active.png")));
 		
-		
+		// Bathroom Stage
+		skin_.add("Bathroom", new Texture(Gdx.files.internal("bath.png")));
 		
 		// Ribon Skins
 		skin_.add("RibbonTop", new Texture(Gdx.files.internal("ribbon_top.png")));

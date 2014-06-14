@@ -99,8 +99,8 @@ public class Kitchen extends ReuGameStage{
 		stack_table_.row();
 		
 		ImageButtonStyle test_style = new ImageButtonStyle();
-		test_style.up = parent_.getSkin().getDrawable("kitchen_button_up");
-		test_style.down = parent_.getSkin().getDrawable("kitchen_button_down");
+		test_style.up = parent_.getSkin().getDrawable("DebugButtonUp");
+		test_style.down = parent_.getSkin().getDrawable("DebugButtonDown");
 		ImageButton test_button = new ImageButton(test_style);
 				
 		test_button.addListener( new ClickListener() 

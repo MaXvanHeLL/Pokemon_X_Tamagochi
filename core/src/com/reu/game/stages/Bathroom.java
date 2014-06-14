@@ -19,9 +19,11 @@ public class Bathroom extends ReuGameStage{
 		this.parent_ = parent;
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
-		table_.setBackground(parent.getSkin().getDrawable("Kitchen"));
+		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
 		table_.setFillParent(true);
 		table_.align(Align.top | Align.center);
+		
+		addActor(table_);
 		
 		// -- important for catching the Back Button to avoid program Exit !!
 		Gdx.input.setCatchBackKey(true);	
