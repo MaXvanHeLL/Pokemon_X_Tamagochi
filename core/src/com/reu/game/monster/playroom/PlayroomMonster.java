@@ -1,4 +1,4 @@
-package com.reu.game.monster.bathroom;
+package com.reu.game.monster.playroom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.reu.game.monster.Monster;
 import com.reu.game.utils.Utils;
 
-public class BathroomMonster extends Monster{
+public class PlayroomMonster extends Monster{
 	protected List<Animation> idle_animations_;		// The idle animation
-	protected Animation		  bath_animation_;		// The eat animation
+	protected List<Animation> play_animations_;		// The eat animation
+	protected Animation		  nooo_animation_;		// The animation if the monster wants no more
 	protected Animation		  current_animation_;
 	protected TextureRegion   current_frame_;	    // The current frame of the monster
 	protected TextureRegion	  standartd_monster_;	// The standard texture;
@@ -26,9 +27,8 @@ public class BathroomMonster extends Monster{
 	protected boolean 		animated_;		// Is the monster currently animated?
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
-	protected boolean		bathing_;
 	
-	BathroomMonster()
+	PlayroomMonster()
 	{
 		// Initialize values
 	    state_time_   		= 0f;
@@ -37,13 +37,59 @@ public class BathroomMonster extends Monster{
 	    r_generator_  		= new Random();
 	    
 	    idle_animations_ = new ArrayList<Animation>();
+	    play_animations_ = new ArrayList<Animation>();
 	   
 		setWidth(Utils.GetPixelX(60));
 		setHeight(Utils.GetPixelY(60));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
 		setPosition(Utils.GetPixelX(45 - 30), Utils.GetPixelY(60 - 30));
-		
-		bathing_ = false;
+	}
+	
+	/***
+	 * Loads an idle animation of the monster! This MUST be called before you
+	 * use the monster. Else your program will ultimately fail.
+	 * 
+	 * @param frame_cols Number of columns in the Walk Sheet
+	 * @param frame_rows Number of rows in the Walk Sheet
+	 * @param idle_sheet_path The path to the Idle Sheet Texture
+	 * @param duraction The duration of your idle animation
+	 */
+	protected void LoadPlayAnimation(int frame_cols, int frame_rows, String play_sheet_path, float duration)
+	{
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		System.out.println("test0");
+		// Create the single frames of the animation
+		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(play_sheet_path)));
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		System.out.println("test");
+		// Create the animation itself and save it to the member
+		play_animations_.add(new Animation(duration / walk_frames.length, walk_frames));
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
+		System.out.println("test2");
 	}
 	
 	/***
@@ -64,20 +110,20 @@ public class BathroomMonster extends Monster{
 	}
 	
 	/***
-	 * Loads an bath animation of the monster! This MUST be called before you
+	 * Loads an nooo animation of the monster! This MUST be called before you
 	 * use the monster. Else your program will ultimately fail.
 	 * 
 	 * @param frame_cols Number of columns in the Walk Sheet
 	 * @param frame_rows Number of rows in the Walk Sheet
-	 * @param bath_sheet_path The path to the Eat Sheet Texture
+	 * @param nooo_sheet_path The path to the Nooo Sheet Texture
 	 * @param duraction The duration of your idle animation
 	 */
-	protected void LoadBathAnimation(int frame_cols, int frame_rows, String bath_sheet_path, float duration)
+	protected void LoadNoooAnimation(int frame_cols, int frame_rows, String nooo_sheet_path, float duration)
 	{
 		// Create the single frames of the animation
-		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(bath_sheet_path)));
+		TextureRegion[] walk_frames = LoadAnimation(frame_cols, frame_rows, new Texture(Gdx.files.internal(nooo_sheet_path)));
 		// Create the animation itself and save it to the member
-		bath_animation_ = new Animation(duration / walk_frames.length, walk_frames);
+		nooo_animation_ = new Animation(duration / walk_frames.length, walk_frames);
 	}
 	
 	/***
@@ -127,22 +173,9 @@ public class BathroomMonster extends Monster{
 		busy_time_ = stop_time_;
 	}
 	
-	public void takeBath()
+	public void playSomething()
 	{
-		bathing_ = true;
-		playAnimation(bath_animation_, 500);
-	}
-	
-	public void stopBath()
-	{
-		bathing_ = false;
-		stop_time_ = state_time_;
-		busy_time_ = state_time_;
-	}
-	
-	public boolean isBathing()
-	{
-		return bathing_;
+		//TODO: Play a random play animation
 	}
 	
 	@Override

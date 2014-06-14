@@ -63,24 +63,19 @@ public class MainRoom extends ReuGameStage{
 				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
-					// you really wana have that in PostAct()? gets called everytime in render()?!
-					System.out.println("Would enter kitchen!");
 					temp.GoToRoom(RoomType.KITCHEN);
 				}
 				if(Utils.MonsterInRectangle(bathroom_area_, x, y))
 				{
 					temp.GoToRoom(RoomType.BATHROOM);
-					System.out.println("Would enter bathroom!");
 				}
 				if(Utils.MonsterInRectangle(playroom_area_, x, y))
 				{
 					temp.GoToRoom(RoomType.PLAYROOM);
-					System.out.println("Would enter playroom!");
 				}
 				if(Utils.MonsterInRectangle(bedroom_area_, x, y))
 				{
 					temp.GoToRoom(RoomType.BEDROOM);
-					System.out.println("Would enter bedroom!");
 				}
 				//temp.MoveTo(x, y);
 				return true;
@@ -116,6 +111,11 @@ public class MainRoom extends ReuGameStage{
 		if(Utils.MonsterInRectangle(bathroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			parent_.SetCurrentStage(RoomType.BATHROOM);
+			ResetRoom();
+		}
+		if(Utils.MonsterInRectangle(playroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
+		{
+			parent_.SetCurrentStage(RoomType.PLAYROOM);
 			ResetRoom();
 		}
 	}

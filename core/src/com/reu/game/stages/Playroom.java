@@ -13,21 +13,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.MonsterFactory;
-import com.reu.game.monster.bathroom.BathroomMonster;
+import com.reu.game.monster.playroom.PlayroomMonster;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
-public class Bathroom extends ReuGameStage{
+public class Playroom extends ReuGameStage{
 	
-	public static RoomType type_ = RoomType.BATHROOM;
+	public static RoomType type_ = RoomType.PLAYROOM;
 	
 	private Table table_;
 	private Table stack_table_;
 	private Stack bar_stack_;
-	private BathroomMonster monster_;
-	private float feeding_started_;
+	private PlayroomMonster monster_;
 
-	public Bathroom(ReuGame parent) 
+	public Playroom(ReuGame parent) 
 	{
 		super(parent);
 		this.parent_ = parent;
@@ -44,7 +43,7 @@ public class Bathroom extends ReuGameStage{
 		addActor(table_);
 		
 		// Create monster
-		monster_ = (BathroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
+		monster_ = (PlayroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
 		
 		// Add a input listener
@@ -54,9 +53,7 @@ public class Bathroom extends ReuGameStage{
 			{				
 				if(monster_.isClicked(x, y))
 				{
-					monster_.takeBath();
-					feeding_started_ = ReuGame.getSystemTime();
-					System.out.println("Is klicked");
+					//TODO: Add right functionality here
 				}
 				return true;
 			}
@@ -89,8 +86,8 @@ public class Bathroom extends ReuGameStage{
 		bar_stack_.add(new Image(parent_.getSkin().getDrawable("red")));
 		Table bar_table = new Table();
 		bar_table.setFillParent(true);
-		bar_table.add(new Image(parent_.getSkin().getDrawable("green"))).width(Utils.GetPixelX(60 * parent_.getNusselts_stats_().getDirtness() / 100.f)).height(Utils.GetPixelY(5f)).left();
-		bar_table.add().width(Utils.GetPixelX(60 * (1 - parent_.getNusselts_stats_().getDirtness() / 100.f)));
+		bar_table.add(new Image(parent_.getSkin().getDrawable("green"))).width(Utils.GetPixelX(60 * parent_.getNusselts_stats_().getHappiness() / 100.f)).height(Utils.GetPixelY(5f)).left();
+		bar_table.add().width(Utils.GetPixelX(60 * (1 - parent_.getNusselts_stats_().getHappiness() / 100.f)));
 		bar_stack_.add(bar_table);
 		bar_stack_.add(new Image(parent_.getSkin().getDrawable("BarFrame")));
 		
@@ -101,7 +98,7 @@ public class Bathroom extends ReuGameStage{
 		
 		
 		//-------------------------------------------------------------------------------------------------------------------------
-		// Test button which resets dirtness to 0
+		// Test button which resets happiness to 0
 				
 		stack_table_.row();
 		
@@ -133,7 +130,6 @@ public class Bathroom extends ReuGameStage{
 	{
 		if(keycode == Keys.BACK)
 		{
-			monster_.stopBath();
 			this.parent_.SetCurrentStage(RoomType.MAINROOM);
 			return true;
 	    }
@@ -142,29 +138,5 @@ public class Bathroom extends ReuGameStage{
 	
 	@Override
 	public void PostAct(){
-		if(monster_.isBathing())
-		{
-			if(parent_.getNusselts_stats_().getDirtness() < 100)
-			{
-				System.out.println("Test");
-				if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
-				{
-					feeding_started_ = ReuGame.getSystemTime();
-					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 1);
-					if(parent_.getNusselts_stats_().getDirtness() > 100)
-					{
-						parent_.getNusselts_stats_().setDirtness(100);
-					}
-					createStackTable();
-					buildTable();
-				}
-			}
-			else
-			{
-				monster_.stopBath();
-				createStackTable();
-				buildTable();
-			}
-		}
 	}
 }

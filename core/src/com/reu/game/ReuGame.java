@@ -12,11 +12,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.reu.game.monster.Stats;
 import com.reu.game.stages.Bathroom;
 import com.reu.game.stages.Kitchen;
 import com.reu.game.stages.MainRoom;
+import com.reu.game.stages.Playroom;
 import com.reu.game.stages.ReuGameStage;
 import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
@@ -27,6 +29,7 @@ public class ReuGame extends ApplicationAdapter
 	
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
+	private static Map<String, Animation> animations_ = new HashMap<String, Animation>();// Includes all stages
 	
 	private Stats nusselts_stats_;
 	private Preferences prefs;
@@ -47,7 +50,9 @@ public class ReuGame extends ApplicationAdapter
 	{
 		// Create the skins for our game!
 		CreateSkins();
+		LoadAnimations();
 		system_time_ = 0;
+		
 		// -- loading Nusselts Stats from Phone_Memory
 		// ----------------------------------------------
 		setPrefs(Gdx.app.getPreferences("Nusselts Preferences"));
@@ -70,7 +75,7 @@ public class ReuGame extends ApplicationAdapter
 		stages_.put(RoomType.MAINROOM, new MainRoom(this));
 		stages_.put(RoomType.KITCHEN, new Kitchen(this));
 		stages_.put(RoomType.BATHROOM, new Bathroom(this));
-		
+		stages_.put(RoomType.PLAYROOM, new Playroom(this));
 		
 		// Set the stage to the Mainroom on start up
 		SetCurrentStage(RoomType.MAINROOM);
@@ -112,6 +117,12 @@ public class ReuGame extends ApplicationAdapter
 	public void SetCurrentGameMode(GameMode game_mode)
 	{
 		this.current_mode_ = game_mode;
+	}
+	
+	
+	private LoadAnimations()
+	{
+		
 	}
 	
 	/***
@@ -166,6 +177,9 @@ public class ReuGame extends ApplicationAdapter
 		
 		// Bathroom Stage
 		skin_.add("Bathroom", new Texture(Gdx.files.internal("bath.png")));
+		
+		// Playroom Stage
+		skin_.add("Playroom", new Texture(Gdx.files.internal("kitchen.png"))); //TODO: Change for right image
 		
 		// Ribon Skins
 		skin_.add("RibbonTop", new Texture(Gdx.files.internal("ribbon_top.png")));
