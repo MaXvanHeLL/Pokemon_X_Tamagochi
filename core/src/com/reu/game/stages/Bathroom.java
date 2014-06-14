@@ -3,6 +3,7 @@ package com.reu.game.stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
+import com.reu.game.monster.bathroom.BathroomMonster;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
@@ -23,7 +25,8 @@ public class Bathroom extends ReuGameStage{
 	private Table table_;
 	private Table stack_table_;
 	private Stack bar_stack_;
-	private Monster monster_;
+	private BathroomMonster monster_;
+	private float feeding_started_;
 
 	public Bathroom(ReuGame parent) 
 	{
@@ -42,8 +45,23 @@ public class Bathroom extends ReuGameStage{
 		addActor(table_);
 		
 		// Create monster
-		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
+		monster_ = (BathroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
+		
+		// Add a input listener
+		addListener(new InputListener()
+		{
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
+			{				
+				if(monster_.isClicked(x, y))
+				{
+					monster_.takeBath();
+					feeding_started_ = ReuGame.getSystemTime();
+					System.out.println("Is klicked");
+				}
+				return true;
+			}
+		});
 		
 		// -- important for catching the Back Button to avoid program Exit !!
 		Gdx.input.setCatchBackKey(true);	
@@ -116,9 +134,38 @@ public class Bathroom extends ReuGameStage{
 	{
 		if(keycode == Keys.BACK)
 		{
+			monster_.stopBath();
 			this.parent_.SetCurrentStage(RoomType.MAINROOM);
 			return true;
 	    }
 	    return false;
+	}
+	
+	@Override
+	public void PostAct(){
+		if(monster_.isBathing())
+		{
+			if(parent_.getNusselts_stats_().getDirtness() < 100)
+			{
+				System.out.println("Test");
+				if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
+				{
+					feeding_started_ = ReuGame.getSystemTime();
+					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 1);
+					if(parent_.getNusselts_stats_().getDirtness() > 100)
+					{
+						parent_.getNusselts_stats_().setDirtness(100);
+					}
+					createStackTable();
+					buildTable();
+				}
+			}
+			else
+			{
+				monster_.stopBath();
+				createStackTable();
+				buildTable();
+			}
+		}
 	}
 }

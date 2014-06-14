@@ -26,6 +26,7 @@ public class BathroomMonster  extends Monster{
 	protected boolean 		animated_;		// Is the monster currently animated?
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
+	protected boolean		bathing_;
 	
 	BathroomMonster()
 	{
@@ -37,10 +38,12 @@ public class BathroomMonster  extends Monster{
 	    
 	    idle_animations_ = new ArrayList<Animation>();
 	   
-		setWidth(Utils.GetPixelX(50));
-		setHeight(Utils.GetPixelY(50));
+		setWidth(Utils.GetPixelX(60));
+		setHeight(Utils.GetPixelY(60));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
-		setPosition(Utils.GetPixelX(45 - 25), Utils.GetPixelY(60 - 25));
+		setPosition(Utils.GetPixelX(45 - 30), Utils.GetPixelY(60 - 30));
+		
+		bathing_ = false;
 	}
 	
 	/***
@@ -126,7 +129,20 @@ public class BathroomMonster  extends Monster{
 	
 	public void takeBath()
 	{
-		playAnimation(bath_animation_, 1);
+		bathing_ = true;
+		playAnimation(bath_animation_, 500);
+	}
+	
+	public void stopBath()
+	{
+		bathing_ = false;
+		stop_time_ = state_time_;
+		busy_time_ = state_time_;
+	}
+	
+	public boolean isBathing()
+	{
+		return bathing_;
 	}
 	
 	@Override

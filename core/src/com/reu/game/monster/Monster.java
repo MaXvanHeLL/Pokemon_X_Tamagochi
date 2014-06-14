@@ -22,6 +22,18 @@ public abstract class Monster  extends Actor{
 		return getY() + (getOriginY() * getScaleY());
 	}
 	
+	public boolean isClicked(float x, float y)
+	{
+		if(x > (GetCenterX() - getWidth() / 2.0f) && x < (GetCenterX() + getWidth() / 2.0f))
+		{
+			if(y > (GetCenterY() - getHeight() / 2.0f) && y < (GetCenterY() + getHeight() / 2.0f))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/***
 	 * Loads the Textures of an animation.
 	 * 
