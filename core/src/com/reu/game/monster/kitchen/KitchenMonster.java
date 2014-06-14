@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.reu.game.monster.Monster;
 import com.reu.game.utils.Utils;
@@ -17,6 +18,7 @@ public abstract class KitchenMonster extends Monster{
 	protected Animation		  nooo_animation_;		// The animation if the monster wants no more
 	protected TextureRegion   current_frame_;	    // The current frame of the monster
 	protected TextureRegion	  standartd_monster_;	// The standard texture;
+	protected Animation		  current_animation_;	// The running animation
 	
 	protected float 		state_time_;	// The passed time since the creation of the monster
 	protected float 		stop_time_;		// The time when the running animation should stop
@@ -34,10 +36,12 @@ public abstract class KitchenMonster extends Monster{
 	    
 	    idle_animations_ = new ArrayList<Animation>();
 	    
-	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f);
-		setWidth(Utils.GetPixelX(20));
-		setHeight(Utils.GetPixelX(20));
-		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
+	    
+		setWidth(Utils.GetPixelX(50));
+		setHeight(Utils.GetPixelY(50));
+		setX(Utils.GetPixelX(45 - 25));
+		setY(Utils.GetPixelY(60 - 25));
+
 	}
 	
 	/***
@@ -107,5 +111,53 @@ public abstract class KitchenMonster extends Monster{
 		clearActions();
 		busy_ = false;
 		animated_ = false;
+	}
+	
+	public void doSomething()
+	{
+		busy_ = true;
+		int index = Math.abs(r_generator_.nextInt(idle_animations_.size()));
+		current_animation_ = eat_animation_;//idle_animations_.get(index);
+		animated_ = true;
+		stop_time_ = state_time_ + 1;
+		busy_time_ = stop_time_;
+	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha)
+	{
+		state_time_ += Gdx.graphics.getDeltaTime();
+		// Animation stuff
+		if(animated_)
+		{
+			current_frame_ = current_animation_.getKeyFrame(state_time_, true);
+			if(state_time_ > stop_time_)
+			{
+				animated_ = false;
+				busy_ = false;
+			}
+		}
+		else
+		{
+			current_frame_ = standartd_monster_;
+		}
+		
+		// Do random things while nothing happens
+		if(busy_)
+		{
+			if(state_time_ > busy_time_)
+			{
+				busy_ = false;
+			}
+		}
+		else
+		{
+			doSomething();
+		}
+
+
+	    batch.draw(current_frame_, getX(), getY(), getOriginX(), getOriginY(),
+	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+
 	}
 }
