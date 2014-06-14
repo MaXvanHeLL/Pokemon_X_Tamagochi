@@ -30,7 +30,7 @@ public abstract class MainroomMonster extends Monster{
 	
 	protected float 		state_time_;	// The passed time since the creation of the monster
 	protected float 		stop_time_;		// The time when the running animation should stop
-	protected float			busy_time_;	// The time when the monster isn't bussy anymore
+	protected float			busy_time_;		// The time when the monster isn't bussy anymore
 	protected boolean 		animated_;		// Is the monster currently animated?
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
