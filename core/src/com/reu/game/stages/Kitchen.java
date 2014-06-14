@@ -19,6 +19,7 @@ public class Kitchen extends ReuGameStage{
 	public static RoomType type_ = RoomType.KITCHEN;
 	private Table table_;
     private TextButton button_;
+    private TextButton button2_;
     private TextButtonStyle button_style_;
 	private Monster monster_;
 	
@@ -43,6 +44,13 @@ public class Kitchen extends ReuGameStage{
 		
 		
 		table_.add(button_);
+		
+		
+		
+		button2_ = new TextButton(" - --  - - CLICK ME !!!!!!", button_style_);
+		
+		table_.add(button2_);
+		
 	
 		addActor(table_);
 		
@@ -65,6 +73,17 @@ public class Kitchen extends ReuGameStage{
 		        {
 		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 1);
+		        }
+		    };
+		});
+		
+		button2_.addListener( new ClickListener() {             
+		    @Override
+		    public void clicked(InputEvent event, float x, float y) {
+		        if(parent_.getNusselts_stats_().getHunger() < 1000)
+		        {
+		        	System.out.println(parent_.getNusselts_stats_().getHunger());
+		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 1);
 		        }
 		    };
 		});

@@ -35,12 +35,14 @@ public class ReuGame extends ApplicationAdapter {
 	private RoomType current_room_;				// The room which is currently active
 	private Map<RoomType, ReuGameStage> stages_;// Includes all stages
 	private Skin skin_;							// The skin for our game
+	
+	private static float system_time_ = 0;
 
 	@Override
 	public void create () {
 		// Create the skins for our game!
 		CreateSkins();
-		
+		system_time_ = 0;
 		// -- loading Nusselts Stats from Phone_Memory
 		// ----------------------------------------------
 		setPrefs(Gdx.app.getPreferences("Nusselts Preferences"));
@@ -172,6 +174,7 @@ public class ReuGame extends ApplicationAdapter {
 	
 	@Override
 	public void render () {
+		system_time_ += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stages_.get(getCurrent_room_()).act(Gdx.graphics.getDeltaTime());
@@ -181,6 +184,11 @@ public class ReuGame extends ApplicationAdapter {
 	
 
 
+	public static float getSystemTime()
+	{
+		return system_time_;
+	}
+	
 	public RoomType getCurrent_room_() {
 		return current_room_;
 	}

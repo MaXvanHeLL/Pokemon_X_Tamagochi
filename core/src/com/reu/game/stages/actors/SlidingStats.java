@@ -1,5 +1,6 @@
 package com.reu.game.stages.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -16,10 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.reu.game.ReuGame;
 import com.reu.game.monster.Stats;
 import com.reu.game.utils.Utils;
 
 public class SlidingStats extends Table{
+	
+	private static float	update_intervall_ = 2;
+	
 	private Table			stats_;
 	private Table 			window_;
 	private Table 			ribbon_;
@@ -28,9 +33,20 @@ public class SlidingStats extends Table{
 	private Table 			happiness_;
 	private Table			dirtness_;
 	private Skin			skin_;
+	private Label			name_data_;
+	private Label			weight_data_;
+	private Label			age_data_;
+	private LabelStyle 		label_style_;
+	private Stack			hunger_stack_;
+	private Stack			happy_stack_;
+	private Stack			dirty_stack_;
+	private Stack			tired_stack_;
+
 	
 	private Stats			monster_stats_;
+	private Stats			temp_save_;
 	
+	private float			next_update_time_;
 	
 	private boolean			opened_;
 
@@ -38,14 +54,21 @@ public class SlidingStats extends Table{
 	{
 		opened_ = false;
 		skin_ = skin;
+		next_update_time_ = ReuGame.getSystemTime() + update_intervall_;
 		
 		monster_stats_ = stats;
+		temp_save_ = new Stats(monster_stats_);
 		
 		// Init Table
 		align(Align.bottom | Align.center);
 		setFillParent(true);
 		
-		updateStats(monster_stats_);
+		// Build parts
+		buildRibbon();
+		buildWindow();
+						
+		// Create Table
+		buildTable(opened_);
 	}
 	
 	private void buildRibbon()
@@ -54,19 +77,10 @@ public class SlidingStats extends Table{
 		ribbon_ = new Table();
 		ribbon_.align(Align.top | Align.center);
 		ribbon_.setBackground(skin_.getDrawable("RibbonTop"));
-
-		// Add hungry stat view
-		hunger_ = new Table();
-		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		hunger_.setBackground(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"));
-		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
-		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));
 		
-		// Add happiness stat view
-		happiness_ = new Table();
-		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		happiness_.setBackground(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"));
-		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
+		buildRibbonHungryStats();
+		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));
+		buildRibbonHappyStats();
 		ribbon_.add(happiness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
 			
 		// Add button
@@ -92,20 +106,51 @@ public class SlidingStats extends Table{
 				
 		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f))).expandY().top().padTop(Utils.GetPixelY(1.2f));;
 		
+		buildRibbonTiredStats();
+		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
+		buildRibbonDirtyStats();
+		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
+		
+
+	}
+	
+	private void buildRibbonHungryStats()
+	{
+		// Add hungry stat view
+		hunger_ = new Table();
+		hunger_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
+		hunger_.setBackground(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"));
+		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
+	}
+	
+	private void buildRibbonHappyStats()
+	{
+		// Add happiness stat view
+		happiness_ = new Table();
+		happiness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
+		happiness_.setBackground(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"));
+		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
+	}
+	
+	private void buildRibbonDirtyStats()
+	{
+		// Add dirtyness stat view
+		dirtness_ = new Table();
+		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
+		dirtness_.setBackground(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"));
+		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
+	}
+	
+	private void buildRibbonTiredStats()
+	{
 		// Add tiredness stat view
 		tiredness_ = new Table();
 		tiredness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
 		tiredness_.setBackground(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"));
 		tiredness_.add(new Image(skin_.getDrawable("IconTired"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
-		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
-				
-		dirtness_ = new Table();
-		dirtness_.padTop(Utils.GetPixelX(0.0f)).padBottom(Utils.GetPixelX(0.0f));
-		dirtness_.setBackground(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"));
-		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
-		ribbon_.add(dirtness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(4.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
 
 	}
+
 	
 	private void buildWindow()
 	{
@@ -121,84 +166,106 @@ public class SlidingStats extends Table{
 		
 		BitmapFont font = new BitmapFont();
 		font.scale(0.8f);
-		LabelStyle label_style = new LabelStyle(font, Color.BLACK);
-
-		Label name = new Label("Name:", label_style);
-		Label nameData = new Label("NUSSELTS", label_style);
+		label_style_ = new LabelStyle(font, Color.BLACK);
+		
+		updateDataLabels();
+		
+		Label name = new Label("Name:", label_style_);
 		stats_.add(name).left();
-		stats_.add(nameData).left();
+		stats_.add(name_data_).left();
 		stats_.row();
-		Label weight = new Label("Weight:", label_style);
-		Label weightData = new Label("14 kg", label_style);
+		Label weight = new Label("Weight:", label_style_);
 		stats_.add(weight).left();
-		stats_.add(weightData).left();
+		stats_.add(weight_data_).left();
 		stats_.row();
-		Label age = new Label("Age:", label_style);
-		Label ageData = new Label("6 days", label_style);
+		Label age = new Label("Age:", label_style_);
 		stats_.add(age).left();
-		stats_.add(ageData).left();
+		stats_.add(age_data_).left();
 		stats_.row();
 		
 		window_.row().padTop(Utils.GetPixelY(4f));
 		
-		Label hunger = new Label("Hunger:", label_style);
+		// Add the labels and bars to the window
+		Label hunger = new Label("Hunger:", label_style_);
 		window_.add(hunger);
-		Stack hunger_stack = new Stack();
-		hunger_stack.setWidth(Utils.GetPixelX(37f));
-		hunger_stack.setHeight(Utils.GetPixelY(4f));
+		buildHungerStack();
+		window_.add(hunger_stack_).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		window_.row().padTop(Utils.GetPixelY(2f));
+		Label happy = new Label("Happy:", label_style_);
+		window_.add(happy);
+		buildHappyStack();
+		window_.add(happy_stack_).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		window_.row().padTop(Utils.GetPixelY(2f));
+		Label tired = new Label("Tired:", label_style_);
+		window_.add(tired);
+		buildTiredStack();
+		window_.add(tired_stack_).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		window_.row().padTop(Utils.GetPixelY(2f)).padBottom(Utils.GetPixelY(4f));
+		Label dirty = new Label("Dirty:", label_style_);
+		window_.add(dirty);
+		buildDirtyStack();
+		window_.add(dirty_stack_).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
+		
+	}
+	
+	private void updateDataLabels()
+	{
+		// TODO: Get values from "stats"-class
+		name_data_ = new Label("NUSSELTS", label_style_);
+		weight_data_ = new Label("14 kg", label_style_);
+		age_data_ = new Label("6 days", label_style_);
+	}
+	
+	private void buildHungerStack()
+	{
+		hunger_stack_ = new Stack();
+		hunger_stack_.setWidth(Utils.GetPixelX(37f));
+		hunger_stack_.setHeight(Utils.GetPixelY(4f));
 		Table hunger_table = new Table();
 		hunger_table.setFillParent(true);
 		hunger_table.add(new Image(getAttentionColor(monster_stats_.getHunger()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHunger() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		hunger_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHunger() / 100.f)));
-		hunger_stack.add(hunger_table);
-		hunger_stack.add(new Image(skin_.getDrawable("BarFrame")));
-		window_.add(hunger_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
-		
-		window_.row().padTop(Utils.GetPixelY(2f));
-		
-		Label happy = new Label("Happy:", label_style);
-		window_.add(happy);
-		Stack happy_stack = new Stack();
-		happy_stack.setWidth(Utils.GetPixelX(37f));
-		happy_stack.setHeight(Utils.GetPixelY(4f));
+		hunger_stack_.add(hunger_table);
+		hunger_stack_.add(new Image(skin_.getDrawable("BarFrame")));
+	}
+	
+	private void buildHappyStack()
+	{
+		happy_stack_ = new Stack();
+		happy_stack_.setWidth(Utils.GetPixelX(37f));
+		happy_stack_.setHeight(Utils.GetPixelY(4f));
 		Table happy_table = new Table();
 		happy_table.setFillParent(true);
 		happy_table.add(new Image(getAttentionColor(monster_stats_.getHappiness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getHappiness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		happy_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getHappiness() / 100.f)));
-		happy_stack.add(happy_table);
-		happy_stack.add(new Image(skin_.getDrawable("BarFrame")));
-		window_.add(happy_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
-		
-		window_.row().padTop(Utils.GetPixelY(2f));
-		
-		Label tired = new Label("Tired:", label_style);
-		window_.add(tired);
-		Stack tired_stack = new Stack();
-		tired_stack.setWidth(Utils.GetPixelX(37f));
-		tired_stack.setHeight(Utils.GetPixelY(4f));
+		happy_stack_.add(happy_table);
+		happy_stack_.add(new Image(skin_.getDrawable("BarFrame")));
+	}
+	
+	private void buildTiredStack()
+	{
+		tired_stack_ = new Stack();
+		tired_stack_.setWidth(Utils.GetPixelX(37f));
+		tired_stack_.setHeight(Utils.GetPixelY(4f));
 		Table tired_table = new Table();
 		tired_table.setFillParent(true);
 		tired_table.add(new Image(getAttentionColor(monster_stats_.getTiredness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getTiredness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		tired_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getTiredness() / 100.f)));
-		tired_stack.add(tired_table);
-		tired_stack.add(new Image(skin_.getDrawable("BarFrame")));
-		window_.add(tired_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
-		
-		window_.row().padTop(Utils.GetPixelY(2f)).padBottom(Utils.GetPixelY(4f));
-		
-		Label dirty = new Label("Dirty:", label_style);
-		window_.add(dirty);
-		Stack dirty_stack = new Stack();
-		dirty_stack.setWidth(Utils.GetPixelX(37f));
-		dirty_stack.setHeight(Utils.GetPixelY(4f));
+		tired_stack_.add(tired_table);
+		tired_stack_.add(new Image(skin_.getDrawable("BarFrame")));
+	}
+	
+	private void buildDirtyStack()
+	{
+		dirty_stack_ = new Stack();
+		dirty_stack_.setWidth(Utils.GetPixelX(37f));
+		dirty_stack_.setHeight(Utils.GetPixelY(4f));
 		Table dirty_table = new Table();
 		dirty_table.setFillParent(true);
 		dirty_table.add(new Image(getAttentionColor(monster_stats_.getDirtness()).getDrawable("color"))).width(Utils.GetPixelX(37 * monster_stats_.getDirtness() / 100.f)).height(Utils.GetPixelY(4f)).left();
 		dirty_table.add().width(Utils.GetPixelX(37 * (1 - monster_stats_.getDirtness() / 100.f)));
-		dirty_stack.add(dirty_table);
-		dirty_stack.add(new Image(skin_.getDrawable("BarFrame")));
-		window_.add(dirty_stack).colspan(2).width(Utils.GetPixelX(37f)).left().height(Utils.GetPixelY(4f));
-		
+		dirty_stack_.add(dirty_table);
+		dirty_stack_.add(new Image(skin_.getDrawable("BarFrame")));
 	}
 	
 	private void buildTable(boolean with_window)
@@ -228,12 +295,20 @@ public class SlidingStats extends Table{
 	
 	public void updateStats(Stats stats)
 	{
-		monster_stats_ = stats;
-		// Build parts
-		buildRibbon();
-		buildWindow();
-				
-		// Create Table
-		buildTable(opened_);
+		// This function needs a lot of cpu power, so we only use it
+		// everey X seconds
+		if(ReuGame.getSystemTime() > next_update_time_)
+		{
+			// And we only perform the new UI if the stats changed
+			if(!temp_save_.equals(monster_stats_))
+			{
+				monster_stats_ = stats;
+				buildRibbon();
+				buildWindow();
+				buildTable(opened_);
+				temp_save_ = new Stats(monster_stats_);
+				next_update_time_ += update_intervall_;
+			}
+		}
 	}
 }

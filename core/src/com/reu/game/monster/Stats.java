@@ -26,46 +26,73 @@ public class Stats {
 	public Stats() {
 		// TODO NOTHING HAHAHAHHAHA
 	}
+	
+	public Stats(Stats old)
+	{
+		this.happiness_ = old.happiness_;
+		this.hunger_ = old.hunger_;
+		this.tiredness_ = old.tiredness_;
+		this.dirtness_ = old.dirtness_;
+		
+		this.strength_ = old.strength_;
+		this.health_ = old.health_;
+		this.agility_ = old.agility_;
+	}
+	
+	@Override
+	public boolean equals(Object anObject)
+	{
+		if(anObject.getClass() == Stats.class)
+		{
+			Stats check = (Stats)anObject;
+			return this.happiness_ == check.happiness_ && this.hunger_ == check.hunger_ && this.tiredness_ == check.tiredness_ &&
+				this.dirtness_ == check.dirtness_ && this.strength_ == check.strength_ && this.health_ == check.health_ &&
+				this.agility_ == check.agility_;
+		}
+		else
+			return false;
+	}
 
-		// CARE_MODE Attributes
-		public float getHunger ()
-		{
-			return this.hunger_;
-		}
+	// CARE_MODE Attributes
+	public float getHunger ()
+	{
+		return this.hunger_;
+	}
+	
+	public void setHunger(float hunger)
+	{
+		this.hunger_ = hunger;
+	}
 		
-		public void setHunger(float hunger)
-		{
-			this.hunger_ = hunger;
-		}
+	public float getHappiness ()
+	{
+		return this.happiness_;
+	}
+	
+	public void setHappiness(float happiness)
+	{
+		this.happiness_ = happiness;
+	}
 		
-		public float getHappiness ()
-		{
-			return this.happiness_;
-		}
-		public void setHappiness(float happiness)
-		{
-			this.happiness_ = happiness;
-		}
+	public float getTiredness ()
+	{
+		return this.tiredness_;
+	}
 		
-		public float getTiredness ()
-		{
-			return this.tiredness_;
-		}
+	public void setTiredness(float tiredness)
+	{
+		this.tiredness_ = tiredness;
+	}
 		
-		public void setTiredness(float tiredness)
-		{
-			this.tiredness_ = tiredness;
-		}
+	public float getDirtness ()
+	{
+		return this.dirtness_;
+	}
 		
-		public float getDirtness ()
-		{
-			return this.dirtness_;
-		}
-		
-		// dirty little Nusselts! :D
-		public void setDirtness(float dirtness)
-		{
-			this.dirtness_ = dirtness;
-		}
+	// dirty little Nusselts! :D
+	public void setDirtness(float dirtness)
+	{
+		this.dirtness_ = dirtness;
+	}
 
 }
