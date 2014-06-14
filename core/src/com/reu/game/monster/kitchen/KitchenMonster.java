@@ -23,6 +23,7 @@ public abstract class KitchenMonster extends Monster{
 	protected float 		state_time_;	// The passed time since the creation of the monster
 	protected float 		stop_time_;		// The time when the running animation should stop
 	protected float			busy_time_;		// The time when the monster isn't bussy anymore
+	protected float			animation_time_;// Where in the animation is the frame?
 	protected boolean 		animated_;		// Is the monster currently animated?
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
@@ -30,9 +31,10 @@ public abstract class KitchenMonster extends Monster{
 	KitchenMonster()
 	{
 		// Initialize values
-	    state_time_   = 0f;
-	    animated_     = false;
-	    r_generator_  = new Random();
+	    state_time_   		= 0f;
+	    animation_time_ 	= 0f;
+	    animated_     		= false;
+	    r_generator_  		= new Random();
 	    
 	    idle_animations_ = new ArrayList<Animation>();
 	   
@@ -117,10 +119,17 @@ public abstract class KitchenMonster extends Monster{
 	private void doSomething()
 	{
 		busy_ = true;
-		animated_ = true;
-		current_animation_ = eat_animation_;
-		stop_time_ = state_time_ + 1;
+		// Code for choosing random animation has to go here!
+		playAnimation(eat_animation_, 1);
 		busy_time_ = stop_time_;
+	}
+	
+	private void playAnimation(Animation to_play, float length)
+	{
+		animated_ = true;
+		current_animation_ = to_play;
+		animation_time_ = 0;
+		stop_time_ = state_time_ + length;
 	}
 	
 	@Override
@@ -130,11 +139,13 @@ public abstract class KitchenMonster extends Monster{
 		// Animation stuff
 		if(animated_)
 		{
-			current_frame_ = current_animation_.getKeyFrame(state_time_, true);
+			animation_time_ += Gdx.graphics.getDeltaTime();
+			current_frame_ = current_animation_.getKeyFrame(animation_time_, true);
 			if(state_time_ > stop_time_)
 			{
 				animated_ = false;
 				busy_ = false;
+				animation_time_ = 0;
 			}
 		}
 		else
