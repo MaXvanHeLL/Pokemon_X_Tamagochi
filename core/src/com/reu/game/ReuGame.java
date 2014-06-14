@@ -1,5 +1,6 @@
 package com.reu.game;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,8 @@ import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
 import com.reu.game.types.GameMode;
 
-public class ReuGame extends ApplicationAdapter {
+public class ReuGame extends ApplicationAdapter 
+{
 	
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
@@ -30,16 +32,20 @@ public class ReuGame extends ApplicationAdapter {
 	private Stats nusselts_stats_;
 	private Preferences prefs;
 	
+	private static boolean sound_enabled_ = true;
+	private static float system_time_ = 0;
+	
 	@SuppressWarnings("unused")
 	private GameMode current_mode_;
 	private RoomType current_room_;				// The room which is currently active
 	private Map<RoomType, ReuGameStage> stages_;// Includes all stages
 	private Skin skin_;							// The skin for our game
 	
-	private static float system_time_ = 0;
+	
 
 	@Override
-	public void create () {
+	public void create () 
+	{
 		// Create the skins for our game!
 		CreateSkins();
 		system_time_ = 0;
@@ -52,6 +58,13 @@ public class ReuGame extends ApplicationAdapter {
 		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 100));	
 		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 100));	
 		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 100));
+		nusselts_stats_.setName(getPrefs().getString("name", "Nusselts"));
+		nusselts_stats_.setWeight(getPrefs().getFloat("weight", 10));
+		// Use the date as a long value
+		Calendar cal = Calendar.getInstance();
+		long prefs_day = getPrefs().getLong("creation", cal.getTimeInMillis());
+		cal.setTimeInMillis(prefs_day);
+		nusselts_stats_.setCreationDate(cal.getTimeInMillis());
 		
 		// Add all the stages to the stage map!
 		stages_ = new HashMap<RoomType, ReuGameStage>();
@@ -69,7 +82,8 @@ public class ReuGame extends ApplicationAdapter {
 	 * Returns the skin of the current game
 	 * @return The skin
 	 */
-	public Skin getSkin(){
+	public Skin getSkin()
+	{
 		return skin_;
 	}
 	
@@ -103,7 +117,8 @@ public class ReuGame extends ApplicationAdapter {
 	/***
 	 * Creates the game skin. Changes for the design should go here
 	 */
-	private void CreateSkins(){
+	private void CreateSkins()
+	{
 		// A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
 		// recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
 		skin_ = new Skin();
@@ -167,13 +182,15 @@ public class ReuGame extends ApplicationAdapter {
 	}
 
 	@Override
-	public void resize (int width, int height) {
+	public void resize(int width, int height) 
+	{
 	    // See below for what true means.
 	    stages_.get(getCurrent_room_()).getViewport().update(width, height, true);
 	}
 	
 	@Override
-	public void render () {
+	public void render () 
+	{
 		system_time_ += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -182,35 +199,60 @@ public class ReuGame extends ApplicationAdapter {
 		stages_.get(getCurrent_room_()).draw();
 	}
 	
+	public RoomType getCurrent_room_() 
+	{
+		return current_room_;
+	}
 
+	public void setCurrent_room_(RoomType current_room_) 
+	{
+		this.current_room_ = current_room_;
+	}
 
+	public Stats getNusselts_stats_() 
+	{
+		return nusselts_stats_;
+	}
+
+	public void setNusselts_stats_(Stats nusselts_stats_) 
+	{
+		this.nusselts_stats_ = nusselts_stats_;
+	}
+
+	public Preferences getPrefs() 
+	{
+		return prefs;
+	}
+
+	public void setPrefs(Preferences prefs) 
+	{
+		this.prefs = prefs;
+	}
+	
+	/***
+	 * Get the running time of the system
+	 * @return	The time passed since start
+	 */
 	public static float getSystemTime()
 	{
 		return system_time_;
 	}
 	
-	public RoomType getCurrent_room_() {
-		return current_room_;
-	}
-
-	public void setCurrent_room_(RoomType current_room_) {
-		this.current_room_ = current_room_;
-	}
-
-	public Stats getNusselts_stats_() {
-		return nusselts_stats_;
-	}
-
-	public void setNusselts_stats_(Stats nusselts_stats_) {
-		this.nusselts_stats_ = nusselts_stats_;
-	}
-
-	public Preferences getPrefs() {
-		return prefs;
-	}
-
-	public void setPrefs(Preferences prefs) {
-		this.prefs = prefs;
+	/***
+	 * Check if the sound is enabled
+	 * @return bool
+	 */
+	public static boolean isSoundEnabled()
+	{
+		return sound_enabled_;
 	}
 	
+	/***
+	 * Enable or disable the sound
+	 * @param enable
+	 */
+	public static void setSound(boolean enable)
+	{
+		sound_enabled_ = enable;
+	}
 }

@@ -94,6 +94,9 @@ public class MainRoom extends ReuGameStage{
 	    bedroom_area_ = new Rectangle(Gdx.graphics.getWidth()-Utils.GetPixelX(32.5f), Gdx.graphics.getHeight()-Utils.GetPixelY(75),Utils.GetPixelX(32.5f),Utils.GetPixelY(35));
 	}
 	
+	/***
+	 * Resets the room before leaving (or maybe entering?)
+	 */
 	public void ResetRoom()
 	{
 		monster_.Reset();
@@ -116,22 +119,23 @@ public class MainRoom extends ReuGameStage{
 		}*/
 	}
 	
-	  @Override
-	   public boolean keyDown(int keycode) {
-		  
-	 
-		  parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
-		  parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
-		  parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
-		  parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
+	@Override
+	public boolean keyDown(int keycode) 
+	{
+		parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
+		parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
+		parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
+		parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
+		parent_.getPrefs().putString("name", this.parent_.getNusselts_stats_().getName());
+		parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
+		parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
 
-		  // -- always flush after changing the Preferences to make effect on Memory
-		  parent_.getPrefs().flush();
+		// -- always flush after changing the Preferences to make effect on Memory
+		parent_.getPrefs().flush();
 				  
-		 // -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
-		 // all the fancy Memory flushing stuff which is done here :)
-		 System.exit(0);
-	     return false;
-	   }
-	 
+		// -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
+		// all the fancy Memory flushing stuff which is done here :)
+		System.exit(0);
+	    return false;
+	}
 }

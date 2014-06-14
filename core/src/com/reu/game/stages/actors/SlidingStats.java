@@ -251,9 +251,9 @@ public class SlidingStats extends Table{
 	private void updateDataLabels()
 	{
 		// TODO: Get values from "stats"-class
-		name_data_ = new Label("NUSSELTS", label_style_);
-		weight_data_ = new Label("14 kg", label_style_);
-		age_data_ = new Label("6 days", label_style_);
+		name_data_ = new Label(monster_stats_.getName(), label_style_);
+		weight_data_ = new Label(Float.toString(monster_stats_.getWeight()) + " kg", label_style_);
+		age_data_ = new Label(Integer.toString(monster_stats_.getAge())+ " days", label_style_);
 	}
 	
 	/***
