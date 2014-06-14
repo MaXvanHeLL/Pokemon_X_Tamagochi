@@ -119,9 +119,18 @@ public abstract class KitchenMonster extends Monster{
 	private void doSomething()
 	{
 		busy_ = true;
-		// Code for choosing random animation has to go here!
-		playAnimation(eat_animation_, 1);
-		busy_time_ = stop_time_;
+		int percent = Math.abs(r_generator_.nextInt(100));
+		if(percent < 20)
+		{
+			// Code for choosing random animation
+			int index = Math.abs(r_generator_.nextInt(idle_animations_.size()));
+			playAnimation(idle_animations_.get(index), 1);
+			busy_time_ = stop_time_;
+		}
+		else
+		{
+			busy_time_ += 1;
+		}
 	}
 	
 	private void playAnimation(Animation to_play, float length)
@@ -140,6 +149,10 @@ public abstract class KitchenMonster extends Monster{
 		if(animated_)
 		{
 			animation_time_ += Gdx.graphics.getDeltaTime();
+			if(state_time_ > stop_time_)
+			{
+				animation_time_ = (float)Math.ceil(animation_time_);
+			}
 			current_frame_ = current_animation_.getKeyFrame(animation_time_, true);
 			if(state_time_ > stop_time_)
 			{
