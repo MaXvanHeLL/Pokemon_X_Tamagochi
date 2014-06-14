@@ -1,6 +1,5 @@
 package com.reu.game.stages.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -21,10 +20,19 @@ import com.reu.game.ReuGame;
 import com.reu.game.monster.Stats;
 import com.reu.game.utils.Utils;
 
+
+/***
+ * The class for the sliding window in the mainroom.
+ * @author martin.skargeth
+ *
+ */
 public class SlidingStats extends Table{
 	
-	private static float	update_intervall_ = 2;
+	private static float	update_intervall_ = 2;		// Check for updates only in intervalls
 	
+	/*
+	 * Following members are the layout tables neted in this element
+	 */
 	private Table			stats_;
 	private Table 			window_;
 	private Table 			ribbon_;
@@ -32,24 +40,37 @@ public class SlidingStats extends Table{
 	private Table 			tiredness_;
 	private Table 			happiness_;
 	private Table			dirtness_;
-	private Skin			skin_;
+	
+	private Skin			skin_;						// Local skin for labels
+	private LabelStyle 		label_style_;				// Local label style
+	
+	/*
+	 * Used labels for the window
+	 */
 	private Label			name_data_;
 	private Label			weight_data_;
 	private Label			age_data_;
-	private LabelStyle 		label_style_;
+	
+	/*
+	 * Stacks are representing the colored bars
+	 */
 	private Stack			hunger_stack_;
 	private Stack			happy_stack_;
 	private Stack			dirty_stack_;
 	private Stack			tired_stack_;
 
+	private Stats			monster_stats_;				// Actual stats of the monster
+	private Stats			temp_save_;					// Last updateted stats
 	
-	private Stats			monster_stats_;
-	private Stats			temp_save_;
+	private float			next_update_time_;			// When should the next update be performed
 	
-	private float			next_update_time_;
-	
-	private boolean			opened_;
+	private boolean			opened_;					// Is the window openend or is the whole element in "ribbon mode"?
 
+	/***
+	 * Basic constructor of the slidingstats menue
+	 * @param skin	The skin to use (with textures)
+	 * @param stats	The monster stats to present
+	 */
 	public SlidingStats(Skin skin, Stats stats)
 	{
 		opened_ = false;
@@ -71,6 +92,9 @@ public class SlidingStats extends Table{
 		buildTable(opened_);
 	}
 	
+	/***
+	 * Builds the ribbon (upper part of the whole element)
+	 */
 	private void buildRibbon()
 	{
 		// Adjust the top of the ribbon
@@ -105,7 +129,6 @@ public class SlidingStats extends Table{
 			}};});
 				
 		ribbon_.add(button.padLeft(Utils.GetPixelX(2.0f)).padRight(Utils.GetPixelX(2.0f))).expandY().top().padTop(Utils.GetPixelY(1.2f));;
-		
 		buildRibbonTiredStats();
 		ribbon_.add(tiredness_).padLeft(Utils.GetPixelX(1.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));;
 		buildRibbonDirtyStats();
@@ -114,6 +137,9 @@ public class SlidingStats extends Table{
 
 	}
 	
+	/***
+	 * Builds the Hungry Icon for the ribbon
+	 */
 	private void buildRibbonHungryStats()
 	{
 		// Add hungry stat view
@@ -123,6 +149,9 @@ public class SlidingStats extends Table{
 		hunger_.add(new Image(skin_.getDrawable("IconHungry"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
+	/***
+	 * Builds the Happy Icon for the ribbon
+	 */
 	private void buildRibbonHappyStats()
 	{
 		// Add happiness stat view
@@ -132,6 +161,9 @@ public class SlidingStats extends Table{
 		happiness_.add(new Image(skin_.getDrawable("IconHappy"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
+	/***
+	 * Builds the Dirty Icon for the ribbon
+	 */
 	private void buildRibbonDirtyStats()
 	{
 		// Add dirtyness stat view
@@ -141,6 +173,9 @@ public class SlidingStats extends Table{
 		dirtness_.add(new Image(skin_.getDrawable("IconDirty"))).width(Utils.GetPixelX(10.0f)).height(Utils.GetPixelY(10.0f));
 	}
 	
+	/***
+	 * Builds the Tired Icon for the ribbon
+	 */
 	private void buildRibbonTiredStats()
 	{
 		// Add tiredness stat view
@@ -151,7 +186,9 @@ public class SlidingStats extends Table{
 
 	}
 
-	
+	/***
+	 * Builds the lower part of the element (only shown when opened)
+	 */
 	private void buildWindow()
 	{
 		window_ = new Table();
@@ -208,6 +245,9 @@ public class SlidingStats extends Table{
 		
 	}
 	
+	/***
+	 * Updates the texts in the window
+	 */
 	private void updateDataLabels()
 	{
 		// TODO: Get values from "stats"-class
@@ -216,6 +256,9 @@ public class SlidingStats extends Table{
 		age_data_ = new Label("6 days", label_style_);
 	}
 	
+	/***
+	 * Builds the Hunger-Progress-Bar
+	 */
 	private void buildHungerStack()
 	{
 		hunger_stack_ = new Stack();
@@ -229,6 +272,9 @@ public class SlidingStats extends Table{
 		hunger_stack_.add(new Image(skin_.getDrawable("BarFrame")));
 	}
 	
+	/***
+	 * Builds the Happy-Progress-Bar
+	 */
 	private void buildHappyStack()
 	{
 		happy_stack_ = new Stack();
@@ -242,6 +288,9 @@ public class SlidingStats extends Table{
 		happy_stack_.add(new Image(skin_.getDrawable("BarFrame")));
 	}
 	
+	/***
+	 * Builds the Tired-Progress-Bar
+	 */
 	private void buildTiredStack()
 	{
 		tired_stack_ = new Stack();
@@ -254,7 +303,10 @@ public class SlidingStats extends Table{
 		tired_stack_.add(tired_table);
 		tired_stack_.add(new Image(skin_.getDrawable("BarFrame")));
 	}
-	
+
+	/***
+	 * Builds the Dirty-Progress-Bar
+	 */
 	private void buildDirtyStack()
 	{
 		dirty_stack_ = new Stack();
@@ -268,6 +320,10 @@ public class SlidingStats extends Table{
 		dirty_stack_.add(new Image(skin_.getDrawable("BarFrame")));
 	}
 	
+	/***
+	 * Builds everything again (necessary to update on open or close)
+	 * @param with_window	Should the window be shown or only the ribbon?
+	 */
 	private void buildTable(boolean with_window)
 	{
 		clearChildren();
@@ -283,6 +339,11 @@ public class SlidingStats extends Table{
 		}
 	}
 	
+	/***
+	 * Creates a color as skin for the new Image function
+	 * @param value	The value of the stat which the color should represent
+	 * @return		The skin which contains the color as attribute "color"
+	 */
 	private Skin getAttentionColor(float value)
 	{
 		Skin to_ret = new Skin();
@@ -293,7 +354,10 @@ public class SlidingStats extends Table{
 		return to_ret;
 	}
 	
-	public void updateStats(Stats stats)
+	/***
+	 * Updates the whole element (maximum once every two seconds)
+	 */
+	public void updateStats()
 	{
 		// This function needs a lot of cpu power, so we only use it
 		// everey X seconds
@@ -302,7 +366,6 @@ public class SlidingStats extends Table{
 			// And we only perform the new UI if the stats changed
 			if(!temp_save_.equals(monster_stats_))
 			{
-				monster_stats_ = stats;
 				buildRibbon();
 				buildWindow();
 				buildTable(opened_);

@@ -102,7 +102,7 @@ public class MainRoom extends ReuGameStage{
 	@Override
 	public void PostAct()
 	{
-		slider_table_.updateStats(parent_.getNusselts_stats_());
+		slider_table_.updateStats();
 		// This is test functionality... Whenever nusselts enters the kitchen region the game
 		// should close (later it should switch to the kitchen stage!)
 		if(Utils.MonsterInRectangle(kitchen_area_, monster_.GetCenterX(), monster_.GetCenterY()))
