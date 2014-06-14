@@ -18,7 +18,7 @@ import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
 public class Kitchen extends ReuGameStage{
-	ReuGame parent_;
+
 	public static RoomType type_ = RoomType.KITCHEN;
 	private Table table_;
 	private Table stack_table_;

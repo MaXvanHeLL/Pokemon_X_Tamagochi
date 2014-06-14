@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.reu.game.monster.Stats;
+import com.reu.game.stages.Bathroom;
 import com.reu.game.stages.Kitchen;
 import com.reu.game.stages.MainRoom;
 import com.reu.game.stages.ReuGameStage;
@@ -70,6 +71,7 @@ public class ReuGame extends ApplicationAdapter
 		stages_ = new HashMap<RoomType, ReuGameStage>();
 		stages_.put(RoomType.MAINROOM, new MainRoom(this));
 		stages_.put(RoomType.KITCHEN, new Kitchen(this));
+		stages_.put(RoomType.BATHROOM, new Bathroom(this));
 		
 		
 		// Set the stage to the Mainroom on start up

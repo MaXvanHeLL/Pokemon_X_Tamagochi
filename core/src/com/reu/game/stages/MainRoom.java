@@ -113,10 +113,11 @@ public class MainRoom extends ReuGameStage{
 			parent_.SetCurrentStage(RoomType.KITCHEN);
 			ResetRoom();
 		}
-		/*if(Utils.PointInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
+		if(Utils.MonsterInRectangle(bathroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
-			System.exit(0);
-		}*/
+			parent_.SetCurrentStage(RoomType.BATHROOM);
+			ResetRoom();
+		}
 	}
 	
 	@Override
