@@ -163,8 +163,9 @@ public class Kitchen extends ReuGameStage{
 		    	KitchenMonster temp = (KitchenMonster)monster_;
 		        if(parent_.getNusselts_stats_().getHunger() <= 90)
 		        {
-		        
-		        	
+		        	if(eat_sound_.isPlaying())
+			        	  eat_sound_.stop();
+		    
 		    		eat_sound_.play();
 		    	   
 		        	
@@ -194,6 +195,12 @@ public class Kitchen extends ReuGameStage{
 		    	KitchenMonster temp = (KitchenMonster)monster_;
 		        if(parent_.getNusselts_stats_().getHunger() <= 95)
 		        {
+		        	
+		        	if(eat_sound_.isPlaying())
+			        	  eat_sound_.stop();
+		    
+		    		eat_sound_.play();
+		        	
 		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 5);
 		        	temp.eatSomething();
@@ -215,6 +222,12 @@ public class Kitchen extends ReuGameStage{
 		    	KitchenMonster temp = (KitchenMonster)monster_;
 		        if(parent_.getNusselts_stats_().getHunger() <= 80)
 		        {
+		        	
+		        	if(eat_sound_.isPlaying())
+			        	  eat_sound_.stop();
+		    
+		    		eat_sound_.play();
+		        	
 		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 20);
 		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.1f);

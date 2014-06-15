@@ -2,6 +2,7 @@ package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +20,8 @@ import com.reu.game.utils.Utils;
 
 public class Bathroom extends ReuGameStage{
 	
+	Music bathing_sound_;
+	
 	public static RoomType type_ = RoomType.BATHROOM;
 	
 	private Table table_;
@@ -31,6 +34,9 @@ public class Bathroom extends ReuGameStage{
 	{
 		super(parent);
 		this.parent_ = parent;
+    	bathing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("eat.mp3"));
+    	bathing_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+ 	    bathing_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
@@ -148,7 +154,9 @@ public class Bathroom extends ReuGameStage{
 			{
 				System.out.println("Test");
 				if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
-				{
+				{		    
+		    		
+					
 					feeding_started_ = ReuGame.getSystemTime();
 					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 2);
 					if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
@@ -164,6 +172,9 @@ public class Bathroom extends ReuGameStage{
 			else
 			{
 				monster_.stopBath();
+				bathing_sound_.stop();
+	    		bathing_sound_.setLooping(false);
+
 				createStackTable();
 				buildTable();
 			}
