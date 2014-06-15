@@ -59,10 +59,10 @@ public class ReuGame extends ApplicationAdapter
 		setPrefs(Gdx.app.getPreferences("Nusselts Preferences"));
 		//	this.setNusselts_stats_(new Stats(getPrefs().getFloat("hunger", 100), 100, 100, 100, 100, 100, 100));
 		nusselts_stats_ = new Stats();
-		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 100));
-		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 100));	
-		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 100));	
-		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 0));
+		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 1000));
+		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 1000));	
+		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 1000));	
+		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 1000));
 		nusselts_stats_.setName(getPrefs().getString("name", "Nusselts"));
 		nusselts_stats_.setWeight(getPrefs().getFloat("weight", 10));
 		// Use the date as a long value

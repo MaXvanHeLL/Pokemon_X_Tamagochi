@@ -58,6 +58,13 @@ public class Playroom extends ReuGameStage{
 				        {
 				        	System.out.println(parent_.getNusselts_stats_().getHappiness());
 				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);
+				        	if(!(parent_.getNusselts_stats_().getDirtness() <= 0))
+					          parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 1);
+					        if(!(parent_.getNusselts_stats_().getHunger() <= 0))
+					          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 2);
+					        if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
+					          parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
+				
 				        	monster_.playSomething();
 				        	createStackTable();
 				        	buildTable();

@@ -141,47 +141,26 @@ public class MainRoom extends ReuGameStage{
 					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
 					{
 						feeding_started_ = ReuGame.getSystemTime();
-						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 1);
+						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 2);
+						if(!(parent_.getNusselts_stats_().getHunger() <= 0))
+				          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 1);
+				        if(!(parent_.getNusselts_stats_().getHappiness() <= 0))
+				          parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 10);
 						if(parent_.getNusselts_stats_().getTiredness() > 100)
 						{
 							parent_.getNusselts_stats_().setTiredness(100);
 						}
-						//createStackTable();
-						//buildTable();
 					}
 				}
 				else if (((MainroomMonster) monster_).isSleeping())
 				{
 					((MainroomMonster)monster_).stopSleeping();
-					//((MainroomMonster)monster_).MoveTo(45, 20, 100)
-					//((MainroomMonster)monster_).getWaypoints_().clear();
-				//	Vector2 bla = new Vector2 ();
-				//	bla.x = 23;
-				//	bla.y = 300;
-				//	ArrayList<Vector2> test = new ArrayList();
-				//	test.add(bla);
-					//List<Vector2> new_waypoints = new List (bla);
-					//((MainroomMonster)monster_).getWaypoints_().clear();
-					//((MainroomMonster)monster_).setWaypoints_((test));
-					
-					//((MainroomMonster)monster_).getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(140)));
-				  // ((MainroomMonster)monster_). setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
 					if(!((MainroomMonster)monster_).getWaypoints_().isEmpty())
 					{
-						System.out.println("I AM IN BEDROOM");
 						((MainroomMonster)monster_).MoveTo(((MainroomMonster)monster_).getWaypoints_().get(0).x, ((MainroomMonster)monster_).getWaypoints_().get(0).y, 0.5f);
-						//((MainroomMonster)monster_).getWaypoints_().remove(0);
 					}
-					else
-					{
-						// DO NOTHING HAHAHAHAHAHA XD
-					}
-					//monster_.Reset();
-					//createStackTable();
-					//buildTable();
-				}
-			
-		}
+				}		
+		 }
 	}
 	
 	@Override
