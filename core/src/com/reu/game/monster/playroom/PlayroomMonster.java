@@ -14,8 +14,8 @@ import com.reu.game.utils.Utils;
 
 public class PlayroomMonster extends Monster{
 	protected List<Animation> idle_animations_;		// The idle animation
-//	protected List<Animation> play_animations_;	
-	protected Animation 	  play_animation_;            // The eat animation
+	protected List<Animation> play_animations_;	
+//	protected Animation 	  play_animation_;            // The eat animation
 	protected Animation		  nooo_animation_;		// The animation if the monster wants no more
 	protected Animation		  current_animation_;
 	protected TextureRegion   current_frame_;	    // The current frame of the monster
@@ -38,7 +38,7 @@ public class PlayroomMonster extends Monster{
 	    r_generator_  		= new Random();
 	    
 	    idle_animations_ = new ArrayList<Animation>();
-	  //  play_animations_ = new ArrayList<Animation>();
+	    play_animations_ = new ArrayList<Animation>();
 	   
 		setWidth(Utils.GetPixelX(60));
 		setHeight(Utils.GetPixelY(60));
@@ -55,10 +55,10 @@ public class PlayroomMonster extends Monster{
 	 * @param idle_sheet_path The path to the Idle Sheet Texture
 	 * @param duraction The duration of your idle animation
 	 */
-	protected void AddPlayAnimation(Animation to_add)
+	protected void AddPlayAnimations(Animation to_add)
 	{
 		//play_animations_.add(to_add);
-		play_animation_ = to_add;
+		play_animations_.add(to_add);
 	}
 	
 
@@ -122,7 +122,12 @@ public class PlayroomMonster extends Monster{
 	
 	public void playSomething()
 	{
-		playAnimation(play_animation_, 1);
+		
+		// Code for choosing random animation
+		int index = Math.abs(r_generator_.nextInt(play_animations_.size()));
+		playAnimation(play_animations_.get(index), 1);
+		
+		
 	}
 	
 	public void eatSomething()
