@@ -52,18 +52,15 @@ public class ReuGame extends ApplicationAdapter
 	@Override
 	public void create () 
 	{
-		
-	   
-		
-		
+
 		// Create the skins for our game!
 		CreateSkins();
 		LoadAnimations();
 		system_time_ = 0;
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.mp3"));
-		   this. music.play();
-			this.music.setVolume(0.5f);                 // sets the volume to half the maximum volume
-			this.music.setLooping(true); 
+		this.music.play();
+	    this.music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+	    this.music.setLooping(true); 
 		
 		// -- loading Nusselts Stats from Phone_Memory
 		// ----------------------------------------------

@@ -2,6 +2,7 @@ package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -19,6 +20,8 @@ import com.reu.game.utils.Utils;
 
 public class Kitchen extends ReuGameStage{
 
+	Music eat_sound_;
+	
 	public static RoomType type_ = RoomType.KITCHEN;
 	private Table table_;
 	private Table stack_table_;
@@ -32,8 +35,15 @@ public class Kitchen extends ReuGameStage{
 	
 	
 	public Kitchen(ReuGame parent){
+		
 		super(parent);
 		this.parent_ = parent;
+		
+    	eat_sound_ = Gdx.audio.newMusic(Gdx.files.internal("eat.mp3"));
+    	eat_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+ 	    eat_sound_.setLooping(false); 
+
+		
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("Kitchen"));
@@ -153,6 +163,11 @@ public class Kitchen extends ReuGameStage{
 		    	KitchenMonster temp = (KitchenMonster)monster_;
 		        if(parent_.getNusselts_stats_().getHunger() <= 90)
 		        {
+		        
+		        	
+		    		eat_sound_.play();
+		    	   
+		        	
 		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 10);
 		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.01f);
