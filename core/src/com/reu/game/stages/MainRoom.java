@@ -133,8 +133,6 @@ public class MainRoom extends ReuGameStage{
 					System.out.println(parent_.getNusselts_stats_().getTiredness());
 					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
 					{
-						System.out.println("FEEDOMG STARTED IS KLEINER ");
-
 						feeding_started_ = ReuGame.getSystemTime();
 						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 1);
 						if(parent_.getNusselts_stats_().getTiredness() > 100)

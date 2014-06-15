@@ -157,7 +157,7 @@ public abstract class MainroomMonster extends Monster{
 			}
 			else
 			{
-				waypoints_.add(new Vector2(Utils.GetPixelX(90), Utils.GetPixelY(106)));
+				waypoints_.add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(113)));
 			}
 		}
 	}
