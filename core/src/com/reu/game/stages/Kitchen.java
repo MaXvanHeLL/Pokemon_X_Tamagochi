@@ -44,6 +44,8 @@ public class Kitchen extends ReuGameStage{
 		createStackTable();
 		buildTable();
 		
+		
+		
 		addActor(table_);
 		
 		// Create monster

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -27,6 +28,8 @@ import com.reu.game.types.GameMode;
 
 public class ReuGame extends ApplicationAdapter 
 {
+	
+	Music music;
 	
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
@@ -49,10 +52,18 @@ public class ReuGame extends ApplicationAdapter
 	@Override
 	public void create () 
 	{
+		
+	   
+		
+		
 		// Create the skins for our game!
 		CreateSkins();
 		LoadAnimations();
 		system_time_ = 0;
+		this.music = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.mp3"));
+		   this. music.play();
+			this.music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+			this.music.setLooping(true); 
 		
 		// -- loading Nusselts Stats from Phone_Memory
 		// ----------------------------------------------
@@ -183,6 +194,7 @@ public class ReuGame extends ApplicationAdapter
 	 */
 	private void CreateSkins()
 	{
+	    
 		// A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
 		// recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
 		skin_ = new Skin();		
