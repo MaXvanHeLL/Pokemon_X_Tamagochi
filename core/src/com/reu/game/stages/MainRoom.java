@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,6 +20,8 @@ import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
 public class MainRoom extends ReuGameStage{
+	
+	Music snore_sound_;
 	
 	
 	public static RoomType type_ = RoomType.MAINROOM;
@@ -38,6 +41,10 @@ public class MainRoom extends ReuGameStage{
 	
 	public MainRoom(final ReuGame parent){
 		super(parent);
+		
+    	snore_sound_ = Gdx.audio.newMusic(Gdx.files.internal("snore.mp3"));
+    	snore_sound_.setVolume(0.5f);
+		snore_sound_.setLooping(false);
 				
 		// -- important for catching the Back Button !!
 		Gdx.input.setCatchBackKey(true);
@@ -136,16 +143,18 @@ public class MainRoom extends ReuGameStage{
 				if(parent_.getNusselts_stats_().getTiredness() < 100)
 				{
 					((MainroomMonster) monster_).sleepTime();
+					snore_sound_.play();
+		    		snore_sound_.setLooping(true);
 
 					System.out.println(parent_.getNusselts_stats_().getTiredness());
 					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
 					{
 						feeding_started_ = ReuGame.getSystemTime();
-						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 2);
+						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
 						if(!(parent_.getNusselts_stats_().getHunger() <= 0))
-				          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 1);
+				          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
 				        if(!(parent_.getNusselts_stats_().getHappiness() <= 0))
-				          parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 10);
+				          parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 0.5f);
 						if(parent_.getNusselts_stats_().getTiredness() > 100)
 						{
 							parent_.getNusselts_stats_().setTiredness(100);
@@ -155,6 +164,8 @@ public class MainRoom extends ReuGameStage{
 				else if (((MainroomMonster) monster_).isSleeping())
 				{
 					((MainroomMonster)monster_).stopSleeping();
+					snore_sound_.stop();
+					snore_sound_.setLooping(false);
 					if(!((MainroomMonster)monster_).getWaypoints_().isEmpty())
 					{
 						((MainroomMonster)monster_).MoveTo(((MainroomMonster)monster_).getWaypoints_().get(0).x, ((MainroomMonster)monster_).getWaypoints_().get(0).y, 0.5f);

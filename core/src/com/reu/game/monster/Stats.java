@@ -95,9 +95,9 @@ public class Stats {
 		return this.tiredness_;
 	}
 		
-	public void setTiredness(float tiredness)
+	public void setTiredness(float d)
 	{
-		this.tiredness_ = tiredness;
+		this.tiredness_ = d;
 	}
 		
 	public float getDirtness ()

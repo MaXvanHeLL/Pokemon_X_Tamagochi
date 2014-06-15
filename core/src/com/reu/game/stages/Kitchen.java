@@ -174,7 +174,7 @@ public class Kitchen extends ReuGameStage{
 		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.01f);
 		        	if(!(parent_.getNusselts_stats_().getDirtness() <= 0))
 		        	  parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 10);
-		        	if(!(parent_.getNusselts_stats_().getHunger() <= 0))
+		        	if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
 		        	  parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
 		        	temp.eatSomething();
 		        	createStackTable();

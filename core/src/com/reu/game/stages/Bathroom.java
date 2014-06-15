@@ -159,9 +159,9 @@ public class Bathroom extends ReuGameStage{
 		    		bathing_sound_.setLooping(true);
 					
 					feeding_started_ = ReuGame.getSystemTime();
-					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 2);
+					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 0.5f);
 					if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
-			          parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 1);
+			          parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 0.001f);
 					if(parent_.getNusselts_stats_().getDirtness() > 100)
 					{
 						parent_.getNusselts_stats_().setDirtness(100);

@@ -59,7 +59,7 @@ public class ReuGame extends ApplicationAdapter
 		system_time_ = 0;
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("soundtrack.mp3"));
 		this.music.play();
-	    this.music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+	    this.music.setVolume(0.8f);                 // sets the volume to half the maximum volume
 	    this.music.setLooping(true); 
 		
 		// -- loading Nusselts Stats from Phone_Memory
