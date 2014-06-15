@@ -66,7 +66,9 @@ public class MainRoom extends ReuGameStage{
 		addListener(new InputListener()
 		{
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
-			{				
+			{
+			  if(!((MainroomMonster)monster_).isSleeping())
+			  {
 				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
@@ -84,6 +86,7 @@ public class MainRoom extends ReuGameStage{
 				{
 					temp.GoToRoom(RoomType.BEDROOM);
 				}
+			  }
 				//temp.MoveTo(x, y);
 				return true;
 			}
