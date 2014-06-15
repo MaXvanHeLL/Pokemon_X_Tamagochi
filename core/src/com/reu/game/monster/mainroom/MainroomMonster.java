@@ -30,6 +30,9 @@ public abstract class MainroomMonster extends Monster{
 	protected Animation		  current_animation_;
 	protected float			animation_time_;// Where in the animation is the frame?
 	protected Boolean 			sleeping_;
+	
+	private Boolean walking_back_from_bedroom_;
+
 
 	protected float 		state_time_;	// The passed time since the creation of the monster
 	protected float 		stop_time_;		// The time when the running animation should stop
@@ -37,7 +40,7 @@ public abstract class MainroomMonster extends Monster{
 	protected boolean 		animated_;		// Is the monster currently animated?
 	protected boolean		busy_;			// Is the monster bussy or should it do something?
 	protected Random		r_generator_;	// Random number generator
-	protected List<Vector2>	waypoints_;		// The points to go next
+	private List<Vector2>	waypoints_;		// The points to go next
 	
 	/***
 	 * Creates a monster
@@ -48,9 +51,12 @@ public abstract class MainroomMonster extends Monster{
 	    state_time_   = 0f;
 	    sleeping_ = false;
 	    animated_     = false;
+	    
+	    walking_back_from_bedroom_ = false;
+	    
 	   // current_animation_ = walk_animation_;
 	    r_generator_  = new Random();
-	    waypoints_ 	  = new ArrayList<Vector2>();
+	    setWaypoints_(new ArrayList<Vector2>());
 	    
 	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
 		setWidth(Utils.GetPixelX(8));
@@ -134,30 +140,30 @@ public abstract class MainroomMonster extends Monster{
 	public void GoToRoom(RoomType room)
 	{
 		clearActions();
-		waypoints_.clear();
+		getWaypoints_().clear();
 		MoveTo(Utils.GetPixelX(45), Utils.GetPixelY(80), 2.5f);
 		if(room == RoomType.KITCHEN || room == RoomType.BATHROOM)
 		{
-			waypoints_.add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(140)));
+			getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(140)));
 			if(room == RoomType.KITCHEN )
 			{
-				waypoints_.add(new Vector2(Utils.GetPixelX(0), Utils.GetPixelY(140)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(0), Utils.GetPixelY(140)));
 			}
 			else
 			{
-				waypoints_.add(new Vector2(Utils.GetPixelX(90), Utils.GetPixelY(140)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(90), Utils.GetPixelY(140)));
 			}
 		}
 		else if(room == RoomType.PLAYROOM || room == RoomType.BEDROOM)
 		{
-			waypoints_.add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
+			getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
 			if(room == RoomType.PLAYROOM)
 			{
-				waypoints_.add(new Vector2(Utils.GetPixelX(0), Utils.GetPixelY(106)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(0), Utils.GetPixelY(106)));
 			}
 			else
 			{
-				waypoints_.add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(113)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(113)));
 			}
 		}
 	}
@@ -168,7 +174,7 @@ public abstract class MainroomMonster extends Monster{
 	 */
 	@Override
 	public void Reset(){
-		waypoints_.clear();
+		getWaypoints_().clear();
 		clearActions();
 		busy_ = false;
 		animated_ = false;
@@ -183,6 +189,7 @@ public abstract class MainroomMonster extends Monster{
 	
 	public void stopSleeping()
 	{
+		walking_back_from_bedroom_ = true;
 		sleeping_ = false;
 		stop_time_ = state_time_;
 		busy_time_ = state_time_;
@@ -206,7 +213,7 @@ public abstract class MainroomMonster extends Monster{
 	/***
 	 * Performs a random activity
 	 */
-	private void doSomething()
+	public void doSomething()
 	{
 		int chance = Math.abs(r_generator_.nextInt(100));
 		// 50 % chance to wait a random amount of time
@@ -255,10 +262,10 @@ public abstract class MainroomMonster extends Monster{
 		else
 		{
 			// First check for further waypoints:
-			if(!waypoints_.isEmpty())
+			if(!getWaypoints_().isEmpty())
 			{
-				MoveTo(waypoints_.get(0).x, waypoints_.get(0).y, 2.5f);
-				waypoints_.remove(0);
+				MoveTo(getWaypoints_().get(0).x, getWaypoints_().get(0).y, 2.5f);
+				getWaypoints_().remove(0);
 			}
 			else
 			{
@@ -269,6 +276,22 @@ public abstract class MainroomMonster extends Monster{
 	    batch.draw(current_frame_, getX(), getY(), getOriginX(), getOriginY(),
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
-	} 
+	}
+
+	public List<Vector2> getWaypoints_() {
+		return waypoints_;
+	}
+
+	public void setWaypoints_(List<Vector2> waypoints_) {
+		this.waypoints_ = waypoints_;
+	}
+
+	public Boolean getWalking_back_from_bedroom_() {
+		return walking_back_from_bedroom_;
+	}
+
+	public void setWalking_back_from_bedroom_(Boolean walking_back_from_bedroom_) {
+		this.walking_back_from_bedroom_ = walking_back_from_bedroom_;
+	}
 
 }

@@ -1,7 +1,11 @@
 package com.reu.game.stages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,6 +19,7 @@ import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
 public class MainRoom extends ReuGameStage{
+	
 	
 	public static RoomType type_ = RoomType.MAINROOM;
 	private SlidingStats	slider_table_;
@@ -33,8 +38,7 @@ public class MainRoom extends ReuGameStage{
 	
 	public MainRoom(final ReuGame parent){
 		super(parent);
-		
-		
+				
 		// -- important for catching the Back Button !!
 		Gdx.input.setCatchBackKey(true);
 				
@@ -146,7 +150,29 @@ public class MainRoom extends ReuGameStage{
 				else
 				{
 					((MainroomMonster)monster_).stopSleeping();
-					monster_.Reset();
+					//((MainroomMonster)monster_).MoveTo(45, 20, 100)
+					//((MainroomMonster)monster_).getWaypoints_().clear();
+				//	Vector2 bla = new Vector2 ();
+				//	bla.x = 23;
+				//	bla.y = 300;
+				//	ArrayList<Vector2> test = new ArrayList();
+				//	test.add(bla);
+					//List<Vector2> new_waypoints = new List (bla);
+					//((MainroomMonster)monster_).getWaypoints_().clear();
+					//((MainroomMonster)monster_).setWaypoints_((test));
+					
+					//((MainroomMonster)monster_).getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(140)));
+				  // ((MainroomMonster)monster_). setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
+					if(!((MainroomMonster)monster_).getWaypoints_().isEmpty())
+					{
+						((MainroomMonster)monster_).MoveTo(((MainroomMonster)monster_).getWaypoints_().get(0).x, ((MainroomMonster)monster_).getWaypoints_().get(0).y, 0.5f);
+						//((MainroomMonster)monster_).getWaypoints_().remove(0);
+					}
+					else
+					{
+						//((MainroomMonster)monster_).doSomething();
+					}
+					//monster_.Reset();
 					//createStackTable();
 					//buildTable();
 				}
