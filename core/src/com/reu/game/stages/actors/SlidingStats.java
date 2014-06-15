@@ -249,7 +249,13 @@ public class SlidingStats extends Table{
 	private void updateDataLabels()
 	{
 		name_data_ = new Label(monster_stats_.getName(), label_style_);
-		weight_data_ = new Label(Float.toString(monster_stats_.getWeight()).substring(0, 5) + " kg", label_style_);
+		
+		// Format string (max length = 5)
+		String temp_weight = Float.toString(monster_stats_.getWeight());
+		if(temp_weight.length() > 5)
+			temp_weight = temp_weight.substring(0, 5);
+		
+		weight_data_ = new Label(temp_weight + " kg", label_style_);
 		age_data_ = new Label(Integer.toString(monster_stats_.getAge())+ " days", label_style_);
 	}
 	
