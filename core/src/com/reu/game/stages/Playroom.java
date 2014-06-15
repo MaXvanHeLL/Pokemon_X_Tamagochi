@@ -2,6 +2,7 @@ package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +20,8 @@ import com.reu.game.utils.Utils;
 
 public class Playroom extends ReuGameStage{
 	
+	Music laughing_sound_;
+	
 	public static RoomType type_ = RoomType.PLAYROOM;
 	
 	private Table table_;
@@ -30,6 +33,9 @@ public class Playroom extends ReuGameStage{
 	{
 		super(parent);
 		this.parent_ = parent;
+		laughing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("laughing.mp3"));
+		laughing_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+ 	    laughing_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
@@ -56,6 +62,12 @@ public class Playroom extends ReuGameStage{
 				{
 					 if(parent_.getNusselts_stats_().getHappiness() <= 90)
 				        {
+						 
+						 if(laughing_sound_.isPlaying())
+				        	  laughing_sound_.stop();
+			    
+			    		laughing_sound_.play();
+			    		
 				        	System.out.println(parent_.getNusselts_stats_().getHappiness());
 				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);
 				        	if(!(parent_.getNusselts_stats_().getDirtness() <= 0))
