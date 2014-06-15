@@ -34,8 +34,8 @@ public class Bathroom extends ReuGameStage{
 	{
 		super(parent);
 		this.parent_ = parent;
-    	bathing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("eat.mp3"));
-    	bathing_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+    	bathing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("bath.mp3"));
+    	bathing_sound_.setVolume(1f);                 // sets the volume to half the maximum volume
  	    bathing_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
@@ -155,7 +155,8 @@ public class Bathroom extends ReuGameStage{
 				System.out.println("Test");
 				if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
 				{		    
-		    		
+					bathing_sound_.play();
+		    		bathing_sound_.setLooping(true);
 					
 					feeding_started_ = ReuGame.getSystemTime();
 					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 2);
