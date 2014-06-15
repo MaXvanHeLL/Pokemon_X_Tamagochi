@@ -128,12 +128,12 @@ public class MainRoom extends ReuGameStage{
 		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			System.out.println(((MainroomMonster) monster_).isSleeping());
-			((MainroomMonster) monster_).sleepTime();
 
-			if(((MainroomMonster) monster_).isSleeping())
-			{
+			
 				if(parent_.getNusselts_stats_().getTiredness() < 100)
 				{
+					((MainroomMonster) monster_).sleepTime();
+
 					System.out.println(parent_.getNusselts_stats_().getTiredness());
 					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
 					{
@@ -147,7 +147,7 @@ public class MainRoom extends ReuGameStage{
 						//buildTable();
 					}
 				}
-				else
+				else if (((MainroomMonster) monster_).isSleeping())
 				{
 					((MainroomMonster)monster_).stopSleeping();
 					//((MainroomMonster)monster_).MoveTo(45, 20, 100)
@@ -165,18 +165,19 @@ public class MainRoom extends ReuGameStage{
 				  // ((MainroomMonster)monster_). setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
 					if(!((MainroomMonster)monster_).getWaypoints_().isEmpty())
 					{
+						System.out.println("I AM IN BEDROOM");
 						((MainroomMonster)monster_).MoveTo(((MainroomMonster)monster_).getWaypoints_().get(0).x, ((MainroomMonster)monster_).getWaypoints_().get(0).y, 0.5f);
 						//((MainroomMonster)monster_).getWaypoints_().remove(0);
 					}
 					else
 					{
-						//((MainroomMonster)monster_).doSomething();
+						// DO NOTHING HAHAHAHAHAHA XD
 					}
 					//monster_.Reset();
 					//createStackTable();
 					//buildTable();
 				}
-			}
+			
 		}
 	}
 	
