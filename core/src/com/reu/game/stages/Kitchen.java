@@ -109,6 +109,8 @@ public class Kitchen extends ReuGameStage{
 			public void clicked(InputEvent event, float x, float y) 
 			{
 				parent_.getNusselts_stats_().setHunger(0);
+				parent_.getNusselts_stats_().setTiredness(0);
+				System.out.println(parent_.getNusselts_stats_().getTiredness());
 				createStackTable();
 	        	buildTable();
 			};

@@ -32,6 +32,7 @@ public abstract class Monster  extends Actor{
 		return false;
 	}
 	
+	// lol yeah :D
 	public void Reset()	{		
 	}
 }

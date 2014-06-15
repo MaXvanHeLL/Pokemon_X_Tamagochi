@@ -21,6 +21,9 @@ public class MainRoom extends ReuGameStage{
 	private Monster 		monster_;
 	private MainRoomPortal 	portal_;
 	
+	private float feeding_started_;
+
+	
 	private Rectangle kitchen_area_;
 	private Rectangle bathroom_area_;
 	private Rectangle playroom_area_;
@@ -117,6 +120,39 @@ public class MainRoom extends ReuGameStage{
 		{
 			parent_.SetCurrentStage(RoomType.PLAYROOM);
 			ResetRoom();
+		}
+		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
+		{
+			System.out.println(((MainroomMonster) monster_).isSleeping());
+			((MainroomMonster) monster_).sleepTime();
+
+			if(((MainroomMonster) monster_).isSleeping())
+			{
+				if(parent_.getNusselts_stats_().getTiredness() < 100)
+				{
+					System.out.println(parent_.getNusselts_stats_().getTiredness());
+					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
+					{
+						System.out.println("FEEDOMG STARTED IS KLEINER ");
+
+						feeding_started_ = ReuGame.getSystemTime();
+						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 1);
+						if(parent_.getNusselts_stats_().getTiredness() > 100)
+						{
+							parent_.getNusselts_stats_().setTiredness(100);
+						}
+						//createStackTable();
+						//buildTable();
+					}
+				}
+				else
+				{
+					((MainroomMonster)monster_).stopSleeping();
+					monster_.Reset();
+					//createStackTable();
+					//buildTable();
+				}
+			}
 		}
 	}
 	
