@@ -36,6 +36,7 @@ public class Playroom extends ReuGameStage{
 		table_.setFillParent(true);
 		table_.align(Align.top | Align.center);
 		
+
 		createStackTable();
 		
 		buildTable();
@@ -53,7 +54,18 @@ public class Playroom extends ReuGameStage{
 			{				
 				if(monster_.isClicked(x, y))
 				{
-					//TODO: Add right functionality here
+					 if(parent_.getNusselts_stats_().getHappiness() <= 90)
+				        {
+				        	System.out.println(parent_.getNusselts_stats_().getHappiness());
+				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);
+				        	monster_.playSomething();
+				        	createStackTable();
+				        	buildTable();
+				        }
+				        else
+				        {
+				        	monster_.pleaseNoMoreFun();
+				        }
 				}
 				return true;
 			}
@@ -101,7 +113,6 @@ public class Playroom extends ReuGameStage{
 		// Test button which resets happiness to 0
 				
 		stack_table_.row();
-		
 		ImageButtonStyle test_style = new ImageButtonStyle();
 		test_style.up = parent_.getSkin().getDrawable("DebugButtonUp");
 		test_style.down = parent_.getSkin().getDrawable("DebugButtonDown");
@@ -112,7 +123,7 @@ public class Playroom extends ReuGameStage{
 			@Override
 			public void clicked(InputEvent event, float x, float y) 
 			{
-				parent_.getNusselts_stats_().setDirtness(0);
+				parent_.getNusselts_stats_().setHappiness(0);
 				createStackTable();
 	        	buildTable();
 			};
