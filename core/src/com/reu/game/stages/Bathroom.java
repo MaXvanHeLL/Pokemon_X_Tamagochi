@@ -137,6 +137,9 @@ public class Bathroom extends ReuGameStage{
 	@Override
 	public boolean keyDown(int keycode) 
 	{
+		bathing_sound_.stop();
+		bathing_sound_.setLooping(false);
+		
 		if(keycode == Keys.BACK)
 		{
 			monster_.stopBath();
