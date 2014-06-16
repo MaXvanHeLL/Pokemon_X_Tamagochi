@@ -154,6 +154,10 @@ public abstract class MainroomMonster extends Monster{
 				getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
 			}
 		}
+		else
+		{
+			getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
+		}
 		
 		if(room == RoomType.KITCHEN || room == RoomType.BATHROOM)
 		{
