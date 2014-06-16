@@ -58,12 +58,10 @@ public abstract class MainroomMonster extends Monster{
 	    r_generator_  = new Random();
 	    setWaypoints_(new ArrayList<Vector2>());
 	    
-	    setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
+	    setPosition(Utils.GetPixelX(45), Utils.GetPixelY(53));
 		setWidth(Utils.GetPixelX(8));
 		setHeight(Utils.GetPixelX(8));
 		setOrigin(getWidth()/2.0f, getHeight()/2.0f);
-		
-	
 	}
 	
 	/***
@@ -197,7 +195,7 @@ public abstract class MainroomMonster extends Monster{
 		busy_ = false;
 		animated_ = false;
 		sleeping_ = false;
-		setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
+		setPosition(Utils.GetPixelX(45), Utils.GetPixelY(53));
 	}
 	
 	public void sleepTime()
@@ -316,5 +314,54 @@ public abstract class MainroomMonster extends Monster{
 	public void setWalking_back_from_bedroom_(Boolean walking_back_from_bedroom_) {
 		this.walking_back_from_bedroom_ = walking_back_from_bedroom_;
 	}
+	
+	public Animation getWalk_animation_() {
+		return walk_animation_;
+	}
+
+	public Animation getSleep_animation_() {
+		return sleep_animation_;
+	}
+
+	public TextureRegion getCurrent_frame_() {
+		return current_frame_;
+	}
+
+	public Animation getCurrent_animation_() {
+		return current_animation_;
+	}
+
+	public float getAnimation_time_() {
+		return animation_time_;
+	}
+
+	public Boolean getSleeping_() {
+		return sleeping_;
+	}
+
+	public float getState_time_() {
+		return state_time_;
+	}
+
+	public float getStop_time_() {
+		return stop_time_;
+	}
+
+	public float getBusy_time_() {
+		return busy_time_;
+	}
+
+	public boolean isAnimated_() {
+		return animated_;
+	}
+
+	public boolean isBusy_() {
+		return busy_;
+	}
+
+	public Random getR_generator_() {
+		return r_generator_;
+	}
+
 
 }

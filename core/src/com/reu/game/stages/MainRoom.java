@@ -1,6 +1,7 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -207,24 +208,26 @@ public class MainRoom extends ReuGameStage{
 	@Override
 	public boolean keyDown(int keycode) 
 	{
-		parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
-		parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
-		parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
-		parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
-		parent_.getPrefs().putString("name", this.parent_.getNusselts_stats_().getName());
-		parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
-		parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
-
-		
-		// -- always flush after changing the Preferences to make effect on Memory
-		parent_.getPrefs().flush();
-		
-		dialog_exit_.show(this);
-		
+		if(keycode == Keys.BACK)
+		{
+			parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
+			parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
+			parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
+			parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
+			parent_.getPrefs().putString("name", this.parent_.getNusselts_stats_().getName());
+			parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
+			parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
+	
+			
+			// -- always flush after changing the Preferences to make effect on Memory
+			parent_.getPrefs().flush();
+			
+			dialog_exit_.show(this);
+		}
 				  
 		// -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
 		// all the fancy Memory flushing stuff which is done here :)
-		//
+
 	    return false;
 	}
 }

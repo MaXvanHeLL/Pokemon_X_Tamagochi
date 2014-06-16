@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Utils {
+	
+	public static boolean test_mode_ = false;
+	
 	/***
 	 * Implemented a method for further use of REGION tests
 	 * 
@@ -26,11 +29,25 @@ public class Utils {
 	}
 	
 	public static float GetPixelX(float x_raster){
-		return Gdx.graphics.getWidth() / 90.0f * x_raster;
+		if(test_mode_)
+		{
+			return 1080.0f / 90.0f * x_raster;
+		}
+		else
+		{
+			return Gdx.graphics.getWidth() / 90.0f * x_raster;
+		}
 	}
 	
 	public static float GetPixelY(float y_raster){
-		return Gdx.graphics.getHeight() / 160.0f * y_raster;
+		if(test_mode_)
+		{
+			return 1920.0f / 160.0f * y_raster;
+		}
+		else
+		{
+			return Gdx.graphics.getHeight() / 160.0f * y_raster;
+		}	
 	}
 	
 	/***
