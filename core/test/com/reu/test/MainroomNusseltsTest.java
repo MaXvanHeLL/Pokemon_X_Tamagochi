@@ -1,10 +1,5 @@
 package com.reu.test;
 
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -73,17 +68,17 @@ public class MainroomNusseltsTest extends TestCase {
 
 	public void testGetState_time_() {
 		test_monster_.setState_time_(15);
-		assertEquals(test_monster_.getState_time_(), 15);
+		assertEquals(test_monster_.getState_time_(), 15f);
 	}
 
 	public void testGetStop_time_() {
 		test_monster_.setStop_time_(20);
-		assertEquals(test_monster_.getStop_time_(), 20);
+		assertEquals(test_monster_.getStop_time_(), 20f);
 	}
 
 	public void testGetBusy_time_() {
 		test_monster_.setBusy_time_(25);
-		assertEquals(test_monster_.getBusy_time_(), 25);
+		assertEquals(test_monster_.getBusy_time_(), 25f);
 	}
 
 	public void testIsAnimated_() {
@@ -114,7 +109,7 @@ public class MainroomNusseltsTest extends TestCase {
 
 	public void testAddSleepAnimation() {
 		Animation sleep_ani_ = new Animation(1, new TextureRegion());
-		test_monster_.AddWalkAnimation(sleep_ani_);
+		test_monster_.AddSleepAnimation(sleep_ani_);
 		assertEquals(test_monster_.getSleep_animation_(), sleep_ani_);
 	}
 
@@ -175,43 +170,82 @@ public class MainroomNusseltsTest extends TestCase {
 	}
 
 	public void testSleepTime() {
-		fail("Not yet implemented");
+		test_monster_.Reset();
+		test_monster_.sleepTime();
+		assertTrue(test_monster_.isSleeping());
+		assertTrue(test_monster_.isBusy_());
+		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getSleep_animation_());
+		assertEquals(test_monster_.getAnimation_time_(), 0f);
+		assertEquals(test_monster_.getStop_time_(), test_monster_.getState_time_() + 500);
+		assertEquals(test_monster_.getStop_time_(), test_monster_.getBusy_time_());
 	}
 
 	public void testStopSleeping() {
-		fail("Not yet implemented");
+		
+		test_monster_.Reset();
+		test_monster_.stopSleeping();
+		
+		assertFalse(test_monster_.isSleeping());
+		assertEquals(test_monster_.getState_time_(), test_monster_.getStop_time_());
+		assertEquals(test_monster_.getState_time_(), test_monster_.getBusy_time_());
+		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getWalk_animation_());
+		
+		List<Vector2> wp = test_monster_.getWaypoints_();
+		
+		assertEquals(wp.size(), 3);
+		assertEquals(wp.get(0), new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(106)));
+		assertEquals(wp.get(1), new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
+		assertEquals(wp.get(2), new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
+		
 	}
 
 	public void testDoSomething() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetWaypoints_() {
-		fail("Not yet implemented");
-	}
-
-	public void testSetWaypoints_() {
-		fail("Not yet implemented");
+		// Contains random events - can only be tested roughly
+		float old_busy_time = test_monster_.getBusy_time_();
+		test_monster_.doSomething();
+		assertTrue(test_monster_.getBusy_time_() > old_busy_time);
 	}
 
 	public void testGetWalking_back_from_bedroom_() {
-		fail("Not yet implemented");
+		test_monster_.Reset();
+		assertFalse(test_monster_.getWalking_back_from_bedroom_());
 	}
 
 	public void testSetWalking_back_from_bedroom_() {
-		fail("Not yet implemented");
+		test_monster_.Reset();
+		test_monster_.setWalking_back_from_bedroom_(true);
+		assertTrue(test_monster_.getWalking_back_from_bedroom_());
 	}
 
 	public void testGetCenterX() {
-		fail("Not yet implemented");
+		assertEquals(test_monster_.GetCenterX(), test_monster_.getX() + (test_monster_.getOriginX() * test_monster_.getScaleX()));
 	}
 
 	public void testGetCenterY() {
-		fail("Not yet implemented");
+		assertEquals(test_monster_.GetCenterY(), test_monster_.getY() + (test_monster_.getOriginY() * test_monster_.getScaleY()));
 	}
 
 	public void testIsClicked() {
-		fail("Not yet implemented");
+		// True cases
+		for(int x = 1; x < test_monster_.getWidth(); x++)
+		{
+			for(int y = 1; y < test_monster_.getHeight(); y++)
+			{
+				assertTrue(test_monster_.isClicked(test_monster_.GetCenterX() - (test_monster_.getWidth() / 2.0f) + x, test_monster_.GetCenterY() - test_monster_.getHeight() / 2.0f + y));
+			}
+		}
+		// Negative cases (border arround true cases
+		int x = 0;
+		for(int y_ = 1; y_ < test_monster_.getHeight(); y_++)
+		{
+			assertFalse(test_monster_.isClicked(test_monster_.GetCenterX() - (test_monster_.getWidth() / 2.0f) + x, test_monster_.GetCenterY() - test_monster_.getHeight() / 2.0f + y_));
+		}
+		
+		int y = 0;
+		for(int x_ = 1; x_ < test_monster_.getWidth(); x_++)
+		{
+			assertFalse(test_monster_.isClicked(test_monster_.GetCenterX() - (test_monster_.getWidth() / 2.0f) + x_, test_monster_.GetCenterY() - test_monster_.getHeight() / 2.0f + y));
+		}
 	}
 
 }

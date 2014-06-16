@@ -249,7 +249,7 @@ public abstract class MainroomMonster extends Monster{
 		{
 			// Move to random position on the stone ground
 			int random_x = Math.abs(r_generator_.nextInt(34)) + 27;	// Random x from 27 to 62
-			int random_y = Math.abs(r_generator_.nextInt((int)((Gdx.graphics.getHeight()/2.0f) - 2 * getHeight())));
+			int random_y = Math.abs(r_generator_.nextInt((int)((Utils.GetPixelY(80)) - 2 * getHeight())));
 			MoveTo(Utils.GetPixelX((float)random_x), (float)random_y + getHeight(), 1);
 		}
 	}
