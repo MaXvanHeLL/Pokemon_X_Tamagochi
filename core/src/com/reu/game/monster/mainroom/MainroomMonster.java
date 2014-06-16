@@ -72,13 +72,13 @@ public abstract class MainroomMonster extends Monster{
 	 * @param frame_rows Number of rows in the Walk Sheet
 	 * @param walk_sheet_path The path to the Walk Sheet Texture
 	 */
-	protected void AddWalkAnimation(Animation walk_animation)
+	public void AddWalkAnimation(Animation walk_animation)
 	{
 		walk_animation_ = walk_animation;
 		current_animation_ = walk_animation;
 	}
 	
-	protected void AddSleepAnimation(Animation sleep_animation)
+	public void AddSleepAnimation(Animation sleep_animation)
 	{
 		sleep_animation_ = sleep_animation;
 	}
@@ -216,6 +216,7 @@ public abstract class MainroomMonster extends Monster{
 		getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
 		getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
 	}
+	
 	public boolean isSleeping()
 	{
 		return sleeping_;
@@ -335,10 +336,6 @@ public abstract class MainroomMonster extends Monster{
 		return animation_time_;
 	}
 
-	public Boolean getSleeping_() {
-		return sleeping_;
-	}
-
 	public float getState_time_() {
 		return state_time_;
 	}
@@ -361,6 +358,38 @@ public abstract class MainroomMonster extends Monster{
 
 	public Random getR_generator_() {
 		return r_generator_;
+	}
+
+	public void setAnimation_time_(float animation_time_) {
+		this.animation_time_ = animation_time_;
+	}
+
+	public void setSleeping_(Boolean sleeping_) {
+		this.sleeping_ = sleeping_;
+	}
+
+	public void setState_time_(float state_time_) {
+		this.state_time_ = state_time_;
+	}
+
+	public void setStop_time_(float stop_time_) {
+		this.stop_time_ = stop_time_;
+	}
+
+	public void setBusy_time_(float busy_time_) {
+		this.busy_time_ = busy_time_;
+	}
+
+	public void setAnimated_(boolean animated_) {
+		this.animated_ = animated_;
+	}
+
+	public void setBusy_(boolean busy_) {
+		this.busy_ = busy_;
+	}
+
+	public void setR_generator_(Random r_generator_) {
+		this.r_generator_ = r_generator_;
 	}
 
 
