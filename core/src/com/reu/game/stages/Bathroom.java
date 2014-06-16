@@ -70,10 +70,16 @@ public class Bathroom extends ReuGameStage{
 				{
 					if(!(parent_.getNusselts_stats_().getDirtness() < 100))
 					{
-						if(nono_sound_.isPlaying())
-							nono_sound_.stop();
-						  
-				  		nono_sound_.play();
+						if(ReuGame.isSoundEnabled())
+			        	{
+			        		if(nono_sound_.isPlaying())
+					        	  nono_sound_.stop();
+				    
+				    		nono_sound_.play();
+	        				        	}
+			        	else
+			        	 nono_sound_.pause();
+				
 					}
 					
 					monster_.takeBath();
