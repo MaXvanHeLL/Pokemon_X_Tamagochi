@@ -31,6 +31,10 @@ public class BathroomMonster extends Monster{
 	BathroomMonster()
 	{
 		// Initialize values
+		stop_time_ = 0f;
+		busy_time_ = 0f;
+		busy_ = false;
+		
 	    state_time_   		= 0f;
 	    animation_time_ 	= 0f;
 	    animated_     		= false;
@@ -163,5 +167,54 @@ public class BathroomMonster extends Monster{
 	    batch.draw(current_frame_, getX(), getY(), getOriginX(), getOriginY(),
 	    	     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
-	} 
+	}
+
+	public List<Animation> getIdle_animations_() {
+		return idle_animations_;
+	}
+
+	public Animation getBath_animation_() {
+		return bath_animation_;
+	}
+
+	public Animation getCurrent_animation_() {
+		return current_animation_;
+	}
+
+	public TextureRegion getCurrent_frame_() {
+		return current_frame_;
+	}
+
+	public TextureRegion getStandartd_monster_() {
+		return standartd_monster_;
+	}
+
+	public float getState_time_() {
+		return state_time_;
+	}
+
+	public float getStop_time_() {
+		return stop_time_;
+	}
+
+	public float getBusy_time_() {
+		return busy_time_;
+	}
+
+	public float getAnimation_time_() {
+		return animation_time_;
+	}
+
+	public boolean isAnimated_() {
+		return animated_;
+	}
+
+	public boolean isBusy_() {
+		return busy_;
+	}
+
+	public Random getR_generator_() {
+		return r_generator_;
+	}
+	
 }
