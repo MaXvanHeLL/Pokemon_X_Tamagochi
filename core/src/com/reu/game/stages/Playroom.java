@@ -67,20 +67,23 @@ public class Playroom extends ReuGameStage{
 					 if(parent_.getNusselts_stats_().getHappiness() <= 90)
 				        {
 						 
-						 if(laughing_sound_.isPlaying())
-				        	  laughing_sound_.stop();
-			    
-			    		laughing_sound_.play();
-			    		
+							 if(laughing_sound_.isPlaying())
+					        	  laughing_sound_.stop();
+				    
+				    		laughing_sound_.play();
+				    		
 				        	System.out.println(parent_.getNusselts_stats_().getHappiness());
-				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);
-				        	if(!(parent_.getNusselts_stats_().getDirtness() <= 0))
-					          parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 1);
-					        if(!(parent_.getNusselts_stats_().getHunger() <= 0))
-					          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 2);
-					        if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
-					          parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
-				
+				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);	    
+				        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 1);
+				        	if((parent_.getNusselts_stats_().getDirtness() < 0))
+				        		  parent_.getNusselts_stats_().setDirtness(0);	
+				        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 2);
+				        	if((parent_.getNusselts_stats_().getHunger() < 0))
+				        		  parent_.getNusselts_stats_().setHunger(0);	          	
+				        	parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
+				        	if((parent_.getNusselts_stats_().getTiredness() < 0))
+				        		  parent_.getNusselts_stats_().setTiredness(0);
+				        	
 				        	monster_.playSomething();
 				        	createStackTable();
 				        	buildTable();

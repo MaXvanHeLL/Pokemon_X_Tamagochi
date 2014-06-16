@@ -178,10 +178,15 @@ public class MainRoom extends ReuGameStage{
 				{
 					sleeping_started_ = ReuGame.getSystemTime();                                           
 					parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
-					if(!(parent_.getNusselts_stats_().getHunger() <= 0))
-				        parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
-				    if(!(parent_.getNusselts_stats_().getHappiness() <= 0))
-				        parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 0.5f);
+					
+					parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.06f);
+		        	if((parent_.getNusselts_stats_().getHunger() < 0))
+		        		  parent_.getNusselts_stats_().setHunger(0);
+		        		
+		        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 0.04f);
+		        	if((parent_.getNusselts_stats_().getHappiness() < 0))
+		        		  parent_.getNusselts_stats_().setHappiness(0);
+		        	
 					if(parent_.getNusselts_stats_().getTiredness() > 100)
 					{
 						parent_.getNusselts_stats_().setTiredness(100);
