@@ -10,7 +10,9 @@ public class BathroomNusselts extends BathroomMonster{
 		LoadMonsterTexture("bath_stand.png");
 		
 		//TODO: Load propper animations!
-		AddBathAnimation(ReuGame.getAnimation("BathAnimation"));
-		AddIdleAnimations(ReuGame.getAnimation("BathIdle0"));
+		AddBathAnimation(ReuGame.getAnimation("Bathing"));
+		AddIdleAnimations(ReuGame.getAnimation("Bath_Idle0"));
+		AddIdleAnimations(ReuGame.getAnimation("Bath_Idle1"));
+
 	}
 }
