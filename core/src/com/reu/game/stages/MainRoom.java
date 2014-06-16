@@ -26,6 +26,7 @@ public class MainRoom extends ReuGameStage{
 	Music snore_sound_;
 	
 	
+	
 	public static RoomType type_ = RoomType.MAINROOM;
 	private SlidingStats	slider_table_;
 	private MainroomMonster	monster_;
@@ -45,10 +46,11 @@ public class MainRoom extends ReuGameStage{
 	public MainRoom(final ReuGame parent){
 		super(parent);
 		
+		
     	snore_sound_ = Gdx.audio.newMusic(Gdx.files.internal("snore.mp3"));
     	snore_sound_.setVolume(0.5f);
 		snore_sound_.setLooping(false);
-				
+		
 		// -- important for catching the Back Button !!
 		Gdx.input.setCatchBackKey(true);
 				
@@ -174,7 +176,7 @@ public class MainRoom extends ReuGameStage{
 		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			if(parent_.getNusselts_stats_().getTiredness() < 100 && monster_.getWaypoints_().isEmpty())
-			{
+			{				
 				monster_.sleepTime();
 				snore_sound_.play();
 		    	snore_sound_.setLooping(true);
@@ -197,9 +199,9 @@ public class MainRoom extends ReuGameStage{
 						parent_.getNusselts_stats_().setTiredness(100);
 					}
 				}
-			}
+			}			
 			else if (monster_.isSleeping())
-			{
+			{					 
 				monster_.stopSleeping();
 				snore_sound_.stop();
 				snore_sound_.setLooping(false);
@@ -211,7 +213,8 @@ public class MainRoom extends ReuGameStage{
 			else if(monster_.getWaypoints_().isEmpty())
 			{
 				monster_.stopSleeping();
-			}
+			}   	 
+				
 		 }
 	}
 	
