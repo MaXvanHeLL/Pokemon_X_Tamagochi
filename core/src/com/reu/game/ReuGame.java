@@ -62,6 +62,8 @@ public class ReuGame extends ApplicationAdapter
 	public void create () 
 	{
 		
+		setSound(true);
+		
 		// Create the skins for our game!
 		CreateSkins();
 		LoadAnimations();
@@ -341,6 +343,12 @@ public class ReuGame extends ApplicationAdapter
 	@Override
 	public void render () 
 	{
+		
+		if(!(isSoundEnabled()))
+			music.pause();
+		else
+			music.play();
+
 		system_time_ += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

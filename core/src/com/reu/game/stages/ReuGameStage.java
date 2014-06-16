@@ -50,18 +50,18 @@ public abstract class ReuGameStage extends Stage{
 				if(ReuGame.isSoundEnabled())
 				{
 					ReuGame.setSound(false);
-					sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+					sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
 				}
 				else
 				{
 					ReuGame.setSound(true);
-					sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+					sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
 				}
 				sound_button_.invalidate();				
 			};
 		});
 		
-		sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+	    sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
 		
 		addActor(sound_button_);
 	}
