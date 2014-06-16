@@ -21,6 +21,7 @@ import com.reu.game.utils.Utils;
 public class Playroom extends ReuGameStage{
 	
 	Music laughing_sound_;
+	Music nono_sound_;
 	
 	public static RoomType type_ = RoomType.PLAYROOM;
 	
@@ -36,6 +37,9 @@ public class Playroom extends ReuGameStage{
 		laughing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("laughing.mp3"));
 		laughing_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
  	    laughing_sound_.setLooping(false);
+ 		nono_sound_ = Gdx.audio.newMusic(Gdx.files.internal("nono.mp3"));
+		nono_sound_.setVolume(0.5f);                 
+ 	    nono_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
@@ -83,6 +87,10 @@ public class Playroom extends ReuGameStage{
 				        }
 				        else
 				        {
+				        	if(nono_sound_.isPlaying())
+								nono_sound_.stop();
+							  
+					  		nono_sound_.play();
 				        	monster_.pleaseNoMoreFun();
 				        }
 				}
