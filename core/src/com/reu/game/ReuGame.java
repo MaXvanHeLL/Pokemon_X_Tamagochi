@@ -293,8 +293,8 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("Portrait", new Texture(Gdx.files.internal("portrait.png")));
 		skin_.add("BarFrame", new Texture(Gdx.files.internal("bar_frame.png")));
 		
-		skin_.add("sound_off", new Texture(Gdx.files.internal("bacon.png")));
-		skin_.add("sound_on", new Texture(Gdx.files.internal("bacon.png")));
+		skin_.add("sound_off", new Texture(Gdx.files.internal("btn_sound_off.png")));
+		skin_.add("sound_on", new Texture(Gdx.files.internal("btn_sound_on.png")));
 		
 		// Dialog
 		BitmapFont font = new BitmapFont();
