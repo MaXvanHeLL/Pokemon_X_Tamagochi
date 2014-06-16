@@ -25,4 +25,10 @@ public abstract class ReuGameStage extends Stage{
 	 */
 	public void PostAct(){
 	}
+	
+	/***
+	 * Resets the room before leaving (or maybe entering?)
+	 */
+	public void ResetRoom(){
+	}
 }

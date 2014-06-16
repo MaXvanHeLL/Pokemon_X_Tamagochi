@@ -244,6 +244,14 @@ public class Kitchen extends ReuGameStage{
 	}
 	
 	@Override
+	public void ResetRoom()
+	{
+		monster_.Reset();
+		createStackTable();
+		buildTable();
+	}
+	
+	@Override
 	public boolean keyDown(int keycode) 
 	{
 		if(keycode == Keys.BACK)

@@ -153,7 +153,14 @@ public class PlayroomMonster extends Monster{
 			{
 				animation_time_ = (float)Math.ceil(animation_time_);
 			}
-			current_frame_ = current_animation_.getKeyFrame(animation_time_, true);
+			if(current_animation_ != null)
+			{
+				current_frame_ = current_animation_.getKeyFrame(animation_time_, true);
+			}
+			else
+			{
+				current_frame_ = standartd_monster_;
+			}
 			if(state_time_ > stop_time_)
 			{
 				animated_ = false;

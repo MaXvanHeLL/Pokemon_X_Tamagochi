@@ -151,7 +151,16 @@ public class Bathroom extends ReuGameStage{
 	}
 	
 	@Override
-	public void PostAct(){
+	public void ResetRoom()
+	{
+		monster_.Reset();
+		createStackTable();
+		buildTable();
+	}
+	
+	@Override
+	public void PostAct()
+	{
 		if(monster_.isBathing())
 		{
 			if(parent_.getNusselts_stats_().getDirtness() < 100)

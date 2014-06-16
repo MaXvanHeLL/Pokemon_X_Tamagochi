@@ -167,6 +167,14 @@ public class Playroom extends ReuGameStage{
 	}
 	
 	@Override
+	public void ResetRoom()
+	{
+		monster_.Reset();
+		createStackTable();
+		buildTable();
+	}
+	
+	@Override
 	public void PostAct(){
 	}
 }

@@ -1,14 +1,12 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
@@ -133,12 +131,11 @@ public class MainRoom extends ReuGameStage{
 	    bedroom_area_ = new Rectangle(Gdx.graphics.getWidth()-Utils.GetPixelX(32.5f), Gdx.graphics.getHeight()-Utils.GetPixelY(75),Utils.GetPixelX(32.5f),Utils.GetPixelY(35));
 	}
 	
-	/***
-	 * Resets the room before leaving (or maybe entering?)
-	 */
+	@Override
 	public void ResetRoom()
 	{
 		monster_.Reset();
+		slider_table_.updateStats();
 	}
 	
 	private void moveSleepingMonster()
@@ -157,17 +154,14 @@ public class MainRoom extends ReuGameStage{
 		if(Utils.MonsterInRectangle(kitchen_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			parent_.SetCurrentStage(RoomType.KITCHEN);
-			ResetRoom();
 		}
 		if(Utils.MonsterInRectangle(bathroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
-			parent_.SetCurrentStage(RoomType.BATHROOM);
-			ResetRoom();
+			parent_.SetCurrentStage(RoomType.BATHROOM);;
 		}
 		if(Utils.MonsterInRectangle(playroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
 			parent_.SetCurrentStage(RoomType.PLAYROOM);
-			ResetRoom();
 		}
 		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{

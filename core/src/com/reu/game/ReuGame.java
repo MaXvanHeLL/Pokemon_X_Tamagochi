@@ -17,9 +17,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.reu.game.monster.Stats;
@@ -123,6 +121,7 @@ public class ReuGame extends ApplicationAdapter
 	{
 		Gdx.input.setInputProcessor(stages_.get(type));
 		this.setCurrent_room_(type);
+		stages_.get(getCurrent_room_()).ResetRoom();
 	}
 	
 	/***
@@ -144,14 +143,16 @@ public class ReuGame extends ApplicationAdapter
 		
 		// Kitchen only
 		animations_.put("EatAnimation", LoadSingleAnimation(6,6, "eating.png"));
-		
 
 		//Bathroom only
 		animations_.put("Bath_Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
 		animations_.put("Bath_Idle1", LoadSingleAnimation(6,6, "bath_idle_2.png"));
 		animations_.put("Bathing", LoadSingleAnimation(6,6, "bathing.png"));
-
 		
+		//Shared Animation
+		animations_.put("Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
+		animations_.put("Idle1", LoadSingleAnimation(6,6, "idle_2.png"));
+		animations_.put("Nonono", LoadSingleAnimation(6,6, "no.png"));
 	}
 	
 	protected Animation LoadSingleAnimation(int frame_cols, int frame_rows, String sheet_path)
