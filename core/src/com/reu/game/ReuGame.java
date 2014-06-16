@@ -14,8 +14,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.reu.game.monster.Stats;
 import com.reu.game.stages.Bathroom;
 import com.reu.game.stages.Kitchen;
@@ -219,6 +225,17 @@ public class ReuGame extends ApplicationAdapter
 		pixmap.fill();
 		skin_.add("green", new Texture(pixmap));
 		
+		pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.rgba8888(0, 0, 0.8f, 1));
+		pixmap.fill();
+		skin_.add("button_up_blue", new Texture(pixmap));
+		
+		pixmap = new Pixmap(1, 1, Format.RGBA8888);
+		pixmap.setColor(Color.rgba8888(0, 0, 1, 1));
+		pixmap.fill();
+		skin_.add("button_down_blue", new Texture(pixmap));
+		
+		
 		// Debugbutton skin
 		//--------------------------------------------------------------------------
 		skin_.add("DebugButtonUp", new Texture(Gdx.files.internal("badlogic.jpg")));
@@ -254,6 +271,25 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("ButtonDown", new Texture(Gdx.files.internal("button_db_active.png")));
 		skin_.add("Portrait", new Texture(Gdx.files.internal("portrait.png")));
 		skin_.add("BarFrame", new Texture(Gdx.files.internal("bar_frame.png")));
+		
+		// Dialog
+		
+		BitmapFont font = new BitmapFont();
+		font.scale(1f);
+		LabelStyle label_style_ = new LabelStyle(font, Color.BLACK);
+
+		TextButtonStyle tbstyle = new TextButtonStyle();
+		tbstyle.font = font;
+		tbstyle.down = skin_.getDrawable("button_down_blue");
+		tbstyle.up = skin_.getDrawable("button_up_blue");
+		
+		WindowStyle dialog = new WindowStyle(font, Color.BLACK, skin_.getDrawable("white"));
+		
+
+		skin_.add("default", font);
+		skin_.add("default", tbstyle);
+		skin_.add("default", label_style_);
+		skin_.add("dialog", dialog);
 	}
 
 	@Override

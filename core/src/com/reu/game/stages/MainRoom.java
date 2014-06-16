@@ -1,11 +1,14 @@
 package com.reu.game.stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
@@ -22,6 +25,7 @@ public class MainRoom extends ReuGameStage{
 	public static RoomType type_ = RoomType.MAINROOM;
 	private SlidingStats	slider_table_;
 	private MainroomMonster	monster_;
+	private Dialog			dialog_exit_;
 	private MainRoomPortal 	portal_;
 	
 	private float sleeping_started_;
@@ -54,6 +58,25 @@ public class MainRoom extends ReuGameStage{
 		// decisions for us!
 		monster_ = (MainroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
+		
+		dialog_exit_ = new Dialog("", parent_.getSkin(), "dialog") 
+		{
+		    protected void result (Object object)
+		    {
+		        if(object.equals(true))
+		        	System.exit(0);
+		    }
+		};
+		
+		dialog_exit_.text("Are you sure that you want\n to leave your friend alone?");
+		dialog_exit_.getContentTable().pad(Utils.GetPixelX(5));
+		dialog_exit_.button("Yes", true).setFillParent(true);;
+		dialog_exit_.getButtonTable().padTop(Utils.GetPixelY(5)).padBottom(Utils.GetPixelY(5));
+		dialog_exit_.getButtonTable().add().width(Utils.GetPixelX(10));
+		dialog_exit_.button("No", false).setFillParent(true);
+
+		
+
 		
 		// Create the portal! Nusselts loves portals!
 		portal_ = new MainRoomPortal(Utils.GetPixelX(32.5f), Utils.GetPixelY(83.5f));
@@ -198,12 +221,16 @@ public class MainRoom extends ReuGameStage{
 		parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
 		parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
 
+		
 		// -- always flush after changing the Preferences to make effect on Memory
 		parent_.getPrefs().flush();
+		
+		dialog_exit_.show(this);
+		
 				  
 		// -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
 		// all the fancy Memory flushing stuff which is done here :)
-		System.exit(0);
+		//
 	    return false;
 	}
 }
