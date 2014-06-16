@@ -174,14 +174,18 @@ public class Kitchen extends ReuGameStage{
 		    
 		    		eat_sound_.play();
 		    	   
-		        	
 		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 10);
 		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.01f);
-		        	if(!(parent_.getNusselts_stats_().getDirtness() <= 0))
-		        	  parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 10);
-		        	if(!(parent_.getNusselts_stats_().getTiredness() <= 0))
-		        	  parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
+		        	
+		        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 10);
+		        	if((parent_.getNusselts_stats_().getDirtness() < 0))
+		        		  parent_.getNusselts_stats_().setDirtness(0);
+		        	  
+		        	parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
+		        	if((parent_.getNusselts_stats_().getTiredness() < 0))
+		        		parent_.getNusselts_stats_().setDirtness(0);
+
 		        	temp.eatSomething();
 		        	createStackTable();
 		        	buildTable();
