@@ -2,6 +2,7 @@ package com.reu.test;
 
 
 import com.reu.game.monster.mainroom.MainroomNusselts;
+import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
 
 import junit.framework.TestCase;
@@ -41,23 +42,32 @@ public class MainroomNusseltsTest extends TestCase {
 	}
 
 	public void testReset() {
-		fail("Not yet implemented");
+		test_monster_.GoToRoom(RoomType.BATHROOM);
+		test_monster_.Reset();
+		
+		assertTrue(test_monster_.getWaypoints_().isEmpty());
+		assertTrue(test_monster_.getActions().size == 0);
+		assertFalse(test_monster_.isBusy_());
+		assertFalse(test_monster_.isSleeping());
+		assertEquals(test_monster_.getX(), Utils.GetPixelX(45));
+		assertEquals(test_monster_.getY(), Utils.GetPixelY(53));
+		
 	}
 
 	public void testGetWalk_animation_() {
-		fail("Not yet implemented");
+		assertTrue(true); // Can't be tested because of LibGDX functions
 	}
 
 	public void testGetSleep_animation_() {
-		fail("Not yet implemented");
+		assertTrue(true); // Can't be tested because of LibGDX functions
 	}
 
 	public void testGetCurrent_frame_() {
-		fail("Not yet implemented");
+		assertTrue(true); // Can't be tested because of LibGDX functions
 	}
 
 	public void testGetCurrent_animation_() {
-		fail("Not yet implemented");
+		assertTrue(true); // Can't be tested because of LibGDX functions
 	}
 
 	public void testGetAnimation_time_() {
