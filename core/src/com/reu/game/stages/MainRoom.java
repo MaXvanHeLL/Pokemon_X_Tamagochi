@@ -168,8 +168,6 @@ public class MainRoom extends ReuGameStage{
 		}
 		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
-
-			
 			if(parent_.getNusselts_stats_().getTiredness() < 100 && monster_.getWaypoints_().isEmpty())
 			{
 				monster_.sleepTime();

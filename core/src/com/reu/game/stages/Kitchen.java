@@ -188,6 +188,10 @@ public class Kitchen extends ReuGameStage{
 		        }
 		        else
 		        {
+		        	if(nono_sound_.isPlaying())
+			        	  nono_sound_.stop();
+		    
+		    		nono_sound_.play();
 		        	temp.pleaseNoMoreFood();
 		        }
 		    };
@@ -247,6 +251,10 @@ public class Kitchen extends ReuGameStage{
 		        }
 		        else
 		        {
+		        	if(nono_sound_.isPlaying())
+			        	  nono_sound_.stop();
+		    
+		    		nono_sound_.play();
 		        	temp.pleaseNoMoreFood();
 		        }
 		    };
