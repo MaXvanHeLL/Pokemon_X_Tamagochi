@@ -23,6 +23,7 @@ import com.reu.game.utils.Utils;
 public class Bathroom extends ReuGameStage{
 	
 	Music bathing_sound_;
+	Music nono_sound_;
 	
 	public static RoomType type_ = RoomType.BATHROOM;
 	
@@ -39,6 +40,9 @@ public class Bathroom extends ReuGameStage{
     	bathing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("bath.mp3"));
     	bathing_sound_.setVolume(1f);                 // sets the volume to half the maximum volume
  	    bathing_sound_.setLooping(false);
+ 	    nono_sound_ = Gdx.audio.newMusic(Gdx.files.internal("nono.mp3"));
+ 	    nono_sound_.setVolume(1f);                
+	    nono_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
 		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
@@ -62,6 +66,14 @@ public class Bathroom extends ReuGameStage{
 			{				
 				if(monster_.isClicked(x, y))
 				{
+					if(!(parent_.getNusselts_stats_().getDirtness() < 100))
+					{
+						if(nono_sound_.isPlaying())
+							nono_sound_.stop();
+						  
+				  		nono_sound_.play();
+					}
+					
 					monster_.takeBath();
 					feeding_started_ = ReuGame.getSystemTime();
 					System.out.println("Is klicked");
@@ -147,9 +159,6 @@ public class Bathroom extends ReuGameStage{
 			System.out.println("Hour" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 			
 			
-
-
-			
 			bathing_sound_.stop();
 			bathing_sound_.setLooping(false);
 			monster_.stopBath();
@@ -193,7 +202,7 @@ public class Bathroom extends ReuGameStage{
 				}
 			}
 			else
-			{
+			{	
 				monster_.stopBath();
 				bathing_sound_.stop();
 	    		bathing_sound_.setLooping(false);
@@ -202,5 +211,6 @@ public class Bathroom extends ReuGameStage{
 				buildTable();
 			}
 		}
+	        	  
 	}
 }
