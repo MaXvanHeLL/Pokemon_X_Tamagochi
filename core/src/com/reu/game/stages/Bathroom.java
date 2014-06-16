@@ -176,6 +176,7 @@ public class Bathroom extends ReuGameStage{
 		monster_.Reset();
 		createStackTable();
 		buildTable();
+		CorrectSoundButton();
 	}
 	
 	@Override

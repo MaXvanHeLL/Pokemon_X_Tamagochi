@@ -80,10 +80,10 @@ public class MainRoom extends ReuGameStage{
 		// Create the "close"-dialog
 		dialog_exit_.text("Are you sure that you want\n to leave your friend alone?");
 		dialog_exit_.getContentTable().pad(Utils.GetPixelX(5));
-		dialog_exit_.button("Yes", true);
+		dialog_exit_.button(new ImageButton(parent_.getSkin().get("yes", ImageButtonStyle.class)), true);
 		dialog_exit_.getButtonTable().padTop(Utils.GetPixelY(5)).padBottom(Utils.GetPixelY(5));
 		dialog_exit_.getButtonTable().add().width(Utils.GetPixelX(10));
-		dialog_exit_.button("No", false);
+		dialog_exit_.button(new ImageButton(parent_.getSkin().get("no", ImageButtonStyle.class)), false);
 
 		
 		// Create the portal! Nusselts loves portals!
@@ -146,6 +146,7 @@ public class MainRoom extends ReuGameStage{
 	{
 		monster_.Reset();
 		slider_table_.updateStats();
+		CorrectSoundButton();
 	}
 	
 	private void moveSleepingMonster()
@@ -153,6 +154,7 @@ public class MainRoom extends ReuGameStage{
 		monster_.stopSleeping();
 		snore_sound_.stop();
 		snore_sound_.setLooping(false);
+		CorrectSoundButton();
 	}
 	
 	@Override

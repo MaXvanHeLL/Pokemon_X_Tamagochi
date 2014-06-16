@@ -273,6 +273,7 @@ public class Kitchen extends ReuGameStage{
 		monster_.Reset();
 		createStackTable();
 		buildTable();
+		CorrectSoundButton();
 	}
 	
 	@Override

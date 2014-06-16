@@ -28,7 +28,15 @@ public abstract class ReuGameStage extends Stage{
 		super();
 		parent_ = parent;
 		
-		sound_button_ = new ImageButton(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+		
+		if(ReuGame.isSoundEnabled())
+		{
+			sound_button_ = new ImageButton(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+		}
+		else
+		{
+			sound_button_ = new ImageButton(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+		}
 		sound_button_.align(Align.top | Align.left);
 		sound_button_.setPosition(Utils.GetPixelX(77), Utils.GetPixelY(70));
 		sound_button_.setWidth(Utils.GetPixelX(10));
@@ -58,7 +66,18 @@ public abstract class ReuGameStage extends Stage{
 		addActor(sound_button_);
 	}
 	
-	
+	protected void CorrectSoundButton()
+	{
+		if(ReuGame.isSoundEnabled())
+		{
+			sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+		}
+		else
+		{
+			sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+		}
+		sound_button_.invalidate();		
+	}
 	
 	/***
 	 * Override this function to check stuff on each render cycle

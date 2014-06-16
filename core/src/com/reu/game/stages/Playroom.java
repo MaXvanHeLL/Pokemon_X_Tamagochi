@@ -187,6 +187,7 @@ public class Playroom extends ReuGameStage{
 		monster_.Reset();
 		createStackTable();
 		buildTable();
+		CorrectSoundButton();
 	}
 	
 	@Override

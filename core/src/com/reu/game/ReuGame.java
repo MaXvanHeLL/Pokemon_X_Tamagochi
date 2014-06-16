@@ -246,16 +246,6 @@ public class ReuGame extends ApplicationAdapter
 		pixmap.fill();
 		skin_.add("green", new Texture(pixmap));
 		
-		pixmap = new Pixmap(1, 1, Format.RGBA8888);
-		pixmap.setColor(Color.rgba8888(0, 0, 0.8f, 1));
-		pixmap.fill();
-		skin_.add("button_up_blue", new Texture(pixmap));
-		
-		pixmap = new Pixmap(1, 1, Format.RGBA8888);
-		pixmap.setColor(Color.rgba8888(0, 0, 1, 1));
-		pixmap.fill();
-		skin_.add("button_down_blue", new Texture(pixmap));
-		
 		
 		// Debugbutton skin
 		//--------------------------------------------------------------------------
@@ -293,25 +283,37 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("Portrait", new Texture(Gdx.files.internal("portrait.png")));
 		skin_.add("BarFrame", new Texture(Gdx.files.internal("bar_frame.png")));
 		
+		
+		// Other Stuff
 		skin_.add("sound_off", new Texture(Gdx.files.internal("btn_sound_off.png")));
 		skin_.add("sound_on", new Texture(Gdx.files.internal("btn_sound_on.png")));
+		
+		skin_.add("btn_dialog_yes", new Texture(Gdx.files.internal("btn_yes.png")));
+		skin_.add("btn_dialog_no", new Texture(Gdx.files.internal("btn_no.png")));
 		
 		// Dialog
 		BitmapFont font = new BitmapFont();
 		font.scale(1f);
 		LabelStyle label_style_ = new LabelStyle(font, Color.BLACK);
 
-		TextButtonStyle tbstyle = new TextButtonStyle();
-		tbstyle.font = font;
-		tbstyle.down = skin_.getDrawable("button_down_blue");
-		tbstyle.up = skin_.getDrawable("button_up_blue");
+		ImageButtonStyle ibstyle = new ImageButtonStyle();
+		ibstyle.down = skin_.getDrawable("btn_dialog_yes");
+		ibstyle.up = skin_.getDrawable("btn_dialog_yes");
+		
+		ImageButtonStyle ibstyle_2 = new ImageButtonStyle();
+		ibstyle_2.down = skin_.getDrawable("btn_dialog_no");
+		ibstyle_2.up = skin_.getDrawable("btn_dialog_no");
+		
+		TextButtonStyle tb_style = new TextButtonStyle();
 		
 		WindowStyle dialog = new WindowStyle(font, Color.BLACK, skin_.getDrawable("white"));
 		
 
 		
 		skin_.add("default", font);
-		skin_.add("default", tbstyle);
+		skin_.add("default", tb_style);
+		skin_.add("yes", ibstyle);
+		skin_.add("no", ibstyle_2);
 		skin_.add("default", label_style_);
 		skin_.add("dialog", dialog);
 		
