@@ -1,9 +1,11 @@
 package com.reu.game.stages;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.reu.game.ReuGame;
 import com.reu.game.types.RoomType;
 import com.reu.game.utils.Utils;
@@ -26,16 +28,37 @@ public abstract class ReuGameStage extends Stage{
 		super();
 		parent_ = parent;
 		
-		sound_button_ = new ImageButton(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+		sound_button_ = new ImageButton(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
 		sound_button_.align(Align.top | Align.left);
 		sound_button_.setPosition(Utils.GetPixelX(77), Utils.GetPixelY(70));
 		sound_button_.setWidth(Utils.GetPixelX(10));
 		sound_button_.setHeight(Utils.GetPixelX(10));
 		
+		sound_button_.addListener( new ClickListener() 
+		{             
+			@Override
+			public void clicked(InputEvent event, float x, float y) 
+			{
+				if(ReuGame.isSoundEnabled())
+				{
+					ReuGame.setSound(false);
+					sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+				}
+				else
+				{
+					ReuGame.setSound(true);
+					sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+				}
+				sound_button_.invalidate();				
+			};
+		});
+		
 		sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
 		
 		addActor(sound_button_);
 	}
+	
+	
 	
 	/***
 	 * Override this function to check stuff on each render cycle
