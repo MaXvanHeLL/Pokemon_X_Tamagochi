@@ -1,5 +1,7 @@
 package com.reu.game.stages;
 
+import java.util.Calendar;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -176,7 +178,7 @@ public class MainRoom extends ReuGameStage{
 
 				if((sleeping_started_ + 0.1) < ReuGame.getSystemTime())
 				{
-					sleeping_started_ = ReuGame.getSystemTime();
+					sleeping_started_ = ReuGame.getSystemTime();                                           
 					parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
 					if(!(parent_.getNusselts_stats_().getHunger() <= 0))
 				        parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
@@ -208,6 +210,7 @@ public class MainRoom extends ReuGameStage{
 	@Override
 	public boolean keyDown(int keycode) 
 	{
+<<<<<<< HEAD
 		if(keycode == Keys.BACK)
 		{
 			parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
@@ -224,6 +227,24 @@ public class MainRoom extends ReuGameStage{
 			
 			dialog_exit_.show(this);
 		}
+=======
+		parent_.getPrefs().putFloat("hunger", this.parent_.getNusselts_stats_().getHunger());
+		parent_.getPrefs().putFloat("happiness", this.parent_.getNusselts_stats_().getHappiness());
+		parent_.getPrefs().putFloat("tiredness", this.parent_.getNusselts_stats_().getTiredness());
+		parent_.getPrefs().putFloat("dirtness", this.parent_.getNusselts_stats_().getDirtness());
+		parent_.getPrefs().putString("name", this.parent_.getNusselts_stats_().getName());
+		parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
+		parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
+		parent_.getPrefs().putInteger("Day", Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
+		parent_.getPrefs().putInteger("Hour", Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+
+		
+		// -- always flush after changing the Preferences to make effect on Memory
+		parent_.getPrefs().flush();
+		
+		dialog_exit_.show(this);
+		
+>>>>>>> origin/master
 				  
 		// -- just temporary dirty work, no cleanup :D we should override or enhance dispose() method for 
 		// all the fancy Memory flushing stuff which is done here :)

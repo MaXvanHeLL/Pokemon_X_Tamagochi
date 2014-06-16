@@ -42,6 +42,10 @@ public class ReuGame extends ApplicationAdapter
 	private Stats nusselts_stats_;
 	private Preferences prefs;
 	
+	private int last_day_;
+	private int last_hour_;
+	private int stats_timefactor_;
+	
 	private static boolean sound_enabled_ = true;
 	private static float system_time_ = 0;
 	
@@ -56,7 +60,7 @@ public class ReuGame extends ApplicationAdapter
 	@Override
 	public void create () 
 	{
-
+		
 		// Create the skins for our game!
 		CreateSkins();
 		LoadAnimations();
@@ -77,6 +81,13 @@ public class ReuGame extends ApplicationAdapter
 		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 1000));
 		nusselts_stats_.setName(getPrefs().getString("name", "Nusselts"));
 		nusselts_stats_.setWeight(getPrefs().getFloat("weight", 10));
+		
+		// read the Programs last time on Startup
+		this.last_day_ = getPrefs().getInteger("Day");
+		this.last_hour_ = getPrefs().getInteger("Hour");
+		
+		//checkStatsonTime();
+	
 		// Use the date as a long value
 		Calendar cal = Calendar.getInstance();
 		long prefs_day = getPrefs().getLong("creation", cal.getTimeInMillis());
@@ -313,6 +324,55 @@ public class ReuGame extends ApplicationAdapter
 		stages_.get(getCurrent_room_()).draw();
 	}
 	
+	public void checkStatsonTime()
+	{
+		if(this.last_day_ == Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
+		{
+			if(this.last_hour_ < Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
+			{
+				this.stats_timefactor_ = this.last_hour_ - Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+				nusselts_stats_.setHunger(nusselts_stats_.getHunger() - (100 * this.stats_timefactor_));
+				nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 100 * this.stats_timefactor_);	
+				nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 100 * this.stats_timefactor_);	
+				nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 100 * this.stats_timefactor_);
+			}
+		}
+		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1) && 
+				(this.last_hour_ >  Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
+		{
+			this.stats_timefactor_ = - Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - this.last_hour_;
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 100 * this.stats_timefactor_);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 100 * this.stats_timefactor_);	
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 100 * this.stats_timefactor_);	
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 100 * this.stats_timefactor_);
+		}
+		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1) && 
+				(this.last_hour_ <=  Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
+		{
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 500);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 500);	
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 500);	
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 500);
+			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 0.5f);
+		}
+		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 2) && 
+				( this.last_hour_ <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
+		{
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 1000);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 1000);	
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 1000);	
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 1000);
+			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 1f);
+		}
+		else if (this.last_day_ <= (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 3))
+		{
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 1000);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 1000);	
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 1000);	
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 1000);
+			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 1f);
+	    }
+	}
 	public RoomType getCurrent_room_() 
 	{
 		return current_room_;
