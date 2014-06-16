@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
@@ -54,6 +57,8 @@ public class MainRoom extends ReuGameStage{
 		background.setWidth(Utils.GetPixelX(90));
 		background.setHeight(Utils.GetPixelY(160));
 		addActor(background);
+		
+		getActors().get(0).setZIndex(10);
 				
 		// Get the right monster for this room, the monster factory will make
 		// decisions for us!
@@ -69,14 +74,14 @@ public class MainRoom extends ReuGameStage{
 		    }
 		};
 		
+		
+		// Create the "close"-dialog
 		dialog_exit_.text("Are you sure that you want\n to leave your friend alone?");
 		dialog_exit_.getContentTable().pad(Utils.GetPixelX(5));
 		dialog_exit_.button("Yes", true);
 		dialog_exit_.getButtonTable().padTop(Utils.GetPixelY(5)).padBottom(Utils.GetPixelY(5));
 		dialog_exit_.getButtonTable().add().width(Utils.GetPixelX(10));
 		dialog_exit_.button("No", false);
-
-		
 
 		
 		// Create the portal! Nusselts loves portals!

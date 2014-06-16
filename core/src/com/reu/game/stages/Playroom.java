@@ -53,6 +53,8 @@ public class Playroom extends ReuGameStage{
 		
 		addActor(table_);
 		
+		getActors().get(0).setZIndex(10);
+		
 		// Create monster
 		monster_ = (PlayroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);

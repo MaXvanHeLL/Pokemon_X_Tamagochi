@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -292,8 +293,10 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("Portrait", new Texture(Gdx.files.internal("portrait.png")));
 		skin_.add("BarFrame", new Texture(Gdx.files.internal("bar_frame.png")));
 		
-		// Dialog
+		skin_.add("sound_off", new Texture(Gdx.files.internal("bacon.png")));
+		skin_.add("sound_on", new Texture(Gdx.files.internal("bacon.png")));
 		
+		// Dialog
 		BitmapFont font = new BitmapFont();
 		font.scale(1f);
 		LabelStyle label_style_ = new LabelStyle(font, Color.BLACK);
@@ -306,11 +309,25 @@ public class ReuGame extends ApplicationAdapter
 		WindowStyle dialog = new WindowStyle(font, Color.BLACK, skin_.getDrawable("white"));
 		
 
+		
 		skin_.add("default", font);
 		skin_.add("default", tbstyle);
 		skin_.add("default", label_style_);
 		skin_.add("dialog", dialog);
+		
+		ImageButtonStyle sound_on = new ImageButtonStyle();
+		ImageButtonStyle sound_off = new ImageButtonStyle();
+		
+		sound_on.up = skin_.getDrawable("sound_on");
+		sound_on.down = skin_.getDrawable("sound_on");
+		
+		sound_off.up = skin_.getDrawable("sound_off");
+		sound_off.down = skin_.getDrawable("sound_off");
+		
+		skin_.add("sound_on", sound_on);
+		skin_.add("sound_off", sound_off);
 	}
+	
 
 	@Override
 	public void resize(int width, int height) 

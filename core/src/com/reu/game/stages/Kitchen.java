@@ -64,6 +64,8 @@ public class Kitchen extends ReuGameStage{
 		
 		addActor(table_);
 		
+		getActors().get(0).setZIndex(10);
+		
 		// Create monster
 		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
