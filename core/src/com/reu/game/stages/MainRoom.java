@@ -185,6 +185,8 @@ public class MainRoom extends ReuGameStage{
 				  snore_sound_.play();
 		    	  snore_sound_.setLooping(true);
 				}
+				else
+					snore_sound_.pause();
 
 				if((sleeping_started_ + 0.1) < ReuGame.getSystemTime())
 				{
