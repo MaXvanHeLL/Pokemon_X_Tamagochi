@@ -163,6 +163,8 @@ public class ReuGame extends ApplicationAdapter
 		
 		//Playroom only
 		animations_.put("PlayAnimation1", LoadSingleAnimation(6,6, "play_1.png"));
+		animations_.put("PlayAnimation2", LoadSingleAnimation(6,6, "play_1_inverted.png"));
+		animations_.put("PlayAnimation3", LoadSingleAnimation(6,6, "play_2.png"));
 		
 		//Shared Animation
 		animations_.put("Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
