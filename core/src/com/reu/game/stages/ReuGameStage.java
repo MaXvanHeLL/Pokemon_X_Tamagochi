@@ -37,8 +37,7 @@ public abstract class ReuGameStage extends Stage{
 		{
 			sound_button_ = new ImageButton(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
 		}
-	
-		sound_button_ = new ImageButton(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+//		sound_button_ = new ImageButton(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
 		sound_button_.align(Align.top | Align.left);
 		sound_button_.setPosition(Utils.GetPixelX(77), Utils.GetPixelY(70));
 		sound_button_.setWidth(Utils.GetPixelX(10));
@@ -63,7 +62,7 @@ public abstract class ReuGameStage extends Stage{
 			};
 		});
 		
-	    sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+	    //sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
 		
 		addActor(sound_button_);
 	}
@@ -72,11 +71,11 @@ public abstract class ReuGameStage extends Stage{
 	{
 		if(ReuGame.isSoundEnabled())
 		{
-			sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
+			sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
 		}
 		else
 		{
-			sound_button_.setStyle(parent_.getSkin().get("sound_on", ImageButtonStyle.class));
+			sound_button_.setStyle(parent_.getSkin().get("sound_off", ImageButtonStyle.class));
 		}
 		sound_button_.invalidate();		
 	}

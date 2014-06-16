@@ -160,7 +160,6 @@ public class Bathroom extends ReuGameStage{
 			System.out.println("Day of Year" + Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
 			System.out.println("Hour" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 			
-			
 			bathing_sound_.stop();
 			bathing_sound_.setLooping(false);
 			monster_.stopBath();
@@ -188,9 +187,15 @@ public class Bathroom extends ReuGameStage{
 			{
 				System.out.println("Test");
 				if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
-				{		    
-					bathing_sound_.play();
-		    		bathing_sound_.setLooping(true);
+				{	
+					if(ReuGame.isSoundEnabled())
+					{
+						bathing_sound_.play();
+			    		bathing_sound_.setLooping(true);
+					}
+					else
+						bathing_sound_.stop();
+				
 					
 					feeding_started_ = ReuGame.getSystemTime();
 					parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() + 0.5f);
