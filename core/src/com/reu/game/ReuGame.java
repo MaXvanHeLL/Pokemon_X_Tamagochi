@@ -145,20 +145,12 @@ public class ReuGame extends ApplicationAdapter
 		// Kitchen only
 		animations_.put("EatAnimation", LoadSingleAnimation(6,6, "eating.png"));
 		
-<<<<<<< HEAD
 
 		//Bathroom only
 		animations_.put("Bath_Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
 		animations_.put("Bath_Idle1", LoadSingleAnimation(6,6, "bath_idle_2.png"));
 		animations_.put("Bathing", LoadSingleAnimation(6,6, "bathing.png"));
 
-		
-=======
->>>>>>> dcb4a02e18f5a213dfd24550be6e395d2d6486a1
-		// Shared animations
-		animations_.put("Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
-		animations_.put("Idle1", LoadSingleAnimation(6,6, "idle_2.png"));
-		animations_.put("Nonono", LoadSingleAnimation(6,6, "no.png"));
 		
 	}
 	
