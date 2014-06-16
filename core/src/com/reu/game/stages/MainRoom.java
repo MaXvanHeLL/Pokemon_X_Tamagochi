@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.reu.game.ReuGame;
-import com.reu.game.monster.Monster;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
 import com.reu.game.stages.actors.MainRoomPortal;
@@ -22,10 +21,10 @@ public class MainRoom extends ReuGameStage{
 	
 	public static RoomType type_ = RoomType.MAINROOM;
 	private SlidingStats	slider_table_;
-	private Monster 		monster_;
+	private MainroomMonster	monster_;
 	private MainRoomPortal 	portal_;
 	
-	private float feeding_started_;
+	private float sleeping_started_;
 
 	
 	private Rectangle kitchen_area_;
@@ -53,7 +52,7 @@ public class MainRoom extends ReuGameStage{
 				
 		// Get the right monster for this room, the monster factory will make
 		// decisions for us!
-		monster_ = MonsterFactory.CreateMonster(type_, parent.getMonsterType());
+		monster_ = (MainroomMonster)MonsterFactory.CreateMonster(type_, parent.getMonsterType());
 		addActor(monster_);
 		
 		// Create the portal! Nusselts loves portals!
@@ -70,26 +69,35 @@ public class MainRoom extends ReuGameStage{
 		{
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
 			{
-			  if(!((MainroomMonster)monster_).isSleeping())
-			  {
-				MainroomMonster temp = (MainroomMonster) monster_;
 				if(Utils.MonsterInRectangle(kitchen_area_, x, y))
 				{
-					temp.GoToRoom(RoomType.KITCHEN);
+					if (monster_.isSleeping())
+					{
+						moveSleepingMonster();
+					}
+					monster_.GoToRoom(RoomType.KITCHEN);
 				}
 				if(Utils.MonsterInRectangle(bathroom_area_, x, y))
 				{
-					temp.GoToRoom(RoomType.BATHROOM);
+					if (monster_.isSleeping())
+					{
+						moveSleepingMonster();
+					}
+					monster_.GoToRoom(RoomType.BATHROOM);
 				}
 				if(Utils.MonsterInRectangle(playroom_area_, x, y))
 				{
-					temp.GoToRoom(RoomType.PLAYROOM);
+					if (monster_.isSleeping())
+					{
+						moveSleepingMonster();
+					}
+					monster_.GoToRoom(RoomType.PLAYROOM);
 				}
-				if(Utils.MonsterInRectangle(bedroom_area_, x, y))
+				if(Utils.MonsterInRectangle(bedroom_area_, x, y) && !monster_.isSleeping())
 				{
-					temp.GoToRoom(RoomType.BEDROOM);
+					monster_.GoToRoom(RoomType.BEDROOM);
 				}
-			  }
+
 				//temp.MoveTo(x, y);
 				return true;
 			}
@@ -108,6 +116,13 @@ public class MainRoom extends ReuGameStage{
 	public void ResetRoom()
 	{
 		monster_.Reset();
+	}
+	
+	private void moveSleepingMonster()
+	{
+		monster_.stopSleeping();
+		snore_sound_.stop();
+		snore_sound_.setLooping(false);
 	}
 	
 	@Override
@@ -133,40 +148,38 @@ public class MainRoom extends ReuGameStage{
 		}
 		if(Utils.MonsterInRectangle(bedroom_area_, monster_.GetCenterX(), monster_.GetCenterY()))
 		{
-			System.out.println(((MainroomMonster) monster_).isSleeping());
 
 			
-				if(parent_.getNusselts_stats_().getTiredness() < 100)
-				{
-					((MainroomMonster) monster_).sleepTime();
-					snore_sound_.play();
-		    		snore_sound_.setLooping(true);
+			if(parent_.getNusselts_stats_().getTiredness() < 100 && monster_.getWaypoints_().isEmpty())
+			{
+				monster_.sleepTime();
+				snore_sound_.play();
+		    	snore_sound_.setLooping(true);
 
-					System.out.println(parent_.getNusselts_stats_().getTiredness());
-					if((feeding_started_ + 0.1) < ReuGame.getSystemTime())
+				if((sleeping_started_ + 0.1) < ReuGame.getSystemTime())
+				{
+					sleeping_started_ = ReuGame.getSystemTime();
+					parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
+					if(!(parent_.getNusselts_stats_().getHunger() <= 0))
+				        parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
+				    if(!(parent_.getNusselts_stats_().getHappiness() <= 0))
+				        parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 0.5f);
+					if(parent_.getNusselts_stats_().getTiredness() > 100)
 					{
-						feeding_started_ = ReuGame.getSystemTime();
-						parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
-						if(!(parent_.getNusselts_stats_().getHunger() <= 0))
-				          parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
-				        if(!(parent_.getNusselts_stats_().getHappiness() <= 0))
-				          parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() - 0.5f);
-						if(parent_.getNusselts_stats_().getTiredness() > 100)
-						{
-							parent_.getNusselts_stats_().setTiredness(100);
-						}
+						parent_.getNusselts_stats_().setTiredness(100);
 					}
 				}
-				else if (((MainroomMonster) monster_).isSleeping())
+			}
+			else if (monster_.isSleeping())
+			{
+				monster_.stopSleeping();
+				snore_sound_.stop();
+				snore_sound_.setLooping(false);
+				if(!monster_.getWaypoints_().isEmpty())
 				{
-					((MainroomMonster)monster_).stopSleeping();
-					snore_sound_.stop();
-					snore_sound_.setLooping(false);
-					if(!((MainroomMonster)monster_).getWaypoints_().isEmpty())
-					{
-						((MainroomMonster)monster_).MoveTo(((MainroomMonster)monster_).getWaypoints_().get(0).x, ((MainroomMonster)monster_).getWaypoints_().get(0).y, 0.5f);
-					}
-				}		
+					monster_.MoveTo(monster_.getWaypoints_().get(0).x, monster_.getWaypoints_().get(0).y, 0.5f);
+				}
+			}		
 		 }
 	}
 	

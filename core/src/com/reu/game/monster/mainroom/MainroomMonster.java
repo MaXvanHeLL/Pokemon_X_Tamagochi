@@ -24,11 +24,11 @@ import com.reu.game.utils.Utils;
  */
 public abstract class MainroomMonster extends Monster{
 	
-	protected Animation 	  walk_animation_;		// The walk animation
-	protected Animation 	  sleep_animation_;
-	protected TextureRegion   current_frame_;	    // The current frame of the monster
-	protected Animation		  current_animation_;
-	protected float			animation_time_;// Where in the animation is the frame?
+	protected Animation 	  	walk_animation_;		// The walk animation
+	protected Animation 	  	sleep_animation_;
+	protected TextureRegion   	current_frame_;	    // The current frame of the monster
+	protected Animation		  	current_animation_;
+	protected float				animation_time_;// Where in the animation is the frame?
 	protected Boolean 			sleeping_;
 	
 	private Boolean walking_back_from_bedroom_;
@@ -139,9 +139,22 @@ public abstract class MainroomMonster extends Monster{
 	 */
 	public void GoToRoom(RoomType room)
 	{
+		busy_ = false;
 		clearActions();
-		getWaypoints_().clear();
-		MoveTo(Utils.GetPixelX(45), Utils.GetPixelY(80), 2.5f);
+		if(!getWaypoints_().isEmpty())
+		{
+			if(getWaypoints_().get(0).x == Utils.GetPixelX(83) && getWaypoints_().get(0).y == Utils.GetPixelY(106))
+			{
+				// Sleeping waypoint
+				System.out.println("HIT");
+			}
+			else
+			{
+				getWaypoints_().clear();
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
+			}
+		}
+		
 		if(room == RoomType.KITCHEN || room == RoomType.BATHROOM)
 		{
 			getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(140)));
@@ -163,7 +176,8 @@ public abstract class MainroomMonster extends Monster{
 			}
 			else
 			{
-				getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(113)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(106)));
+				getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(114)));
 			}
 		}
 	}
@@ -178,6 +192,7 @@ public abstract class MainroomMonster extends Monster{
 		clearActions();
 		busy_ = false;
 		animated_ = false;
+		sleeping_ = false;
 		setPosition(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/3.0f);
 	}
 	
@@ -194,6 +209,9 @@ public abstract class MainroomMonster extends Monster{
 		stop_time_ = state_time_;
 		busy_time_ = state_time_;
 		current_animation_ = walk_animation_;
+		getWaypoints_().clear();
+		getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(106)));
+		getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
 	}
 	public boolean isSleeping()
 	{
