@@ -70,10 +70,10 @@ public class MainRoom extends ReuGameStage{
 		
 		dialog_exit_.text("Are you sure that you want\n to leave your friend alone?");
 		dialog_exit_.getContentTable().pad(Utils.GetPixelX(5));
-		dialog_exit_.button("Yes", true).setFillParent(true);;
+		dialog_exit_.button("Yes", true);
 		dialog_exit_.getButtonTable().padTop(Utils.GetPixelY(5)).padBottom(Utils.GetPixelY(5));
 		dialog_exit_.getButtonTable().add().width(Utils.GetPixelX(10));
-		dialog_exit_.button("No", false).setFillParent(true);
+		dialog_exit_.button("No", false);
 
 		
 
