@@ -180,8 +180,11 @@ public class MainRoom extends ReuGameStage{
 			if(parent_.getNusselts_stats_().getTiredness() < 100 && monster_.getWaypoints_().isEmpty())
 			{				
 				monster_.sleepTime();
-				snore_sound_.play();
-		    	snore_sound_.setLooping(true);
+				if(ReuGame.isSoundEnabled())
+				{
+				  snore_sound_.play();
+		    	  snore_sound_.setLooping(true);
+				}
 
 				if((sleeping_started_ + 0.1) < ReuGame.getSystemTime())
 				{
