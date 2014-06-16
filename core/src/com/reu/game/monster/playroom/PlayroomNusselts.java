@@ -7,7 +7,7 @@ public class PlayroomNusselts extends PlayroomMonster{
 	{
 		super();
 		LoadMonsterTexture("nusselts_still.png");
-	    AddPlayAnimations(ReuGame.getAnimation("WalkAnimation"));
+	    AddPlayAnimations(ReuGame.getAnimation("PlayAnimation1"));
 		AddPlayAnimations(ReuGame.getAnimation("EatAnimation"));
 		AddIdleAnimations(ReuGame.getAnimation("Idle0"));
 		AddIdleAnimations(ReuGame.getAnimation("Idle1"));
