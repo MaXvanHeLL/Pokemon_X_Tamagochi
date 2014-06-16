@@ -177,7 +177,7 @@ public class MainRoom extends ReuGameStage{
 
 				if((sleeping_started_ + 0.1) < ReuGame.getSystemTime())
 				{
-					sleeping_started_ = ReuGame.getSystemTime();
+					sleeping_started_ = ReuGame.getSystemTime();                                           
 					parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() + 0.2f);
 					if(!(parent_.getNusselts_stats_().getHunger() <= 0))
 				        parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() - 0.01f);
