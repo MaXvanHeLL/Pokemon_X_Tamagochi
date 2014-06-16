@@ -7,6 +7,6 @@ public class MainroomNusselts extends MainroomMonster {
 	{
 		super();
 		AddWalkAnimation(ReuGame.getAnimation("WalkAnimation"));
-		AddSleepAnimation(ReuGame.getAnimation("EatAnimation"));
+		AddSleepAnimation(ReuGame.getAnimation("SleepAnimation"));
 	}
 }

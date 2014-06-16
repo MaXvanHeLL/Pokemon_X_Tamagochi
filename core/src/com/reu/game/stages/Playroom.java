@@ -42,7 +42,7 @@ public class Playroom extends ReuGameStage{
  	    nono_sound_.setLooping(false);
 		// Create a table that fills the screen. Everything else will go inside.
 	    table_ = new Table();
-		table_.setBackground(parent.getSkin().getDrawable("Bathroom"));
+		table_.setBackground(parent.getSkin().getDrawable("Playroom"));
 		table_.setFillParent(true);
 		table_.align(Align.top | Align.center);
 		
