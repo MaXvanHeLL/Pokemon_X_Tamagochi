@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -62,6 +64,8 @@ public class ReuGame extends ApplicationAdapter
 	public void create () 
 	{
 		
+		
+
 		setSound(true);
 		
 		// Create the skins for our game!
@@ -293,6 +297,8 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("btn_dialog_yes", new Texture(Gdx.files.internal("btn_yes.png")));
 		skin_.add("btn_dialog_no", new Texture(Gdx.files.internal("btn_no.png")));
 		
+		skin_.add("dialog_bgnd", new Texture(Gdx.files.internal("menue.png")));
+		
 		// Dialog
 		BitmapFont font = new BitmapFont();
 		font.scale(1f);
@@ -308,7 +314,7 @@ public class ReuGame extends ApplicationAdapter
 		
 		TextButtonStyle tb_style = new TextButtonStyle();
 		
-		WindowStyle dialog = new WindowStyle(font, Color.BLACK, skin_.getDrawable("white"));
+		WindowStyle dialog = new WindowStyle(font, Color.BLACK, skin_.getDrawable("dialog_bgnd"));
 		
 
 		
@@ -341,7 +347,7 @@ public class ReuGame extends ApplicationAdapter
 	}
 	
 	@Override
-	public void render () 
+	public void render() 
 	{
 		
 		if(!(isSoundEnabled()))
