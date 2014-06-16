@@ -151,14 +151,18 @@ public class ReuGame extends ApplicationAdapter
 	{
 		// Mainroom only
 		animations_.put("WalkAnimation", LoadSingleAnimation(6,6, "walking.png"));
+		animations_.put("SleepAnimation", LoadSingleAnimation(6,6, "sleep.png"));
 		
 		// Kitchen only
 		animations_.put("EatAnimation", LoadSingleAnimation(6,6, "eating.png"));
 
 		//Bathroom only
-		animations_.put("Bath_Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
+		animations_.put("Bath_Idle0", LoadSingleAnimation(6,6, "bath_idle_1.png"));
 		animations_.put("Bath_Idle1", LoadSingleAnimation(6,6, "bath_idle_2.png"));
 		animations_.put("Bathing", LoadSingleAnimation(6,6, "bathing.png"));
+		
+		//Playroom only
+		animations_.put("PlayAnimation1", LoadSingleAnimation(6,6, "play_1.png"));
 		
 		//Shared Animation
 		animations_.put("Idle0", LoadSingleAnimation(6,6, "idle_1.png"));
@@ -272,10 +276,8 @@ public class ReuGame extends ApplicationAdapter
 		skin_.add("Bathroom", new Texture(Gdx.files.internal("bath.png")));
 		
 		// Playroom Stage
+		skin_.add("Playroom", new Texture(Gdx.files.internal("playroom.png")));
 		
-		skin_.add("Playroom", new Texture(Gdx.files.internal("playroom.png"))); 
-
-
 		// Ribon Skins
 		skin_.add("RibbonTop", new Texture(Gdx.files.internal("ribbon_top.png")));
 		skin_.add("RibbonRepeat", new Texture(Gdx.files.internal("dashboard_bg.png")));
