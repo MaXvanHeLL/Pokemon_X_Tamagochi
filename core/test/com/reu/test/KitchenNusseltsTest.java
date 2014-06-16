@@ -54,27 +54,7 @@ public class KitchenNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getOriginX(), Utils.GetPixelX(25));
 		assertEquals(test_monster_.getOriginY(), Utils.GetPixelY(25));
 	}
-/*
-	public void testAddIdleAnimations() {
-		fail("Not yet implemented"); // protected method
-	}
 
-	public void testAddNoooAnimation() {
-		fail("Not yet implemented"); // protected method
-	}
-
-	public void testAddEatAnimation() {
-		fail("Not yet implemented"); // protected method
-	}
-
-	public void testLoadMonsterTexture() {
-		fail("Not yet implemented"); // protected method
-	}
-
-	*/
-	
-	
-	
 	public void testEatSomething() {
 		test_monster_.eatSomething();
 		assertTrue(test_monster_.isBusy_());
@@ -95,16 +75,6 @@ public class KitchenNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getBusy_time_(), test_monster_.getStop_time_());
 	}
 
-	
-	
-	/*
-	public void testDrawBatchFloat() {
-		fail("Not yet implemented");
-	}
-*/
-	
-	
-	
 	public void testGetIdle_animations_() {
 		assertNotNull(test_monster_.getIdle_animations_());
 	}
@@ -127,24 +97,6 @@ public class KitchenNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getNooo_animation_());
 	}
 
-	
-	
-	/*
-	public void testGetCurrent_frame_() { //correspondes only with draw (gdx!)
-		fail("Not yet implemented");
-	}
-
-	
-	
-	
-	public void testGetStandartd_monster_() { //correspondes only with draw and LoadMonsterTexture (gdx!)
-		fail("Not yet implemented");
-	}
-*/
-	
-	
-	
-	
 	public void testGetState_time_() {
 		test_monster_.eatSomething();
 		assertEquals(test_monster_.getStop_time_(), test_monster_.getState_time_() + 1);

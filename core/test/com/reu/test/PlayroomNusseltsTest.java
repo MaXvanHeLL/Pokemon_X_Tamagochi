@@ -57,26 +57,6 @@ public class PlayroomNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getOriginY(), Utils.GetPixelY(30));
 	}
 
-	
-	/*
-	public void testAddPlayAnimations() {
-		fail("Not yet implemented");
-	}
-
-	public void testAddIdleAnimations() {
-		fail("Not yet implemented");
-	}
-
-	public void testAddNoooAnimation() {
-		fail("Not yet implemented");
-	}
-
-	public void testLoadMonsterTexture() {
-		fail("Not yet implemented");
-	}
-*/
-
-
 	public void testPlaySomething() {
 		test_monster_.playSomething();
 		assertTrue(test_monster_.isBusy_());
@@ -96,29 +76,10 @@ public class PlayroomNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getBusy_time_(), test_monster_.getStop_time_());
 	}
 
-	
-	/*
-	public void testDrawBatchFloat() {
-		fail("Not yet implemented");
-	}
-*/
-
-
-
 	public void testGetIdle_animations_() {
 		assertNotNull(test_monster_.getIdle_animations_());
 	}
 
-	
-	
-	/*
-	public void testGetPlay_animations_() { // random animation :/
-		fail("Not yet implemented");
-	}
-*/
-	
-	
-	
 	public void testGetNooo_animation_() {
 		test_monster_.pleaseNoMoreFun();
 		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getNooo_animation_());
@@ -129,21 +90,6 @@ public class PlayroomNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getNooo_animation_());
 	}
 
-	
-	
-	/*
-	public void testGetCurrent_frame_() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetStandartd_monster_() {
-		fail("Not yet implemented");
-	}
-*/
-	
-	
-	
-	
 	public void testGetState_time_() {
 		assertEquals(test_monster_.getState_time_(), 0f);
 		

@@ -55,22 +55,6 @@ public class BathroomNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getOriginY(), Utils.GetPixelY(30));
 	}
 
-	
-	/*
-	public void testAddIdleAnimations() {
-		fail("Not yet implemented");
-	}
-
-	public void testAddBathAnimation() {
-		fail("Not yet implemented");
-	}
-
-	public void testLoadMonsterTexture() {
-		fail("Not yet implemented");
-	}
-*/
-		
-	
 	public void testTakeBath() {
 		test_monster_.takeBath();
 		assertTrue(test_monster_.isBathing());
@@ -99,15 +83,6 @@ public class BathroomNusseltsTest extends TestCase {
 		assertFalse(test_monster_.isBathing());
 	}
 
-	
-	
-	/*
-	public void testDrawBatchFloat() {
-		fail("Not yet implemented");
-	}
-*/
-
-
 	public void testGetIdle_animations_() {
 		assertNotNull(test_monster_.getIdle_animations_());
 	}
@@ -122,20 +97,6 @@ public class BathroomNusseltsTest extends TestCase {
 		assertEquals(test_monster_.getCurrent_animation_(), test_monster_.getBath_animation_());
 	}
 
-	
-	/*
-	public void testGetCurrent_frame_() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetStandartd_monster_() {
-		fail("Not yet implemented");
-	}
-*/
-	
-	
-	
-	
 	public void testGetState_time_() {
 		assertEquals(test_monster_.getState_time_(), 0f);
 		
@@ -198,9 +159,6 @@ public class BathroomNusseltsTest extends TestCase {
 		assertNotNull(test_monster_.getR_generator_());
 	}
 
-	
-	
-	
 	public void testGetCenterX() {
 		assertEquals(test_monster_.getX(), Utils.GetPixelX(15));
 	}
