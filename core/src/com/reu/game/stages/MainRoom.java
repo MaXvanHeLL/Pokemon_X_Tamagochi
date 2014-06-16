@@ -1,5 +1,7 @@
 package com.reu.game.stages;
 
+import java.util.Calendar;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
@@ -214,6 +216,8 @@ public class MainRoom extends ReuGameStage{
 		parent_.getPrefs().putString("name", this.parent_.getNusselts_stats_().getName());
 		parent_.getPrefs().putFloat("weight", this.parent_.getNusselts_stats_().getWeight());
 		parent_.getPrefs().putLong("creation", this.parent_.getNusselts_stats_().getCreationDate());
+		parent_.getPrefs().putInteger("Day", Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
+		parent_.getPrefs().putInteger("Hour", Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 
 		
 		// -- always flush after changing the Preferences to make effect on Memory

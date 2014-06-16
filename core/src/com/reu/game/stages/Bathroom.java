@@ -1,5 +1,7 @@
 package com.reu.game.stages;
 
+import java.util.Calendar;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -141,6 +143,13 @@ public class Bathroom extends ReuGameStage{
 		
 		if(keycode == Keys.BACK)
 		{
+			System.out.println("Day of Year" + Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
+			System.out.println("Hour" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+			
+			
+
+
+			
 			bathing_sound_.stop();
 			bathing_sound_.setLooping(false);
 			monster_.stopBath();
