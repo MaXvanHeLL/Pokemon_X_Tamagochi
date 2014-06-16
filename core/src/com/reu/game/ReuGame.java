@@ -75,10 +75,10 @@ public class ReuGame extends ApplicationAdapter
 		setPrefs(Gdx.app.getPreferences("Nusselts Preferences"));
 		//	this.setNusselts_stats_(new Stats(getPrefs().getFloat("hunger", 100), 100, 100, 100, 100, 100, 100));
 		nusselts_stats_ = new Stats();
-		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 1000));
-		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 1000));	
-		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 1000));	
-		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 1000));
+		nusselts_stats_.setHunger(getPrefs().getFloat("hunger", 100));
+		nusselts_stats_.setHappiness(getPrefs().getFloat("happiness", 100));	
+		nusselts_stats_.setDirtness(getPrefs().getFloat("dirtness", 100));	
+		nusselts_stats_.setTiredness(getPrefs().getFloat("tiredness", 100));
 		nusselts_stats_.setName(getPrefs().getString("name", "Nusselts"));
 		nusselts_stats_.setWeight(getPrefs().getFloat("weight", 10));
 		
@@ -86,7 +86,7 @@ public class ReuGame extends ApplicationAdapter
 		this.last_day_ = getPrefs().getInteger("Day");
 		this.last_hour_ = getPrefs().getInteger("Hour");
 		
-		//checkStatsonTime();
+		checkStatsonTime();
 	
 		// Use the date as a long value
 		Calendar cal = Calendar.getInstance();
@@ -331,47 +331,74 @@ public class ReuGame extends ApplicationAdapter
 			if(this.last_hour_ < Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
 			{
 				this.stats_timefactor_ = this.last_hour_ - Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-				nusselts_stats_.setHunger(nusselts_stats_.getHunger() - (100 * this.stats_timefactor_));
-				nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 100 * this.stats_timefactor_);	
-				nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 100 * this.stats_timefactor_);	
-				nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 100 * this.stats_timefactor_);
+				
+				nusselts_stats_.setHunger(nusselts_stats_.getHunger() - this.stats_timefactor_ * 2);
+				if(nusselts_stats_.getHunger() < 0)
+					nusselts_stats_.setHunger(0);
+				nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - this.stats_timefactor_ * 2);
+				if(nusselts_stats_.getHappiness() < 0)
+					nusselts_stats_.setHappiness(0);
+				nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - this.stats_timefactor_ * 2);
+				if(nusselts_stats_.getDirtness() < 0)
+					nusselts_stats_.setDirtness(0);
+				nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - this.stats_timefactor_ * 2);
+				if(nusselts_stats_.getTiredness() < 0)
+					nusselts_stats_.setTiredness(0);
 			}
 		}
 		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1) && 
 				(this.last_hour_ >  Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
 		{
 			this.stats_timefactor_ = - Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - this.last_hour_;
-			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 100 * this.stats_timefactor_);
-			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 100 * this.stats_timefactor_);	
-			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 100 * this.stats_timefactor_);	
-			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 100 * this.stats_timefactor_);
+			
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() -  this.stats_timefactor_ * 2);
+			if(nusselts_stats_.getHunger() < 0)
+				nusselts_stats_.setHunger(0);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() -  this.stats_timefactor_ * 2);	
+			if(nusselts_stats_.getHappiness() < 0)
+				nusselts_stats_.setHappiness(0);
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() -  this.stats_timefactor_ * 2);
+			if(nusselts_stats_.getDirtness() < 0)
+				nusselts_stats_.setDirtness(0);
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() -  this.stats_timefactor_ * 2);
+			if(nusselts_stats_.getTiredness() < 0)
+				nusselts_stats_.setTiredness(0);
+			
 		}
 		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1) && 
 				(this.last_hour_ <=  Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
 		{
-			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 500);
-			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 500);	
-			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 500);	
-			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 500);
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 50);
+			if(nusselts_stats_.getHunger() < 0)
+				nusselts_stats_.setHunger(0);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 50);	
+			if(nusselts_stats_.getHappiness() < 0)
+				nusselts_stats_.setHappiness(0);
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 50);	
+			if(nusselts_stats_.getDirtness() < 0)
+				nusselts_stats_.setDirtness(0);
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 50);
+			if(nusselts_stats_.getTiredness() < 0)
+				nusselts_stats_.setTiredness(0);
 			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 0.5f);
 		}
-		else if(this.last_day_ == (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 2) && 
+		else if(this.last_day_ <= (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 2) && 
 				( this.last_hour_ <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
 		{
-			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 1000);
-			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 1000);	
-			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 1000);	
-			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 1000);
+			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 100);
+			if(nusselts_stats_.getHunger() < 0)
+				nusselts_stats_.setHunger(0);
+			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 100);	
+			if(nusselts_stats_.getHappiness() < 0)
+				nusselts_stats_.setHappiness(0);
+			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 100);
+			if(nusselts_stats_.getDirtness() < 0)
+				nusselts_stats_.setDirtness(0);
+			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 100);
+			if(nusselts_stats_.getTiredness() < 0)
+				nusselts_stats_.setTiredness(0);
 			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 1f);
 		}
-		else if (this.last_day_ <= (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 3))
-		{
-			nusselts_stats_.setHunger(nusselts_stats_.getHunger() - 1000);
-			nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - 1000);	
-			nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - 1000);	
-			nusselts_stats_.setTiredness(nusselts_stats_.getTiredness() - 1000);
-			nusselts_stats_.setWeight(nusselts_stats_.getWeight() - 1f);
-	    }
 	}
 	public RoomType getCurrent_room_() 
 	{
