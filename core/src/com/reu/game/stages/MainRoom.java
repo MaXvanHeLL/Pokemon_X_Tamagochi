@@ -179,7 +179,11 @@ public class MainRoom extends ReuGameStage{
 				{
 					monster_.MoveTo(monster_.getWaypoints_().get(0).x, monster_.getWaypoints_().get(0).y, 0.5f);
 				}
-			}		
+			}
+			else if(monster_.getWaypoints_().isEmpty())
+			{
+				monster_.stopSleeping();
+			}
 		 }
 	}
 	

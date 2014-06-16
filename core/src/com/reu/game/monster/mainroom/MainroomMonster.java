@@ -212,6 +212,7 @@ public abstract class MainroomMonster extends Monster{
 		getWaypoints_().clear();
 		getWaypoints_().add(new Vector2(Utils.GetPixelX(83), Utils.GetPixelY(106)));
 		getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(106)));
+		getWaypoints_().add(new Vector2(Utils.GetPixelX(45), Utils.GetPixelY(80)));
 	}
 	public boolean isSleeping()
 	{
