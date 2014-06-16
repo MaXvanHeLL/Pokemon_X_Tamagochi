@@ -87,6 +87,8 @@ public class Playroom extends ReuGameStage{
 				        }
 				        else
 				        {
+				        	laughing_sound_.stop();
+				        	
 				        	if(nono_sound_.isPlaying())
 								nono_sound_.stop();
 							  
