@@ -68,11 +68,16 @@ public class Playroom extends ReuGameStage{
 				{
 					 if(parent_.getNusselts_stats_().getHappiness() <= 90)
 				        {
-						 
-							 if(laughing_sound_.isPlaying())
-					        	  laughing_sound_.stop();
-				    
-				    		laughing_sound_.play();
+						 	if(ReuGame.isSoundEnabled())
+						 	{
+						 		 if(laughing_sound_.isPlaying())
+						        	  laughing_sound_.stop();
+					    
+					    		laughing_sound_.play();
+						 	}
+						 	else
+						 	 laughing_sound_.stop();
+							
 				    		
 				        	System.out.println(parent_.getNusselts_stats_().getHappiness());
 				        	parent_.getNusselts_stats_().setHappiness(parent_.getNusselts_stats_().getHappiness() + 10);	    
@@ -94,10 +99,16 @@ public class Playroom extends ReuGameStage{
 				        {
 				        	laughing_sound_.stop();
 				        	
-				        	if(nono_sound_.isPlaying())
-								nono_sound_.stop();
+				        	if(ReuGame.isSoundEnabled())
+				        	{
+				        		if(nono_sound_.isPlaying())
+				        			nono_sound_.stop();
 							  
-					  		nono_sound_.play();
+				        		nono_sound_.play();   		
+				        	}
+				        	else
+				        		nono_sound_.stop();
+				        	
 				        	monster_.pleaseNoMoreFun();
 				        }
 				}
