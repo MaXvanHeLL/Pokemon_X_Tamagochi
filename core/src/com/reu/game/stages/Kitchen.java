@@ -21,6 +21,7 @@ import com.reu.game.utils.Utils;
 public class Kitchen extends ReuGameStage{
 
 	Music eat_sound_;
+	Music nono_sound_;
 	
 	public static RoomType type_ = RoomType.KITCHEN;
 	private Table table_;
@@ -42,6 +43,11 @@ public class Kitchen extends ReuGameStage{
     	eat_sound_ = Gdx.audio.newMusic(Gdx.files.internal("eat.mp3"));
     	eat_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
  	    eat_sound_.setLooping(false); 
+ 	    
+    	nono_sound_ = Gdx.audio.newMusic(Gdx.files.internal("nono.mp3"));
+    	eat_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+ 	    eat_sound_.setLooping(false);
+
 
 		
 		// Create a table that fills the screen. Everything else will go inside.
@@ -209,6 +215,10 @@ public class Kitchen extends ReuGameStage{
 		        }
 		        else
 		        {
+		        	if(nono_sound_.isPlaying())
+			        	  nono_sound_.stop();
+		    
+		    		nono_sound_.play();
 		        	temp.pleaseNoMoreFood();
 		        }
 		    };
