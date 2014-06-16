@@ -35,7 +35,7 @@ public class Playroom extends ReuGameStage{
 		super(parent);
 		this.parent_ = parent;
 		laughing_sound_ = Gdx.audio.newMusic(Gdx.files.internal("laughing.mp3"));
-		laughing_sound_.setVolume(0.5f);                 // sets the volume to half the maximum volume
+		laughing_sound_.setVolume(0.7f);                 // sets the volume to half the maximum volume
  	    laughing_sound_.setLooping(false);
  		nono_sound_ = Gdx.audio.newMusic(Gdx.files.internal("nono.mp3"));
 		nono_sound_.setVolume(0.5f);                 
