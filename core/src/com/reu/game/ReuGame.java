@@ -372,35 +372,18 @@ public class ReuGame implements Screen
 	
 	public void checkStatsonTime()
 	{
-		System.out.println("Last Day = " + this.last_day_);
-		System.out.println("Today =" + Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
-		System.out.println("Last Hour =" + this.last_hour_ );
-		System.out.println("Current Hour =" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-
 		if(this.last_day_ == Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
 		{
 			if(this.last_hour_ < Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
 			{
-				
-				
 				this.stats_timefactor_ = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - this.last_hour_;
-				
-				System.out.println("stats_timefactor_ =" + stats_timefactor_);
 				
 				nusselts_stats_.setHunger(nusselts_stats_.getHunger() - (this.stats_timefactor_ * 2));
 				if(nusselts_stats_.getHunger() < 0)
 					nusselts_stats_.setHunger(0);
-				
-				
-				System.out.println("NUSSELTS HAPPINESS BEFORE =" + nusselts_stats_.getHappiness());
-
 				nusselts_stats_.setHappiness(nusselts_stats_.getHappiness() - this.stats_timefactor_ * 2);
 				if(nusselts_stats_.getHappiness() < 0)
 					nusselts_stats_.setHappiness(0);
-				
-				System.out.println("NUSSELTS HAPPINES AFTER =" + nusselts_stats_.getHappiness());
-				
-				
 				nusselts_stats_.setDirtness(nusselts_stats_.getDirtness() - this.stats_timefactor_ * 2);
 				if(nusselts_stats_.getDirtness() < 0)
 					nusselts_stats_.setDirtness(0);
