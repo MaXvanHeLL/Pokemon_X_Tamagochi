@@ -107,7 +107,6 @@ public class Kitchen extends ReuGameStage{
 		bar_stack_.add(bar_table);
 		bar_stack_.add(new Image(parent_.getSkin().getDrawable("BarFrame")));
 		
-		
 		stack_table_.add(bar_stack_).width(Utils.GetPixelX(60)).height(Utils.GetPixelY(5)); // Will be stack
 		
 		stack_table_.add().width(Utils.GetPixelX(15));
@@ -129,7 +128,6 @@ public class Kitchen extends ReuGameStage{
 			public void clicked(InputEvent event, float x, float y) 
 			{
 				parent_.getNusselts_stats_().setHunger(0);
-				System.out.println(parent_.getNusselts_stats_().getTiredness());
 				createStackTable();
 	        	buildTable();
 			};
@@ -181,17 +179,16 @@ public class Kitchen extends ReuGameStage{
 		        	else
 		        	 eat_sound_.pause();
 
-		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 10);
 		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.01f);
 		        	
-		        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 10);
+		        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 8);
 		        	if((parent_.getNusselts_stats_().getDirtness() < 0))
 		        		  parent_.getNusselts_stats_().setDirtness(0);
 		        	  
 		        	parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 5);
 		        	if((parent_.getNusselts_stats_().getTiredness() < 0))
-		        		parent_.getNusselts_stats_().setDirtness(0);
+		        		parent_.getNusselts_stats_().setTiredness(0);
 
 		        	temp.eatSomething();
 		        	createStackTable();
@@ -233,9 +230,17 @@ public class Kitchen extends ReuGameStage{
 		        	else
 		        	 eat_sound_.pause();
 		        
-		        	
-		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 5);
+		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.01f);
+		        	
+		        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 6);
+		        	if((parent_.getNusselts_stats_().getDirtness() < 0))
+		        		  parent_.getNusselts_stats_().setDirtness(0);
+		        	  
+		        	parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 1);
+		        	if((parent_.getNusselts_stats_().getTiredness() < 0))
+		        		parent_.getNusselts_stats_().setTiredness(0);
+		        	
 		        	temp.eatSomething();
 		        	createStackTable();
 		        	buildTable();
@@ -276,9 +281,17 @@ public class Kitchen extends ReuGameStage{
 		        	else
 		        	 eat_sound_.pause();
 		        	
-		        	System.out.println(parent_.getNusselts_stats_().getHunger());
 		        	parent_.getNusselts_stats_().setHunger(parent_.getNusselts_stats_().getHunger() + 20);
-		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.1f);
+		        	parent_.getNusselts_stats_().setWeight(parent_.getNusselts_stats_().getWeight() + 0.2f);
+		        	
+		        	parent_.getNusselts_stats_().setDirtness(parent_.getNusselts_stats_().getDirtness() - 10);
+		        	if((parent_.getNusselts_stats_().getDirtness() < 0))
+		        		  parent_.getNusselts_stats_().setDirtness(0);
+		        	  
+		        	parent_.getNusselts_stats_().setTiredness(parent_.getNusselts_stats_().getTiredness() - 1);
+		        	if((parent_.getNusselts_stats_().getTiredness() < 0))
+		        		parent_.getNusselts_stats_().setTiredness(0);
+		        	
 		        	temp.eatSomething();
 		        	createStackTable();
 		        	buildTable();
