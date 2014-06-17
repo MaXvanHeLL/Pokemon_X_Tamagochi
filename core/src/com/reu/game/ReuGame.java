@@ -367,7 +367,7 @@ public class ReuGame extends ApplicationAdapter
 	{
 		if(this.last_day_ == Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
 		{
-			if(this.last_hour_ < Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
+			if(this.last_hour_ < Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
 			{
 				this.stats_timefactor_ = this.last_hour_ - Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 				
