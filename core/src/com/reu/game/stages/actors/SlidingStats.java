@@ -82,8 +82,7 @@ public class SlidingStats extends Table{
 		setFillParent(true);
 		
 
-		BitmapFont font = new BitmapFont();
-		font.scale(0.8f);
+		BitmapFont font = ReuGame.getStandardFontGenerator().generateFont((int) Utils.GetPixelX(4));
 		label_style_ = new LabelStyle(font, Color.BLACK);
 		
 		// Build parts

@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -30,6 +31,7 @@ import com.reu.game.stages.ReuGameStage;
 import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
 import com.reu.game.types.GameMode;
+import com.reu.game.utils.Utils;
 
 public class ReuGame implements Screen 
 {
@@ -39,6 +41,7 @@ public class ReuGame implements Screen
 	// Use the monster type static for now, could be read from config later!
 	private static MonsterType MONSTER_TYPE = MonsterType.NUSSELTS;
 	private static Map<String, Animation> animations_ = new HashMap<String, Animation>();// Includes all stages
+	private static FreeTypeFontGenerator font_generator_;
 	
 	private Stats nusselts_stats_;
 	private Preferences prefs;
@@ -297,10 +300,11 @@ public class ReuGame implements Screen
 		skin_.add("dialog_bgnd", new Texture(Gdx.files.internal("menue.png")));
 		
 		// Dialog
-		BitmapFont font = new BitmapFont();
-		font.scale(1f);
+		font_generator_ = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));;
+		BitmapFont font = font_generator_.generateFont((int) Utils.GetPixelX(4));
 		LabelStyle label_style_ = new LabelStyle(font, Color.BLACK);
 
+		
 		ImageButtonStyle ibstyle = new ImageButtonStyle();
 		ibstyle.down = skin_.getDrawable("btn_dialog_yes");
 		ibstyle.up = skin_.getDrawable("btn_dialog_yes");
@@ -357,6 +361,11 @@ public class ReuGame implements Screen
 		stages_.get(getCurrent_room_()).act(Gdx.graphics.getDeltaTime());
 		stages_.get(getCurrent_room_()).PostAct();
 		stages_.get(getCurrent_room_()).draw();
+	}
+	
+	public static FreeTypeFontGenerator getStandardFontGenerator()
+	{
+		return font_generator_;
 	}
 	
 	public void checkStatsonTime()

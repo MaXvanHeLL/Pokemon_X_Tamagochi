@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.reu.game.ReuGame;
 import com.reu.game.monster.MonsterFactory;
 import com.reu.game.monster.mainroom.MainroomMonster;
