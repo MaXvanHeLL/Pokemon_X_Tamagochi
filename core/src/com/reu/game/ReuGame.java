@@ -93,11 +93,7 @@ public class ReuGame implements Screen
 		// read the Programs last time on Startup
 		this.last_day_ = getPrefs().getInteger("Day", Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
 		this.last_hour_ = getPrefs().getInteger("Hour", Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-		
-		//this.last_day_ = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-		// this.last_hour_ = 8;
-		
-		
+				
 		checkStatsonTime();
 	
 		// Use the date as a long value
