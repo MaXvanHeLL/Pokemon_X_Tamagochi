@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -33,7 +31,7 @@ import com.reu.game.types.MonsterType;
 import com.reu.game.types.RoomType;
 import com.reu.game.types.GameMode;
 
-public class ReuGame extends ApplicationAdapter 
+public class ReuGame implements Screen 
 {
 	
 	Music music;
@@ -61,10 +59,9 @@ public class ReuGame extends ApplicationAdapter
 	
 
 	@Override
-	public void create () 
+	public void show() 
 	{
-		
-		
+
 
 		setSound(true);
 		
@@ -347,9 +344,8 @@ public class ReuGame extends ApplicationAdapter
 	}
 	
 	@Override
-	public void render() 
+	public void render(float delta) 
 	{
-		
 		if(!(isSoundEnabled()))
 			music.pause();
 		else
@@ -494,5 +490,29 @@ public class ReuGame extends ApplicationAdapter
 	public static void setSound(boolean enable)
 	{
 		sound_enabled_ = enable;
+	}
+
+
+	@Override
+	public void hide() {
+		// Nothing to do
+		
+	}
+
+	@Override
+	public void pause() {
+		// Nothing to do
+		
+	}
+
+	@Override
+	public void resume() {
+		// Nothing to do
+		
+	}
+
+	@Override
+	public void dispose() {
+		skin_.dispose();
 	}
 }
