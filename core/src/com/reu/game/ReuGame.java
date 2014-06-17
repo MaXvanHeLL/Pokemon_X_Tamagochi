@@ -301,6 +301,7 @@ public class ReuGame implements Screen
 		
 		// Dialog
 		font_generator_ = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));;
+		@SuppressWarnings("deprecation")
 		BitmapFont font = font_generator_.generateFont((int) Utils.GetPixelX(4));
 		LabelStyle label_style_ = new LabelStyle(font, Color.BLACK);
 

@@ -4,13 +4,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 
 public class Splash implements Screen{
 	
 	private Texture texture = new Texture(Gdx.files.internal("loading_screen.png"));
-    private Image splashImage = new Image(texture);
     private Stage stage = new Stage();
     
 	@Override
@@ -27,7 +27,12 @@ public class Splash implements Screen{
 
     @Override
     public void show() { 
-    	stage.addActor(splashImage);
+    	Skin bg_skin = new Skin();
+    	bg_skin.add("bg", texture);
+    	Table bg_table = new Table();
+    	bg_table.setFillParent(true);
+    	bg_table.setBackground(bg_skin.getDrawable("bg"));
+    	stage.addActor(bg_table);
     }
 
     @Override

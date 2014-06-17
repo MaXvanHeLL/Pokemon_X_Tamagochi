@@ -82,6 +82,7 @@ public class SlidingStats extends Table{
 		setFillParent(true);
 		
 
+		@SuppressWarnings("deprecation")
 		BitmapFont font = ReuGame.getStandardFontGenerator().generateFont((int) Utils.GetPixelX(4));
 		label_style_ = new LabelStyle(font, Color.BLACK);
 		
@@ -102,6 +103,9 @@ public class SlidingStats extends Table{
 		ribbon_ = new Table();
 		ribbon_.align(Align.top | Align.center);
 		ribbon_.setBackground(skin_.getDrawable("RibbonTop"));
+		
+		ribbon_.add().width(Utils.GetPixelX(66.875f)).colspan(5);
+		ribbon_.row();
 		
 		buildRibbonHungryStats();
 		ribbon_.add(hunger_).padLeft(Utils.GetPixelX(4.0f)).padRight(Utils.GetPixelX(1.0f)).expandY().bottom().padBottom(Utils.GetPixelY(0.7f));
